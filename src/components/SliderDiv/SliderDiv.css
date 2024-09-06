@@ -1,0 +1,231 @@
+/* ------------- sub category styling -------- */
+.subcatecont {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.subcatelink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.subcatelink img {
+  width: 8rem;
+}
+.subcatelink p {
+  font-size: 1.5rem;
+  color: rgb(104, 104, 104);
+  font-weight: 500;
+}
+.subcatelink:hover p {
+  font-size: 1.51rem;
+  color: var(--org-primary);
+}
+
+/* ------------- main Slider -------- */
+
+.sliderdiv {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.6rem 0.8rem;
+  padding-bottom: 1.6rem;
+  gap: 1.6rem;
+  overflow: hidden;
+}
+.categorynavcont {
+  width: 20.6rem;
+  height: auto;
+  border-radius: 0.4rem;
+  background-color: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.categorylist_ul {
+  display: flex;
+  flex-direction: column;
+  /* font-size: 1.6rem; */
+  font-size: var(--fontsize-small);
+  margin: 0;
+}
+.sub_sub_ul {
+  list-style: none;
+  margin-top: 0.5rem;
+}
+.categorylist {
+  display: flex;
+  align-items: center;
+  height: 3.44rem;
+  text-decoration: none;
+  background-color: transparent;
+  color: var(--dark-gray);
+}
+.categorylist p {
+  display: block;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.categorylist .catesvg svg {
+  margin-right: 0.4rem;
+  padding-left: 0.8rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  fill: var(--dark-gray);
+  display: block;
+}
+.categorynavcont:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+}
+.categorylist:hover {
+  color: var(--org-primary);
+}
+.categorylist:hover .catesvg svg,
+.categorylist:hover .catesvg svg path {
+  fill: var(--org-primary);
+}
+
+.slidercenterdiv {
+  max-width: 94.3rem;
+  flex-grow: 1;
+  border-radius: 0.4rem;
+  height: 42rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+  background-color: rgb(224, 224, 224);
+  color: white;
+}
+.sliderrightdiv {
+  width: 21.8rem;
+}
+.banner1,
+.banner2 {
+  border-radius: 0.4rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+  background-color: rgb(228, 228, 228);
+  color: white;
+  /* height: calc(50% - 1.6rem); */
+  /* height: 184px; */
+  overflow: hidden;
+}
+.banner1 {
+  margin-bottom: 1.6rem;
+}
+.banner1 img,
+.banner2 img {
+  width: 100%;
+  display: block;
+}
+/* ------------------- */
+
+/* --------slider buttons-------- */
+.left svg,
+.right svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+/* -----------common----------- */
+
+a {
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.top-svgsize {
+  width: 30px;
+  height: 30px;
+}
+
+.sidenav {
+  color: black;
+  font-size: 3rem;
+  width: 100%;
+  display: none;
+}
+.sidenav.active {
+  display: block;
+}
+
+/* ---------temp size--------- */
+
+#info {
+  font-size: 2rem;
+}
+button {
+  padding: 0.5rem 2rem;
+  font-size: 2rem;
+}
+
+/* ***************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 1165px) {
+  .categorynavcont {
+    width: 17.7rem;
+  }
+}
+@media (max-width: 1040px) {
+  .sliderdiv {
+    gap: 0.8rem;
+  }
+}
+@media (max-width: 950px) {
+  .sliderrightdiv {
+    display: none;
+  }
+  .sliderdiv {
+    padding: 1.6rem 1.6rem;
+    gap: 1.6rem;
+  }
+  .categorynavcont {
+    width: 24.7rem;
+  }
+  .slidercenterdiv {
+    max-width: 78.2rem;
+  }
+}
+@media (max-width: 870px) {
+  .categorynavcont {
+    width: 22.7rem;
+  }
+}
+
+@media (max-width: 750px) {
+  .categorynavcont {
+    width: 19.7rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .categorynavcont {
+    display: none;
+  }
+  .sliderdiv {
+    justify-content: center;
+  }
+}
+@media (max-width: 560px) {
+  .slidercenterdiv {
+    max-width: 60.2rem;
+    height: 30rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .sliderdiv {
+    padding: 0.8rem 0.8rem;
+  }
+  .slidercenterdiv {
+    max-width: 100%;
+    height: 22rem;
+  }
+}

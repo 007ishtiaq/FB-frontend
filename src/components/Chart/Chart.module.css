@@ -1,0 +1,17 @@
+.Chart {
+  padding: 20px;
+  margin: 20px;
+  -webkit-box-shadow: 4px 3px 10px 1px rgba(0, 0, 0, 0.24);
+  box-shadow: 4px 3px 10px 1px rgba(0, 0, 0, 0.24);
+}
+
+.Chart > h2 {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #eee;
+}
+
+.Chart .Rchart {
+  background-color: transparent;
+}

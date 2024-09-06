@@ -1,0 +1,89 @@
+.SideDrawer {
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  position: fixed;
+  border-top: 1px solid white;
+  left: 0px;
+  top: 0;
+  transition: transform 0.3s ease-out;
+  z-index: 112;
+  overflow: auto;
+}
+
+.SideDrawerHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid #ededed;
+  padding: 5px;
+}
+.sidedrawertop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ededed;
+  padding: 5px;
+}
+
+.SideDrawerHeader .clear {
+  cursor: pointer;
+  margin: 0 10px;
+}
+.SideDrawerHeader .clear svg {
+  width: 2rem;
+  height: auto;
+}
+
+.Open {
+  transform: translateX(0%);
+}
+
+.Close {
+  transform: translateX(-100%);
+}
+.sidenavauthbtns {
+  padding: 1rem;
+  padding-bottom: 0.5rem;
+}
+.sidenavauthbtns .noauthcont {
+  justify-content: start;
+}
+.sidenavauthbtns .noauthbtn {
+  display: inline-block;
+  transition: 0.6s;
+  border-radius: 0.4rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  line-height: initial;
+  user-select: none;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fontsize-eemedium);
+  color: white;
+  background-color: var(--org-primary);
+  border: 0;
+  padding: 0.6rem 1rem;
+  margin: 0 0.2rem;
+}
+.sidenavauthbtns .noauthsvg svg {
+  fill: white;
+}
+.sidenavauthbtns .noauthbtn:hover .noauthsvg svg,
+.sidenavauthbtns .noauthbtn:active .noauthsvg svg {
+  background-color: var(--org-primary);
+}
+
+@media (min-width: 701px) {
+  .SideDrawer {
+    display: none;
+  }
+
+  .Backdrop {
+    display: none;
+  }
+}

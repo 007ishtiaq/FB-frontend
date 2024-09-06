@@ -1,0 +1,82 @@
+.shippingadrcont {
+  background: white;
+  width: 100%;
+  max-width: 884px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.shippingheading {
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.formheads {
+  padding: 8px 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.formsubcont {
+  margin: 0 20px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.formsubcont > div {
+  padding: 9px;
+  width: 45%;
+}
+.singleinput {
+  display: flex;
+  flex-direction: column;
+}
+.singleinput input {
+  padding: 9px;
+  margin-bottom: 9px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  color: black;
+}
+.singleinput select {
+  padding: 9px;
+  margin-bottom: 9px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  color: black;
+}
+.singleinput span {
+  font-size: 12px;
+  margin-left: 5px;
+  color: red;
+}
+.formsubcont2 input {
+  margin-bottom: 10px;
+  color: black;
+}
+.formsubcont div.inputfullwidth {
+  width: 95%;
+}
+.formbelowcont {
+  margin: 30px 50px;
+}
+.fonttagline {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+.ordli input,
+.ordli select {
+  width: 65px;
+  border: 1px solid gray;
+}
+.editli {
+  min-width: 70px;
+}
+
+/* ----antd modal setting---- */
+.ant-modal.shippingheading {
+  width: 1100px !important;
+}
+.ant-modal-body {
+  padding: 1rem;
+}

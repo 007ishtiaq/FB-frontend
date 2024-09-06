@@ -1,0 +1,83 @@
+/* copied css, used at many page */
+
+.contactmaincont {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 118.4rem;
+  margin: 2rem auto;
+  padding: 0 0.8rem;
+  gap: 1rem;
+}
+.contacttopcont,
+.contactbelowcont {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  background-color: white;
+  border-radius: 0.4rem;
+  padding: 1rem;
+}
+
+/* --------copied css end------ */
+
+.thankcont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  padding: 8rem;
+}
+.thankcont span {
+  color: var(--org-primary);
+  font-weight: 500;
+}
+.thankmain {
+  font-size: 3rem;
+  font-weight: 600;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+.thanksub,
+.thankendsub {
+  font-size: 1.5rem;
+  color: var(--grydark-topbar-text);
+  text-align: center;
+}
+.thankend {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.thanksvg {
+  width: 9rem;
+  height: auto;
+  margin: 2rem;
+}
+.thankendsub {
+  padding: 1rem;
+  padding-bottom: 2rem;
+}
+.idinfo {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.idinfo span {
+  font-weight: 600;
+}
+
+/*****************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 475px) {
+  .thankcont {
+    padding: 2rem 0;
+  }
+  .contactmaincont {
+    margin: 1rem auto;
+  }
+}

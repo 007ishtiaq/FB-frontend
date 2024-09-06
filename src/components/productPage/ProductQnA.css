@@ -1,0 +1,41 @@
+/* --------------QnA part--------------- */
+.qnacont {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 3rem;
+  border-bottom: 0.1rem solid var(--vlight-gray);
+}
+.qnacont:last-child {
+  border: 0;
+}
+.qnarow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+.qnasvg {
+  width: 2.5rem;
+}
+.qnaquestion,
+.qnaans {
+  padding-left: 1.5rem;
+}
+.qnaquestion {
+  font-weight: 500;
+  font-size: var(--fontsize-emedium);
+}
+.qnaans {
+  font-size: var(--fontsize-eemedium);
+}
+
+/*****************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 340px) {
+  .qnaquestion,
+  .qnaans {
+    padding-left: 1rem;
+  }
+}

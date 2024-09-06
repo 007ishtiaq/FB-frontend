@@ -1,0 +1,84 @@
+.profileinfotop {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  padding: 0 4rem;
+  flex-wrap: wrap;
+}
+
+.profileinfo {
+  padding: 1rem 0rem;
+  width: 90%;
+}
+
+.profileinfohead {
+  font-size: 1.2rem;
+}
+.profileinfosub {
+  font-size: 1.5rem;
+  padding: 1rem 0rem;
+}
+.profilebuttonscont {
+  width: 40%;
+}
+.profilebuttons {
+  gap: 0.2rem;
+}
+.profileeditbtn {
+  padding: 0.7rem;
+  font-weight: 500;
+  width: 100%;
+}
+.editbtn {
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.4rem;
+  color: white;
+  background: var(--org-primary);
+}
+.profileinfohead span {
+  cursor: pointer;
+}
+
+/* ------style copied again from product page for correction------ */
+.btnscont {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0.7rem 0;
+  margin: 0 auto;
+}
+.atcbtn {
+  font-size: var(--fontsize-small);
+  margin-bottom: 1rem;
+}
+.buynowbtn {
+  font-size: var(--fontsize-small);
+}
+.newsletterbtn {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+/* ***************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 890px) {
+  .profileinfotop {
+    grid-template-columns: 1fr 1fr;
+  }
+  .emailinfo {
+    grid-column: span 2;
+    grid-row: 3;
+  }
+}
+@media (max-width: 750px) {
+  .lettersubcont {
+    padding: 0 2rem;
+    font-size: 1.5rem;
+  }
+  .subcribemodal .ant-modal-header {
+    font-size: 1.5rem;
+    padding: 2rem;
+  }
+}

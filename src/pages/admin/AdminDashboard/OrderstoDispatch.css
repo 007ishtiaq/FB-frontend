@@ -1,0 +1,144 @@
+.filtermaincont {
+  /* margin: 2rem 0; */
+  /* background: gray; */
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+}
+.filtercont {
+  display: flex;
+  padding: 0.3rem;
+}
+.filtercont input {
+  border: 1px solid gray;
+  border-radius: 0.4rem;
+  padding: 0.3rem;
+  font-size: 1.4rem;
+  width: 200px;
+}
+.filtercont button {
+  border: 0;
+  border-radius: 0.4rem;
+  padding: 0.3rem;
+}
+.datecont {
+  background-color: #6d6d6d;
+  padding: 0.5rem;
+  color: white;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.actionbtn {
+  padding: 0.2rem 0.5rem;
+}
+.ordrcontmain {
+  margin: 2rem 0;
+}
+.stateticksvg {
+  display: block;
+  display: flex;
+  justify-content: center;
+}
+.stateticksvg svg {
+  width: 16px;
+  height: auto;
+  fill: green;
+  display: block;
+}
+.statecrossvg {
+  display: block;
+  display: flex;
+  justify-content: center;
+}
+.statecrossvg svg {
+  width: 13px;
+  height: auto;
+  fill: red;
+  display: block;
+}
+
+.cnlcircle {
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: rgb(255, 126, 21);
+  display: inline-block;
+  position: absolute;
+  cursor: initial;
+}
+.rtncircle {
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: red;
+  display: inline-block;
+  position: absolute;
+  cursor: initial;
+}
+/* ----------------table stylings----------- */
+
+.Ordersmaincont {
+  display: flex;
+  flex-direction: column;
+}
+.ordul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+.ordli {
+  text-align: center;
+  font-size: 11px;
+  border: 1px solid #d1d1d1;
+  flex-grow: 1;
+  padding: 5px;
+}
+
+.Ordersmaincont table {
+  border-collapse: collapse;
+}
+
+.Ordersmaincont th,
+.Ordersmaincont td {
+  border: 1px solid rgb(170, 170, 170);
+  text-align: center;
+  font-weight: 500;
+}
+.Ordersmaincont tbody tr {
+  flex-direction: row;
+}
+.Ordersmaincont thead tr {
+  background-color: #6d6d6d;
+  color: white;
+  font-weight: 400;
+  flex-direction: row;
+}
+
+.Ordersmaincont tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* ---------style for status coloring--------- */
+.adminorderstate {
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.4rem;
+  color: white;
+  background: gray;
+}
+.adminorderstate.gray {
+  background: gray;
+}
+.adminorderstate.blue {
+  background: rgb(16, 112, 150);
+}
+.adminorderstate.Yellow {
+  background: #ff7800;
+}
+.adminorderstate.green {
+  background: rgb(6, 131, 48);
+}

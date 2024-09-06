@@ -1,0 +1,119 @@
+/* --------------products deccription div container--------------- */
+.prodowncont {
+  max-width: 121.6rem;
+  width: 100%;
+  margin: 0rem auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2.4rem;
+}
+.prodownsub {
+  background-color: white;
+  width: 100%;
+  border-radius: 0.4rem;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%);
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+}
+.headingcont {
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+}
+.desccontent {
+  display: flex;
+  padding: 0 12rem;
+  justify-content: space-between;
+  font-size: var(--fontsize-eemedium);
+}
+.desccontentleft {
+  /* width: 40%; */
+}
+
+.desccontentright {
+  padding: 0 2rem;
+  /* width: 45%; */
+}
+strong {
+  font-weight: 600;
+}
+.table2nd {
+  display: flex;
+  flex-direction: row;
+}
+.table2nd thead tr,
+.table2nd tbody tr {
+  display: flex;
+  flex-direction: column;
+}
+.table thead th {
+  font-size: 1.4rem;
+}
+.table {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 1rem;
+}
+.table > :not(caption) > * > * {
+  padding: 0.1rem 2.2rem 0.1rem 0;
+  text-align: left;
+}
+thead th {
+  font-weight: 600;
+}
+
+/*****************************************
+**************Responsiveness***********
+*************************************** */
+@media (max-width: 980px) {
+  .prodowncont {
+    margin: 0rem auto;
+    padding: 0 1.5rem;
+  }
+}
+@media (max-width: 900px) {
+  .desccontent {
+    padding: 0 8rem;
+  }
+}
+@media (max-width: 800px) {
+  .desccontent {
+    padding: 0 5rem;
+  }
+}
+@media (max-width: 600px) {
+  .desccontent {
+    padding: 0 2rem;
+  }
+}
+@media (max-width: 500px) {
+  .desccontent {
+    flex-direction: column;
+    align-items: center;
+  }
+  .desccontentleft,
+  .desccontentright {
+    width: 85%;
+  }
+  .desccontentright {
+    padding: 0;
+  }
+}
+@media (max-width: 450px) {
+  .table2nd > :not(caption) > * > * {
+    padding: 0.1rem 1rem 0.1rem 0;
+  }
+}
+@media (max-width: 426px) {
+  .table2nd thead {
+    width: 70%;
+  }
+  .table2nd tbody {
+    width: 30%;
+  }
+  .desccontentleft,
+  .desccontentright {
+    width: 100%;
+    padding: 0 0.32rem;
+  }
+}

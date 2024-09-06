@@ -1,0 +1,237 @@
+/* ------- manage account right side------- */
+.manageacmainhead {
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 1rem;
+}
+.manageacmainbody {
+  display: flex;
+  flex-direction: column;
+  /* height: 89%; */
+}
+.mainbodytop {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+.previewprofile {
+  padding: 1rem 2rem;
+  width: 35%;
+  border: 1px solid #cbcbcb;
+  border-radius: 0.4rem;
+  margin: 1rem;
+}
+.previewprofilehead {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.previewprofilesub {
+  padding: 1rem 0;
+}
+.previewprofiledata {
+  padding: 0.3rem 0rem;
+  font-size: 1.3rem;
+}
+
+.previewaddress {
+  padding: 1rem 2rem;
+  width: 35%;
+  border: 1px solid #cbcbcb;
+  border-radius: 0.4rem;
+  margin: 1rem;
+  width: 65%;
+}
+.previewadrsub {
+  padding: 1rem 0;
+}
+.previewadrhead {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+/* ---------manage account orders side----- */
+
+.mainbodybelow {
+  padding: 1rem 1rem;
+}
+.previewordershead {
+  font-size: 1.5rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ordersul {
+  list-style: none;
+  display: flex;
+  margin: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid #ffbf86;
+  border-bottom: 1px solid #ffbf86;
+  gap: 1rem;
+}
+.ordersli {
+  font-size: 1.2rem;
+  padding: 0 0.5rem;
+  font-weight: 500;
+  width: 20%;
+}
+.orderssub {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+.ordersubul {
+  list-style: none;
+  display: flex;
+  margin: 1rem;
+  padding: 0.7rem 0 1.4rem 0;
+  gap: 1rem;
+  border-bottom: 1px solid #eeeeee;
+  align-items: center;
+}
+.orderssubli {
+  font-size: 1.2rem;
+  padding: 0 0.5rem;
+  font-weight: 400;
+  width: 25%;
+}
+.orderssubli a {
+  color: black;
+}
+
+.editbtn {
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.4rem;
+  color: white;
+  background: var(--org-primary);
+}
+.editbtn:hover {
+  color: white;
+}
+.smallimgpreview {
+  width: 50px;
+}
+.vieworderbtn {
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgb(196, 196, 196);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.vieworderbtn:hover {
+  background-color: #e6e4e4;
+}
+.noorderscont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.noordersvgcont {
+  width: 15rem;
+}
+.noordersvgcont svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.noorderscont p {
+  font-size: 1.5rem;
+}
+/* ------address book------ */
+.emptyaddressline {
+  display: flex;
+  margin-left: 1rem;
+}
+.emptyaddressline p {
+  margin-left: 1rem;
+}
+.Downbtnsvgcont {
+  width: 15px;
+  height: 15px;
+}
+.Downbtnsvgcont svg {
+  width: 100%;
+  height: 100%;
+}
+.newsletterbtn {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 1rem;
+}
+.noadrtext {
+  font-size: 1.3rem;
+}
+.smallsvgbtncont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.smallsvgbtn {
+  display: block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+/* ***************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 1060px) {
+  .mainbodytop {
+    gap: 0;
+  }
+  .navrightside {
+    padding: 1rem 1rem;
+  }
+  .previewprofile {
+    width: 35%;
+  }
+  .previewaddress {
+    width: 60%;
+  }
+}
+@media (max-width: 990px) {
+  .previewprofile {
+    width: 50%;
+  }
+  .previewaddress {
+    width: 50%;
+  }
+}
+@media (max-width: 890px) {
+  .previewprofile {
+    padding: 1rem;
+  }
+  .previewaddress {
+    padding: 1rem;
+  }
+}
+@media (max-width: 750px) {
+  .lettersubcont {
+    padding: 0 2rem;
+    font-size: 1.5rem;
+  }
+  .subcribemodal .ant-modal-header {
+    font-size: 1.5rem;
+    padding: 2rem;
+  }
+}
+@media (max-width: 550px) {
+  .manageacmaincont {
+    margin: 1rem auto;
+  }
+}
+@media (max-width: 500px) {
+  .mainbodytop {
+    flex-direction: column;
+  }
+  .previewprofile {
+    width: calc(100% - 2rem);
+  }
+  .previewaddress {
+    width: calc(100% - 2rem);
+  }
+  .litohide {
+    display: none;
+  }
+}

@@ -1,0 +1,25 @@
+.skullcontainer {
+  height: 100%;
+}
+.imgskull {
+  position: relative;
+  /* height: 183px; */
+  aspect-ratio: 1/1;
+  /* width: 183px; */
+  border-radius: 0.4rem 0.4rem 0 0;
+}
+.imgratecont {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem;
+}
+.whalf {
+  width: 40%;
+}
+.whalfmore {
+  width: 80%;
+}
+.prodnameside {
+  padding: 0 0.7rem;
+}

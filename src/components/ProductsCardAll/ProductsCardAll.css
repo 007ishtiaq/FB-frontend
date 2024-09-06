@@ -1,0 +1,58 @@
+.proright {
+  margin-left: 0.8rem;
+  border-radius: 0.4rem;
+  max-width: 100%;
+  background-color: white;
+}
+
+/* ---below style taken from search---- */
+.rightsideheadercont.flashheadcont {
+  background: #e61601;
+  color: white;
+  margin: 0;
+  padding: 1.3rem 1rem;
+}
+.rightsideheadercont.flashheadcont .foundpros {
+  color: white;
+}
+
+.rightsideheadercont {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.1rem solid var(--gry-topbar);
+  user-select: none;
+}
+.rightsideheadercont {
+  padding: 1rem;
+  margin: 0 0.5rem;
+}
+
+.headingname {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.headingright {
+  font-size: var(--fontsize-emedium);
+  font-weight: 500;
+}
+.foundpros {
+  font-size: var(--fontsize-emedium);
+  font-weight: 400;
+  color: var(--medium-gray);
+}
+.contentcont {
+  padding: 0.4rem 0.4rem;
+  background-color: #fff;
+}
+.productsarea {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  font-family: Open Sans, Roboto, Arial, Helvetica, sans-serif, SimSun;
+  position: relative;
+}

@@ -1,0 +1,118 @@
+.shippingadrcont {
+  background: white;
+  width: 100%;
+  max-width: 884px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.shippingheading {
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.formheads {
+  padding: 8px 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.formsubcont {
+  margin: 0 1rem;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.formsubcont > div {
+  padding: 9px;
+  width: 45%;
+}
+.singleinput {
+  display: flex;
+  flex-direction: column;
+}
+.singleinput label {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  color: #707070;
+  font-weight: 500;
+}
+.singleinput input {
+  padding: 7px;
+  margin-bottom: 9px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  color: black;
+}
+.singleinput select {
+  padding: 9px;
+  margin-bottom: 9px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  color: black;
+}
+.singleinput span {
+  font-size: 12px;
+  margin-left: 5px;
+  color: red;
+}
+.formsubcont2 input {
+  margin-bottom: 10px;
+  color: black;
+}
+.formsubcont div.inputfullwidth {
+  width: 95%;
+}
+.formbelowcont {
+  margin: 30px 50px;
+}
+.fonttagline {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+.shippingform {
+  width: 100%;
+}
+/* ----antd modal setting---- */
+.ant-modal.shippingheading {
+  max-width: 950px !important;
+  width: 100% !important;
+}
+.ant-modal-body {
+  padding: 1.5rem 1rem;
+}
+.ant-modal-footer {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}
+.ant-modal-wrap.ant-modal-centered {
+  overflow-x: hidden;
+}
+/*****************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 750px) {
+  .formsubcont > div {
+    padding: 0.9rem 1.5rem;
+    width: 50%;
+  }
+  .formsubcont div.inputfullwidth {
+    width: 100%;
+  }
+  .formsubcont {
+    justify-content: center;
+  }
+  .ant-modal-body {
+    padding: 1.5rem 0rem;
+  }
+}
+@media (max-width: 450px) {
+  .formsubcont {
+    flex-direction: column;
+  }
+  .formsubcont > div {
+    width: 100%;
+  }
+}

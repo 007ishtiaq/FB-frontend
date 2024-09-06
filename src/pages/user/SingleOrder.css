@@ -1,0 +1,233 @@
+.singleorderlist {
+  padding: 0rem;
+}
+.leavereviewbtn {
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.4rem;
+  color: white;
+  background: var(--org-primary);
+}
+.ordertprice {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: black;
+}
+.orderstatusbarcont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5rem 5rem 3rem;
+}
+.statusbar {
+  display: flex;
+  align-items: center;
+  width: 74.5%;
+}
+.circle {
+  width: 15px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: rgb(201, 201, 201);
+  /* margin: -1px; */
+}
+.line {
+  width: calc(33% + 20px);
+  height: 4px;
+  background-color: rgb(201, 201, 201);
+  /* margin: -1px; */
+}
+.circle.active {
+  background-color: green;
+}
+.circle.yellow {
+  background-color: #ff7800;
+}
+.line.active {
+  background-color: green;
+}
+.statustitlescont {
+  display: flex;
+  justify-content: center;
+  font-size: 1.3rem;
+  padding: 1rem 0;
+  width: 100%;
+}
+
+.statustitle {
+  width: 25%;
+  text-align: center;
+}
+/* .statustitle1 {
+  min-width: 14.8rem;
+} */
+/*.statustitle2 {
+  margin-right: 109px;
+}
+.statustitle3 {
+  margin-right: 122px;
+}
+.statustitle4 {
+  margin-right: 0;
+} */
+.titlepera.singleprotitle.makeitfull {
+  width: calc(100% - 70px - 24rem - 2.5rem);
+}
+.orderactioncont.singleactionbtn.makewidth0 {
+  width: 0;
+}
+.orderstate {
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.4rem;
+  color: white;
+  background: gray;
+}
+.downloadorder {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: black;
+}
+.downloadorder:hover {
+  color: black;
+}
+.orderdetailsummary {
+  padding: 0.5rem 0rem;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+.orderstate.gray {
+  background: gray;
+}
+.orderstate.blue {
+  background: rgb(16, 112, 150);
+}
+.orderstate.Yellow {
+  background: #ff7800;
+}
+.orderstate.green {
+  background: rgb(6, 131, 48);
+}
+.totalamount {
+  font-weight: 600;
+}
+.paidmode {
+  font-size: 1.3rem;
+  padding-top: 0.5rem;
+}
+.coupontypetxt {
+  padding: 0.2rem 0.5rem;
+  background-color: rgb(173, 173, 173);
+  display: inline;
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0);
+}
+.prodimgbox {
+  border: 1px solid rgb(214, 214, 214);
+  border-radius: 4px;
+  padding: 0.4rem 0.4rem;
+  cursor: pointer;
+}
+.prodimgbox:hover {
+  border: 1px solid gray;
+}
+
+.singleitembinder {
+  display: flex;
+  width: 14rem;
+}
+.singleitembindertwo {
+  display: flex;
+  width: 24rem;
+}
+.orderlistli.singleitemli {
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.titlepera.singleprotitle {
+  width: calc(100% - 70px - 24rem - 13rem - 2.5rem);
+}
+/* qtybought is 6rem on other page */
+.singleitemprice {
+  width: 8rem;
+  text-align: center;
+}
+.orderstate.sigleitemstate {
+  width: 10rem;
+  text-align: center;
+}
+.orderactioncont.singleactionbtn {
+  width: 13rem;
+}
+
+/* ***************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 1000px) {
+  .orderstatusbarcont {
+    padding: 5rem 2rem 3rem;
+  }
+}
+@media (max-width: 950px) {
+  .singleitembinder {
+    flex-direction: column;
+    width: 8rem;
+  }
+  .singleitembindertwo {
+    display: flex;
+    width: 18rem;
+    align-items: center;
+  }
+  .orderstate.sigleitemstate {
+    height: 50%;
+  }
+  .orderactioncont.singleactionbtn {
+    width: 11rem;
+  }
+  .titlepera.singleprotitle {
+    width: calc(100% - 70px - 8rem - 10rem - 11rem - 2.5rem);
+  }
+  .btnprimary.singlecanbtn {
+    padding: 0.5rem 1rem;
+  }
+  .orderstatusbarcont {
+    padding: 5rem 1rem 3rem;
+  }
+}
+@media (max-width: 530px) {
+  .navrightside.singleitemrightside {
+    padding: 0;
+  }
+  .btnprimary.singlecanbtn {
+    padding: 0.5rem 0.3rem;
+  }
+  .orderactioncont.singleactionbtn {
+    width: 10rem;
+  }
+  .singleitembindertwo {
+    flex-direction: column;
+    width: 10rem;
+  }
+  .titlepera.singleprotitle {
+    width: calc(100% - 70px - 10rem - 2.5rem);
+  }
+  .orderstatusbarcont {
+    padding: 4rem 1rem 3rem;
+  }
+  .titlepera.singleprotitle.makeitfull {
+    width: calc(100% - 70px - 10rem - 2.5rem);
+  }
+}
+@media (max-width: 450px) {
+  .titlepera.singleprotitle {
+    width: calc(100% - 70px - 10rem - 2.5rem);
+  }
+  .imgcont {
+    width: 50px;
+  }
+  .orderstatusbarcont {
+    padding: 2rem 1rem 1rem;
+  }
+}

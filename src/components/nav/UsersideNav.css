@@ -1,0 +1,148 @@
+.manageacmaincont {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 118.4rem;
+  margin: 2rem auto;
+  padding: 0 0.8rem;
+}
+.manageaccont {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+.navleftside {
+  padding: 1rem 0.2rem;
+  width: 20%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+  min-height: 50rem;
+  border-radius: 0.4rem;
+}
+.navrightside {
+  width: 80%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 0.4rem;
+  padding: 1rem 2rem;
+}
+.menumain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Downerrowsvg {
+  width: 1.1rem;
+  height: auto;
+  fill: black;
+}
+
+/* ------- manage account left side------- */
+/* -----name related styling is on common styling--- */
+.manageacheading {
+  padding: 1rem 2rem;
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: black;
+  transition: color 0.2s;
+}
+.manageacheading:hover {
+  background-color: #a8a8a8;
+  color: white;
+}
+.manageacul {
+  list-style: none;
+  padding: 0rem 0rem;
+}
+.manageacli {
+  padding: 0.5rem 3.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: black;
+  transition: 0.2s all;
+}
+.manageacli:hover {
+  background-color: #a8a8a8;
+  color: white;
+}
+
+/* ------active no active nav----- */
+.manageacheading.active {
+  background-color: #878787;
+  color: white;
+}
+.manageacli.active {
+  background-color: #878787;
+  color: white;
+}
+.manageacheading:hover .Downerrowsvg {
+  fill: white;
+}
+.manageacheading.active .Downerrowsvg {
+  fill: white;
+}
+/* ***************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 1190px) {
+  .manageacmaincont {
+    margin: 1.5rem auto;
+  }
+}
+@media (max-width: 1090px) {
+  .namecont {
+    font-size: 1.4rem;
+  }
+  .varifiedinfo {
+    width: 90%;
+  }
+}
+@media (max-width: 990px) {
+  .namecont {
+    padding: 1rem 1rem;
+  }
+  .varifiedinfo {
+    width: 100%;
+  }
+  .varifiedinfocont {
+    padding: 0rem 1.5rem 2rem;
+  }
+}
+@media (max-width: 890px) {
+  .namecont {
+    font-size: 1.4rem;
+  }
+  .varifiedinfocont {
+    padding: 0rem 1rem 1rem;
+  }
+  .manageacheading {
+    padding: 1rem 1.5rem;
+  }
+  .manageacli {
+    padding: 0.5rem 2.5rem;
+  }
+  .navleftside {
+    width: 22%;
+  }
+  .navrightside {
+    width: 78%;
+  }
+}
+@media (max-width: 790px) {
+  .navleftside {
+    width: 25%;
+  }
+  .navrightside {
+    width: 75%;
+  }
+}
+@media (max-width: 700px) {
+  .navleftside {
+    display: none;
+  }
+  .navrightside {
+    width: 100%;
+  }
+}

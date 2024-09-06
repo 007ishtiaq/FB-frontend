@@ -1,0 +1,31 @@
+.menu {
+  width: 24px;
+  padding: 2px 0;
+  border-radius: 2px;
+  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.menu span {
+  display: block;
+  height: 2px;
+  width: 70%;
+  background: var(--dark-gray);
+  margin: auto;
+  margin-top: 4px;
+}
+
+@media (max-width: 700px) {
+  .menu {
+    display: inline-block;
+  }
+}
+@media (max-width: 450px) {
+  .menu span {
+    width: 60%;
+    margin-top: 3px;
+  }
+}

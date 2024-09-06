@@ -1,0 +1,12 @@
+.SmallDevices {
+  display: none;
+}
+/* .SmallDevices.otherpage {
+  display: block;
+} */
+
+@media (max-width: 700px) {
+  .SmallDevices {
+    display: block;
+  }
+}

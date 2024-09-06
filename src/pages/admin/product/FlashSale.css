@@ -1,0 +1,17 @@
+.flashprodsrow {
+  display: flex;
+  justify-content: left;
+  gap: 0.5rem;
+}
+.flashprodsitem {
+  border: 1px solid gray;
+  border-radius: 0.4rem;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+.flashprodsitem:hover {
+  background-color: rgb(216, 214, 214);
+}
+.flashprodsitem a {
+  color: black;
+}

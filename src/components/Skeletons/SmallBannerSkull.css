@@ -1,0 +1,31 @@
+.slider-container {
+  height: 100%;
+}
+
+.slider-skeleton.smallbanner {
+  position: relative;
+  height: 184px;
+}
+
+.logo-container {
+  position: absolute; /* Position the logo container absolutely */
+  top: 50%; /* Position the logo container vertically in the middle */
+  left: 50%; /* Position the logo container horizontally in the middle */
+  transform: translate(-50%, -50%); /* Center the logo container */
+}
+.logo-container svg {
+  width: 12rem;
+}
+.logo-container svg g {
+  fill: var(--dark-gray);
+}
+
+/* ***************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 1102px) {
+  .slider-skeleton.smallbanner {
+    height: 162px;
+  }
+}

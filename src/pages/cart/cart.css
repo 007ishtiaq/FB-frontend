@@ -1,0 +1,461 @@
+.cartcont {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 118.4rem;
+  margin: 2rem auto;
+  padding: 0 0.8rem;
+}
+.cartleft {
+  width: 70%;
+  margin-right: 1rem;
+  background-color: white;
+  border-radius: 0.4rem;
+}
+.cartleftup,
+.summarycont {
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 1.5rem;
+}
+.commonruller {
+  width: 94%;
+  margin: 0 auto;
+  border-top: 1px solid rgb(0 0 0 / 31%);
+}
+.cartright {
+  width: 30%;
+  margin-left: 1rem;
+  background-color: white;
+  border-radius: 0.4rem;
+}
+.summarysubcont {
+  padding: 0 1.5rem;
+  font-size: var(--fontsize-eemedium);
+}
+.summarysubcont * {
+  margin-bottom: 1rem;
+}
+.amtcont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.totalamt {
+  font-weight: 600;
+}
+.subtotalcont {
+  font-size: var(--fontsize-eemedium);
+  justify-content: end;
+  display: flex;
+  margin-right: 3.5rem;
+  padding: 1rem 0;
+}
+.subtotalcont span {
+  margin-left: 0.7rem;
+  font-weight: 600;
+}
+.cartbtnscont {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 3rem;
+}
+.cartbtnscont a button,
+.cartbtnscont button {
+  font-size: var(--fontsize-eemedium);
+  background: 0;
+  border: 0.1rem solid #c7c7cd;
+  border-radius: 0.4rem;
+  padding: 0.7rem 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  align-items: center;
+}
+.cartactionbtncont svg {
+  display: block;
+}
+.cartbtnscont a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+.cartbtnscont button svg {
+  width: 1.3rem;
+}
+.cartbtnscont button span {
+  margin-left: 0.7rem;
+}
+.checkoutbtn {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: white;
+  background: 0;
+  border-radius: 0.4rem;
+  padding: 0.8rem;
+  box-shadow: 0 2px 5px 0 rgb(213 217 217 / 50%);
+  width: 100%;
+  background: var(--org-hover);
+  border: 0;
+  cursor: pointer;
+}
+.coupontypetxt {
+  padding: 0.2rem 0.5rem;
+  background-color: rgb(173, 173, 173);
+  display: inline;
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0);
+}
+/* -----------cart product individual style------ */
+.cartpricebinder {
+  width: 100%;
+}
+
+.cartleftmiddle {
+  padding: 1rem 2rem;
+  min-height: 63%;
+}
+.cartprocont {
+  display: grid;
+  grid-template-columns: 20% auto 14rem;
+  /* display: flex;
+  justify-content: space-between; */
+  width: 100%;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e9e9e9;
+}
+.cartprocont:last-child {
+  border-bottom: 0;
+}
+.cartproimg {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.cartproimg img {
+  /* width: auto; */
+  /* height: 80%; */
+  border-radius: 1rem;
+}
+
+.cartprodetailscont {
+  padding: 0 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.cartprodetailscont > div {
+  margin-bottom: 1rem;
+}
+.cartpropricedetails {
+  font-size: var(--fontsize-eemedium);
+  padding: 0 1rem 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: space-between;
+  user-select: none;
+}
+.cartprodel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.cartprodel svg {
+  width: 1.5rem;
+  margin-right: 1.5rem;
+}
+/* qtybtnsize is on common styling */
+.cartprobtns {
+  display: flex;
+  align-items: center;
+}
+.cartproqtycont button {
+  border-radius: 50%;
+  padding: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #f5f5f5;
+  border: 0;
+}
+.cartproqtycont span {
+  margin: 0 1rem;
+  min-width: 2rem;
+}
+.cartproname {
+  display: block;
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.cartprostockstatus {
+  font-size: 1.2rem;
+  color: green;
+  font-weight: 400;
+}
+.varianthead {
+  font-size: var(--fontsize-eemedium);
+  font-weight: 600;
+}
+.variantsub {
+  font-size: var(--fontsize-eemedium);
+  font-weight: 400;
+}
+.cartproprice {
+  font-size: var(--fontsize-emedium);
+  font-weight: 600;
+  text-align: right;
+}
+.cartprocutcont {
+  display: flex;
+  margin: 0.5rem 0;
+  justify-content: space-between;
+  width: 100%;
+}
+.cartpropricelist {
+  font-size: var(--fontsize-small);
+  font-weight: 500;
+  text-decoration: line-through;
+  color: var(--dark-gray);
+}
+.dis-persontage {
+  font-size: var(--fontsize-small);
+  font-weight: 600;
+  color: #ffffff;
+  background: #ff8f29;
+  border-radius: 0.4rem;
+  margin: 0;
+  padding: 0 0.4rem;
+}
+
+/* -----cart right payment options side----- */
+.cartrightdown {
+  padding: 1rem 1.5rem;
+}
+.pmtmethods,
+.bprotection {
+  display: flex;
+  flex-direction: column;
+}
+.pmtmethods {
+  margin: 1.5rem 0px;
+}
+.pmtmethods *,
+.bprotection * {
+  margin-bottom: 0.5rem;
+}
+.pmtmethodshead {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.pmtmethodssub {
+  font-size: var(--fontsize-eemedium);
+  font-weight: 500;
+  margin-left: 1rem;
+}
+.bprotectionsub {
+  display: flex;
+}
+.bprotection svg {
+  width: 3rem;
+  fill: green;
+}
+.pmtmethodsopt {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.pmtmethodsopt svg {
+  width: 3rem;
+  height: auto;
+}
+.pmtmethodsopt svg.ssizesvg {
+  width: 2.5rem;
+}
+.emptcont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  user-select: none;
+}
+.emptsvg {
+  width: 90px;
+  height: 90px;
+}
+.emptsvg svg {
+  width: 100%;
+  height: 100%;
+}
+.couponinput {
+  border: 1px solid #b7b7b7;
+  border-radius: 0.4rem;
+  font-weight: 400;
+  padding: 0.5rem;
+  width: 100%;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.couponbtns {
+  display: flex;
+  justify-content: end;
+}
+.couponbtn {
+  font-size: var(--fontsize-small);
+  padding: 0.3rem 1rem;
+  border: 0.1rem solid #c7c7cd;
+  border-radius: 0.4rem;
+  box-shadow: 0 2px 5px 0 rgba(213, 217, 217, 0.5);
+  cursor: pointer;
+  background: 0;
+}
+.couponbtn:hover,
+.couponbtn:active {
+  border: 0.1rem solid #ff950d;
+  background: #ffa758;
+}
+button:disabled {
+  background-color: #ffbb7e;
+  cursor: no-drop;
+}
+button:hover:disabled {
+  background-color: #ffbb7e;
+  cursor: no-drop;
+}
+.qtybtnsize.cartqtybtncont {
+  margin-top: 0;
+}
+.freeitemcont {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.2rem;
+  color: green;
+  font-weight: 500;
+}
+.freeitemcont svg {
+  width: 2.1rem;
+  height: auto;
+  fill: green;
+  margin-right: 0.5rem;
+}
+.freeitemcont span {
+  align-self: flex-end;
+  padding-top: 0.4rem;
+}
+/*****************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 1055px) {
+  .cartpropricedetails {
+    padding: 0 0.5rem 1rem;
+  }
+  .cartleftmiddle {
+    padding: 1rem 1rem;
+  }
+}
+@media (max-width: 983px) {
+  .cartproimg {
+    padding: 1.5rem;
+  }
+}
+@media (max-width: 924px) {
+  .cartproqtycont span {
+    margin: 0 0.5rem;
+  }
+}
+@media (max-width: 900px) {
+  .cartprodetailscont {
+    padding: 0 0.5rem;
+  }
+}
+@media (max-width: 894px) {
+  .cartprocont {
+    grid-template-columns: 20% auto 13rem;
+  }
+  .cartproimg {
+    padding: 1rem;
+    align-self: center;
+  }
+}
+@media (max-width: 815px) {
+  .cartleft {
+    margin-right: 0.5rem;
+  }
+  .cartright {
+    margin-left: 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .cartleft {
+    width: 100%;
+  }
+  .cartcont {
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem auto;
+  }
+  .cartright {
+    margin: 0;
+    width: 100%;
+  }
+  .cartbtnscont {
+    margin: 2rem;
+  }
+}
+@media (max-width: 512px) {
+  .cartprodetailscont > div {
+    margin-bottom: 0.5rem;
+  }
+  .cartproimg {
+    padding: 0.3rem;
+  }
+  .cartprodetailscont {
+    gap: 0;
+  }
+}
+@media (max-width: 400px) {
+  .cartprocont {
+    grid-template-columns: 20% auto 12rem;
+  }
+  .cartleftmiddle {
+    padding: 1rem;
+  }
+  .cartprodel svg {
+    margin-right: 0.5rem;
+  }
+  .cartproqtycont span {
+    margin: 0 0.3rem;
+  }
+  .cartproname {
+    font-size: 1.4rem;
+  }
+  .cartprovariants {
+    font-size: 1.2rem;
+  }
+  .cartleftmiddle {
+    padding: 0.5rem;
+  }
+  .subtotalcont {
+    margin-right: 0;
+    padding: 1rem 1.5rem;
+  }
+  .cartbtnscont {
+    margin: 2rem 1.5rem;
+  }
+  .cartpropricedetails {
+    padding: 0 0.2rem 1rem;
+  }
+}

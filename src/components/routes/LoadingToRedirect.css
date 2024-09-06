@@ -1,0 +1,42 @@
+/*======================
+    redirecting page page
+=======================*/
+
+.page_404 {
+  padding: 4rem 0;
+  background: #fff;
+}
+
+.page_404 img {
+  width: 100%;
+}
+
+.four_zero_four_bg {
+  background-image: url(../../images/Rocket.gif);
+  height: 30rem;
+  background-position: center;
+  background-size: 70rem;
+  background-repeat: no-repeat;
+}
+
+.four_zero_four_bg h1 {
+  font-size: 5rem;
+  margin: 0;
+}
+
+/* .four_zero_four_bg h3 {
+  font-size: 8rem;
+} */
+
+.link_404 {
+  padding: 10px 20px;
+  margin: 20px 0;
+  display: inline-block;
+}
+.contant_box_404 {
+  margin-top: -50px;
+}
+
+.redirectbottom {
+  margin: 0.4rem 0;
+}

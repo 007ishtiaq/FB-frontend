@@ -1,0 +1,142 @@
+/* ------other styling and css from commons & MegaBanner----- */
+
+.catebannersvg {
+  width: 2.2rem;
+  height: auto;
+  transition: all 0.2s linear;
+  display: block;
+}
+
+.catebannercont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+.cbannercont,
+.ccatecont {
+  width: 50%;
+}
+.cbannercont {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+.cbannercont img {
+  width: 65%;
+}
+.ccatecont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+.catenameabove {
+  margin-bottom: 2rem;
+}
+.catenameabove p {
+  font-size: 4rem;
+}
+.catenameabove span {
+  font-size: 1.4rem;
+}
+
+.catenamerow {
+  display: flex;
+}
+.catenamerow div {
+  margin: 0.3rem;
+}
+.catenamecont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid gray;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  color: black;
+}
+.catenamecont:hover {
+  background-color: var(--org-primary);
+  color: white;
+  border: 1px solid white;
+}
+.catenamecont:hover .catebannersvg {
+  fill: white;
+}
+
+/*****************************************
+***********Responsiveness**************
+*************************************** */
+
+@media (max-width: 935px) {
+  .cbannercont img {
+    width: 52%;
+  }
+  .cbannercont {
+    padding: 0;
+  }
+}
+@media (max-width: 910px) {
+  .cbannercont {
+    width: 40%;
+  }
+  .cbannercont img {
+    width: 70%;
+  }
+  .ccatecont {
+    flex-grow: 1;
+  }
+}
+@media (max-width: 750px) {
+  .cbannercont {
+    width: 35%;
+  }
+  .cbannercont img {
+    width: 85%;
+  }
+}
+@media (max-width: 700px) {
+  .catebannercont {
+    flex-direction: column;
+    gap: 0;
+  }
+  .ccatecont {
+    width: 100%;
+    padding: 1rem 0;
+  }
+}
+@media (max-width: 550px) {
+  .catenameabove p {
+    font-size: 3rem;
+  }
+  .catenameabove {
+    margin-bottom: 0.5rem;
+  }
+  .catenamecont {
+    padding: 0.3rem 0.7rem;
+  }
+}
+@media (max-width: 430px) {
+  .catenameabove p {
+    font-size: 2.5rem;
+  }
+  .catenameabove span {
+    display: block;
+  }
+  .ccatecont {
+    padding: 1rem 1rem;
+  }
+  .catenameabove {
+    padding: 0 2rem;
+  }
+  .catenamecont {
+    font-size: 1.4rem;
+  }
+}

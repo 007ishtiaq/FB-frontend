@@ -1,0 +1,60 @@
+.TTtable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.TTtable th,
+.TTtable td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.TTtable th {
+  background-color: #6d6d6d;
+  color: white;
+  font-size: 11px;
+}
+
+.TTtable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.TTtable thead tr,
+.TTtable tbody tr {
+  display: table-row;
+}
+
+/* -------page styling--------- */
+.entrycont {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin: 1rem 0rem;
+}
+.entrycont :first-child {
+  width: 45%;
+}
+.entrycont input {
+  flex-grow: 1;
+  border: 1px solid gray;
+  border-radius: 0.4rem;
+  padding: 0.3rem;
+  font-size: 1.4rem;
+  width: 200px;
+}
+
+.entrybtn {
+  display: inline-block;
+}
+
+.entrydelsvg {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 10px;
+}
+.entrydelsvg svg {
+  fill: red;
+}

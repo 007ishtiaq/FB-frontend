@@ -1,0 +1,59 @@
+.topbtncont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.top-btn {
+  font-size: 1.8rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  color: #fff;
+  background-color: var(--org-primary);
+  box-shadow: var(--org-primary);
+  border-radius: 50%;
+  position: fixed;
+  bottom: 5rem;
+  right: 3rem;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.top-btn.active {
+  opacity: 1;
+}
+
+.top-btn:hover {
+  background-color: var(--org-hover);
+  box-shadow: var(--org-hover);
+}
+.top-btn:active {
+  background-color: var(--org-active);
+  box-shadow: var(--org-active);
+}
+
+.errowupicon {
+  animation: gotopanim 0.8s linear infinite alternate-reverse;
+  fill: white;
+  width: 2.7rem;
+  height: auto;
+}
+
+@keyframes gotopanim {
+  0% {
+    transform: translateY(-0.2rem);
+  }
+  100% {
+    transform: translateY(0.2rem);
+  }
+}
+
+/* .top-btn {
+  right: 0;
+  left: 40%;
+} */

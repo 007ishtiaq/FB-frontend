@@ -1,0 +1,153 @@
+.manageacordershead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.manageacmainheadingright {
+  display: flex;
+  font-weight: 400;
+  font-size: 1.3rem;
+  align-items: center;
+}
+.orderlimitselect {
+  margin-left: 0.7rem;
+  border: 1px solid rgb(196, 196, 196);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+.ordernumhead {
+  display: flex;
+  padding: 0.2rem 1rem;
+  border-top: 1px solid #ffbf86;
+  border-bottom: 1px solid #ffbf86;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.ordernum {
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+.orderdate {
+  font-size: 1.1rem;
+}
+.vieworder {
+  font-size: 1.2rem;
+  color: black;
+}
+.vieworder:hover {
+  color: black;
+}
+.vieworderbtn {
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgb(196, 196, 196);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.vieworderbtn:hover {
+  background-color: #e6e4e4;
+}
+.orderlist {
+  padding: 1rem;
+}
+.orderlistul {
+  list-style: none;
+}
+.orderlistli {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.imgcont {
+  width: 70px;
+  aspect-ratio: 1/1;
+}
+.imgcont img {
+  width: 100%;
+}
+
+.orderstate {
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.4rem;
+  color: white;
+  background: gray;
+}
+.orderstate.gray {
+  background: gray;
+}
+.orderstate.blue {
+  background: rgb(16, 112, 150);
+}
+.orderstate.Yellow {
+  background: #ff7800;
+}
+.orderstate.green {
+  background: rgb(6, 131, 48);
+}
+.qtybought {
+  width: 6rem;
+  text-align: center;
+}
+.orderstate {
+  width: 13rem;
+  text-align: center;
+}
+.titlepera {
+  width: calc(100% - 70px - 6rem - 13rem);
+}
+.Emptyorderssvg {
+  width: 18rem;
+}
+.Emptyorderssvg svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+/* ***************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 700px) {
+  .emptywishcont {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+}
+@media (max-width: 500px) {
+  .orderdeliverdate {
+    display: none;
+  }
+  .mainbodybelow {
+    padding: 1rem 1rem;
+  }
+  .orderstate {
+    width: 12rem;
+  }
+  .titlepera {
+    width: calc(100% - 70px - 6rem - 12rem);
+  }
+  /* .previewaddress {
+    width: 100%;
+  } */
+}
+@media (max-width: 450px) {
+  .imgcont {
+    width: 50px;
+  }
+}
+@media (max-width: 400px) {
+  .orderlistli {
+    gap: 0.5rem;
+  }
+
+  .orderstate {
+    width: 11rem;
+  }
+  .titlepera {
+    width: calc(100% - 50px - 6rem - 11rem);
+  }
+}

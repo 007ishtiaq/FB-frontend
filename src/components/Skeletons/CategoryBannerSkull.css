@@ -1,0 +1,8 @@
+.skullcontainer {
+  height: 100%;
+}
+.cateimgskull {
+  position: relative;
+  height: 143px;
+  border-radius: 0.4rem 0.4rem 0 0;
+}

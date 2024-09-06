@@ -1,0 +1,62 @@
+/* ---empty no product found cont style---- */
+.emptyprodcont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+.Emptyorderssvg {
+  width: 18rem;
+}
+.Emptyorderssvg svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.emptyprodcont p {
+  padding: 0.6rem;
+  margin: 0rem 2rem;
+}
+.empttxtup {
+  font-size: 2rem;
+  color: black;
+}
+.emptyprodcont p {
+  padding: 0.6rem;
+  margin: 0rem 2rem;
+}
+.empttxtsub {
+  font-size: 1.3rem;
+  color: gray;
+}
+.cartbtnscont {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 3rem;
+}
+.cartbtnscont a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+.cartbtnscont a button,
+.cartbtnscont button {
+  font-size: var(--fontsize-eemedium);
+  background: 0;
+  border: 0.1rem solid #c7c7cd;
+  border-radius: 0.4rem;
+  padding: 0.7rem 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  align-items: center;
+}
+.cartbtnscont button svg {
+  width: 1.3rem;
+}
+.cartbtnscont button span {
+  margin-left: 0.7rem;
+}

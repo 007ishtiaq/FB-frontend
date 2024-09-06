@@ -1,0 +1,424 @@
+.Ordersmaincont {
+  display: flex;
+  flex-direction: column;
+}
+.ordul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.actionli {
+  display: flex;
+  align-items: center;
+}
+.actionswitch1 {
+  margin-left: 73px;
+}
+.actionswitch2 {
+  margin-left: 39px;
+}
+.actionswitch3 {
+  margin-left: 64px;
+}
+.coupontypetxt {
+  padding: 0.2rem 0.5rem;
+  background-color: rgb(173, 173, 173);
+  display: inline;
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0);
+}
+/* ----------------single order admin styling---------  */
+
+.ordcont {
+  border: 1px solid gray;
+  border-radius: 4px;
+  width: 100%;
+}
+.ordintro {
+  background: gray;
+  padding: 10px;
+  text-align: center;
+}
+.ordintro img {
+  background: #565656;
+  border-radius: 50%;
+  padding: 7px;
+  box-shadow: 0px 2px 5px #202020;
+}
+.ordintro p {
+  color: #e7e6e6;
+  font-size: 15px;
+}
+.cutomerinfocont,
+.ordinfocont {
+  padding: 7px 15px;
+}
+.ordinfohead {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.ordinfosub {
+  padding: 10px 20px 0;
+}
+.ordinfosub ul {
+  list-style: none;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+.ordinfosub ul li {
+  margin-bottom: 5px;
+  color: #7a7a7a;
+}
+.ordinfosub ul li span,
+.sliptxt {
+  color: #646464;
+  font-size: 14px;
+  font-weight: 600;
+}
+.orderinfosides {
+  display: flex;
+}
+.paymentslip {
+  display: inline-block;
+  padding: 0 5px;
+}
+.pstatuseditbtn {
+  display: inline-block;
+}
+.pticksvg {
+  display: inline-block;
+}
+.pticksvg svg {
+  width: 16px;
+  margin-left: 10px;
+  height: auto;
+  fill: green;
+  display: block;
+}
+.pcrosssvg {
+  display: inline-block;
+}
+.pcrosssvg svg {
+  width: 13px;
+  margin-left: 10px;
+  height: auto;
+  fill: red;
+  display: block;
+}
+.ordercalc {
+  text-align: right;
+}
+
+.ordstatusmap select {
+  padding: 6px;
+  background: gray;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+}
+.ordaction {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0;
+}
+.acceptbtn {
+  background: 0;
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: green;
+  cursor: pointer;
+  user-select: none;
+}
+.acceptbtn svg {
+  fill: green;
+  width: 40px;
+  height: auto;
+}
+.declbtn {
+  background: 0;
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: red;
+  cursor: pointer;
+  user-select: none;
+}
+
+.declbtn svg {
+  fill: red;
+  width: 33px;
+  height: auto;
+}
+
+.ordpdfcont {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+}
+tr td {
+  border: 1px solid gray;
+}
+.ordeditbtn {
+  display: inline-block;
+  padding: 0 0.5rem;
+}
+
+.cnlcircle {
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: rgb(255, 126, 21);
+  display: inline-block;
+  position: absolute;
+  cursor: pointer;
+}
+.rtncircle {
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: red;
+  display: inline-block;
+  position: absolute;
+  cursor: pointer;
+}
+
+/* ------------status styling  copied same as it is   (start)--------- */
+
+.orderstatusbarcontadmin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5rem 5rem 3rem;
+  position: relative;
+}
+.adminordstatusbtn {
+  width: 15%;
+}
+.statusbar {
+  display: flex;
+  align-items: center;
+}
+.circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: rgb(201, 201, 201);
+  /* margin: -1px; */
+}
+.line {
+  width: 170px;
+  height: 4px;
+  background-color: rgb(201, 201, 201);
+  /* margin: -1px; */
+}
+.circle.active {
+  background-color: green;
+}
+.circle.yellow {
+  background-color: #ff7800;
+}
+.line.active {
+  background-color: green;
+}
+.statustitlescont {
+  display: flex;
+  width: 90%;
+  font-size: 1.3rem;
+  padding: 1rem 0;
+}
+
+.statustitle1 {
+  margin-right: 73px;
+}
+.statustitle2 {
+  margin-right: 109px;
+}
+.statustitle3 {
+  margin-right: 122px;
+}
+.statustitle4 {
+  margin-right: 0;
+}
+
+.orderstate {
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.4rem;
+  color: white;
+  background: gray;
+}
+.downloadorder {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: black;
+}
+.downloadorder:hover {
+  color: black;
+}
+.orderdetailsummary {
+  padding: 0.3rem 0rem;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+.orderstate.gray {
+  background: gray;
+}
+.orderstate.blue {
+  background: rgb(16, 112, 150);
+}
+.orderstate.Yellow {
+  background: #ff7800;
+}
+.orderstate.green {
+  background: rgb(6, 131, 48);
+}
+.totalamount {
+  font-weight: 600;
+}
+.paidmode {
+  padding-top: 1rem;
+}
+.acceptstatus {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  color: white;
+}
+.acceptstatus.accepted {
+  border: 1px solid green;
+  background: green;
+}
+.acceptstatus.rejected {
+  border: 1px solid red;
+  background: red;
+}
+.ant-modal-footer {
+  display: flex;
+  justify-content: right;
+}
+/* ------------status styling  copied same as it is   (end)--------- */
+/* ------------status styling  my change--------- */
+.orderstatusbarcontadmin {
+  padding: 20px 40px 20px;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 2rem;
+}
+.ordactioncont p {
+  padding: 7px 15px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ----------------table stylings----------- */
+
+.Ordersmaincont {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.7rem;
+}
+.ordul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+.ordli {
+  text-align: center;
+  font-size: 11px;
+  border: 1px solid #d1d1d1;
+  flex-grow: 1;
+  padding: 5px;
+}
+
+.Ordersmaincont table {
+  border-collapse: collapse;
+}
+
+.Ordersmaincont th,
+.Ordersmaincont td {
+  border: 1px solid rgb(170, 170, 170);
+  text-align: center;
+  font-weight: 500;
+}
+.Ordersmaincont tbody tr {
+  flex-direction: row;
+}
+.Ordersmaincont thead tr {
+  background-color: #6d6d6d;
+  color: white;
+  font-weight: 400;
+  flex-direction: row;
+}
+
+.Ordersmaincont tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.infotool {
+  position: absolute;
+  background: #dfdfdf;
+  border-radius: 4px;
+  padding: 0 7px;
+}
+.infotool1 {
+  top: -6px;
+  left: 5px;
+}
+.infotool2 {
+  top: -6px;
+  left: 190px;
+}
+.infotool3 {
+  top: -6px;
+  right: 420px;
+}
+.infotool4 {
+  top: -6px;
+  right: 245px;
+}
+.infotool1.active,
+.infotool2.active,
+.infotool3.active,
+.infotool4.active {
+  background: #d3ffd3;
+}
+.infotool3.yellow {
+  background: #f5d08b;
+  right: 429px;
+}
+.prodimgbtn {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+}
+.prodimgbtn:hover {
+  border: 1px solid gray;
+}
+/* -----------slip image modal styling--------- */
+
+.slipImg {
+  min-width: 300px;
+}

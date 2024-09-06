@@ -1,0 +1,66 @@
+/* --------------product sevivces 4 services div--------------- */
+
+.servicescont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
+}
+.servicesub {
+  display: flex;
+  align-items: center;
+  padding-left: 3rem;
+}
+.serviceimg {
+  width: 4.5rem;
+}
+.svgwarranty {
+  width: 4rem;
+}
+
+.serviceinfo {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+  font-size: var(--fontsize-eemedium);
+}
+
+/*****************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 650px) {
+  .serviceimg {
+    width: 5.5rem;
+  }
+  .svgwarranty {
+    width: 5rem;
+  }
+}
+@media (max-width: 600px) {
+  .servicesub {
+    padding-left: 1rem;
+  }
+}
+@media (max-width: 470px) {
+  .servicescont {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+  .servicesub {
+    padding-left: 1rem;
+  }
+  .serviceimg {
+    width: 4.5rem;
+  }
+  .svgwarranty {
+    width: 4rem;
+  }
+}
+@media (max-width: 340px) {
+  .servicesub {
+    padding-left: 1rem;
+  }
+}

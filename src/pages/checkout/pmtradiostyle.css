@@ -1,0 +1,106 @@
+.radio-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  margin: 1rem auto;
+  text-align: center;
+  justify-content: space-around;
+}
+.custom-radio {
+  margin: 0 0.5rem;
+}
+.custom-radio input {
+  display: none;
+}
+.radio-btn {
+  border: 0.3rem solid transparent;
+  display: inline-block;
+  border-radius: 1rem;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 0 2rem #8f8e8e67;
+  cursor: pointer;
+  background: transparent;
+}
+.logosvgopt {
+  width: 2rem;
+  margin: 0 1.5rem 0 0.5rem;
+}
+.codlogosvgopt {
+  width: 3rem;
+  margin: 0 1.5rem 0 0.5rem;
+}
+
+.hobbies-icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.radio-btn .hobbies-icon h3 {
+  color: #000000;
+  font-size: 1.3rem;
+  font-family: "Poppins";
+  font-weight: 400;
+  padding: 0.2rem 0.5rem 0.2rem 1.5rem;
+  transition: 0.2s;
+  margin: 0.7rem 0;
+}
+
+.custom-radio input:checked + .radio-btn {
+  border: 0.3rem solid #ff7900;
+}
+
+/*****************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 1120px) {
+  .radio-btn .hobbies-icon h3 {
+    padding: 0.2rem 0.5rem 0.2rem 1rem;
+  }
+  .logosvgopt {
+    margin: 0 1rem 0 0.5rem;
+  }
+}
+@media (max-width: 980px) {
+  .logosvgopt {
+    width: 2.8rem;
+  }
+  .radio-btn .hobbies-icon h3 {
+    padding: 0.2rem 0.4rem;
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 700px) {
+  .logosvgopt {
+    margin-top: 0.4rem;
+  }
+  .hobbies-icon {
+    flex-direction: column-reverse;
+  }
+}
+@media (max-width: 600px) {
+  .hobbies-icon {
+    flex-direction: row;
+  }
+}
+@media (max-width: 450px) {
+  .hobbies-icon {
+    flex-direction: column-reverse;
+  }
+  .custom-radio {
+    width: 25%;
+  }
+  .radio-btn {
+    height: 100%;
+  }
+  .hobbies-icon {
+    height: 100%;
+  }
+  .paymentdetailscont {
+    margin: 2rem 2rem 0;
+  }
+}

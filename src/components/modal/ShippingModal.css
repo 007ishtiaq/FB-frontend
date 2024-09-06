@@ -1,0 +1,73 @@
+.adrchangesvg svg {
+  width: 2rem;
+  height: auto;
+  display: block;
+  fill: var(--org-primary);
+}
+
+.changebtnsize .textadd {
+  padding: 0.3rem 0.8rem;
+}
+.changebtnsize .textchange {
+  padding: 0.3rem 1.2rem;
+}
+/* css for product info page */
+.prodsidesvg {
+  padding: 0.4rem 1.8rem;
+}
+.btntext {
+  display: none;
+}
+
+/* css for checkout page */
+.checkoutpagemodal {
+  padding: 0;
+}
+.checkoutpagemodal .btntext {
+  display: block;
+}
+.checkoutpagemodal .btnsvg {
+  display: none;
+}
+.adrbookpagemodal .adrchangesvg > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* css for addressbook page */
+.adrbookpagemodal .btntext {
+  display: block;
+}
+.adrbookpagemodal .btnsvg {
+  display: block;
+  padding: 0;
+}
+.adrbookpagemodal .btnsvg svg {
+  fill: white;
+}
+/*****************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 450px) {
+  .prodsidesvg {
+    padding: 0.4rem 0.2rem;
+  }
+  .checkoutpagemodal {
+    padding: 0.2rem 0.8rem;
+  }
+  /* .btnsvg {
+    display: block;
+  } */
+  /* .btntext {
+    display: none;
+  } */
+  /* css for addressbook page */
+  .adrbookpagemodal .btntext {
+    display: block;
+  }
+  .adrbookpagemodal .adrchangesvg > div {
+    gap: 0.5rem;
+  }
+}

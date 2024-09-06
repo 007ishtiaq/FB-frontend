@@ -1,0 +1,24 @@
+/* other styyling is on cart.css */
+.emptywishcont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8rem;
+}
+.emptywishcont p {
+  padding: 0.6rem;
+  margin: 0rem 2rem;
+}
+.empttxtup {
+  font-size: 2rem;
+  color: black;
+}
+.empttxtsub {
+  font-size: 1.3rem;
+  color: gray;
+}
+.EmptyWishlistsvg svg {
+  width: 8.2rem;
+  height: auto;
+}

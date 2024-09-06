@@ -1,0 +1,25 @@
+.mainbodytop.addressinfotop {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0 4rem;
+  /* flex-wrap: wrap; */
+}
+.adrbooksub{
+  justify-content: space-between;
+  height: 89%;
+}
+.noadrtext{
+  font-size: 1.3rem;
+}
+/* ***************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 890px) {
+  .mainbodytop.addressinfotop {
+    grid-template-columns: 1fr 1fr;
+  }
+  .Addressinfo {
+    grid-column: span 2;
+  }
+}
