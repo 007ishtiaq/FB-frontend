@@ -199,34 +199,29 @@ const Register = ({ history }) => {
     initialValues: initialValues,
     validationSchema: registerSchema,
     onSubmit: async (values, action) => {
-      // if (navigator.onLine) {
-      setLoading(true);
-      try {
-        const response = await SendOTP(values.email);
-
-        if (response.status === 200) {
-          toast.success(
-            `OTP sent to "${values.email}". Check your email for the code.`
-          );
-          window.localStorage.setItem("emailForRegistration", values.email);
-          action.resetForm();
+      if (navigator.onLine) {
+        setLoading(true);
+        try {
+          const response = await SendOTP(values.email);
+          if (response.status === 200) {
+            toast.success(`OTP sent to your email please Check your email.`);
+            window.localStorage.setItem("emailForRegistration", values.email);
+            action.resetForm();
+            setLoading(false);
+            history.push("/otpVerification");
+          } else {
+            toast.error(response.data.error || "Error sending OTP");
+          }
+        } catch (error) {
           setLoading(false);
-
-          // Redirect to OTP verification page
-          history.push("/otpVerification");
-        } else {
-          toast.error(response.data.error || "Error sending OTP");
+          toast.error(error.response.data.error || "Error sending OTP");
+          // console.error("Error sending sign-in link:", error);
         }
-      } catch (error) {
-        // console.error("Error sending sign-in link:", error);
+      } else {
         setLoading(false);
-        toast.error(error.response.data.error || "Error sending OTP");
         // toast.error("No Internet Connection");
         setNoNetModal(true);
       }
-      // } else {
-      //   setNoNetModal(true);
-      // }
     },
   });
 

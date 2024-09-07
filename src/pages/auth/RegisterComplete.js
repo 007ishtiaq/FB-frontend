@@ -55,25 +55,29 @@ const RegisterComplete = ({ history }) => {
       if (navigator.onLine) {
         setLoading(true);
         try {
-          const result = await auth.signInWithEmailLink(
-            values.email,
-            window.location.href
+          const { email, password } = values;
+
+          const result = await auth.createUserWithEmailAndPassword(
+            email,
+            password
           );
-          //   console.log("RESULT", result);
-          if (result.user.emailVerified) {
+          console.log("registration result", result);
+          if (result) {
             // remove user email fom local storage
             window.localStorage.removeItem("emailForRegistration");
             // get user id token
             let user = auth.currentUser;
-            await user.updatePassword(values.password);
             const idTokenResult = await user.getIdTokenResult();
 
             createOrUpdateUser(idTokenResult.token)
               .then((res) => {
+                const updatedName = res.data.name
+                  ? res.data.name
+                  : email.split("@")[0];
                 dispatch({
                   type: "LOGGED_IN_USER",
                   payload: {
-                    name: res.data.name,
+                    name: updatedName,
                     email: res.data.email,
                     token: idTokenResult.token,
                     role: res.data.role,
@@ -81,7 +85,9 @@ const RegisterComplete = ({ history }) => {
                   },
                 });
               })
-              .catch();
+              .catch((error) => {
+                console.error("Error updating user in mongodb:", error);
+              });
 
             // redirect
             action.resetForm();
@@ -89,10 +95,16 @@ const RegisterComplete = ({ history }) => {
             setLoading(false);
           }
         } catch (error) {
-          // console.log(error);
           setLoading(false);
-          toast.error("No Internet Connection");
-          setNoNetModal(true);
+          console.error("Error completing registration:", error);
+          if (
+            error.message ===
+            "The email address is already in use by another account."
+          ) {
+            toast.error("User Already Resgister");
+          } else {
+            toast.error("Error completing registration.");
+          }
         }
       } else {
         setNoNetModal(true);

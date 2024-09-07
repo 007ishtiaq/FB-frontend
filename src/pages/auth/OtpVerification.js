@@ -58,42 +58,29 @@ const OtpVerification = ({ history }) => {
     initialValues: initialValues,
     validationSchema: otpSchema,
     onSubmit: async (values, action) => {
-      verifyOTP(values)
-        .then((response) => {
-          if (response.status === 200) {
-            toast.success("OTP verified successfully!");
+      if (navigator.onLine) {
+        setLoading(true);
 
-            // Redirect to Register Complete page
-            history.push("/register/complete");
-          }
-        })
-        .catch((error) => {
-          // Log any errors caught during the request
-          console.error("Error during OTP verification:", error);
-          toast.error(error.response.data.err || "Invalid OTP");
-        });
-
-      // if (navigator.onLine) {
-      // setLoading(true);
-      // try {
-      //   const response = await verifyOTP(values);
-      //   if (response.status === 200) {
-      //     toast.success("OTP verified successfully!");
-      //     action.resetForm();
-      //     setLoading(false);
-      // rediect to register complete
-      // navigate('/register-complete');
-      // } else {
-      //   console.log("response.data.error", response.data.error);
-      //   toast.error(response.data.message || "Invalid OTP");
+        verifyOTP(values)
+          .then((response) => {
+            if (response.status === 200) {
+              toast.success("OTP verified successfully!");
+              action.resetForm();
+              setLoading(false);
+              history.push("/register/complete");
+            }
+          })
+          .catch((error) => {
+            setLoading(false);
+            toast.error(error.response.data.err || "Invalid OTP");
+            // console.error("Error during OTP verification:", error);
+          });
+      } else {
+        setLoading(false);
+        // toast.error("No Internet Connection");
+        setNoNetModal(true);
+      }
     },
-    // } catch (error) {
-    //   console.log("error", error);
-    //   setLoading(false);
-    // toast.error("No Internet Connection");
-    // setNoNetModal(true);
-    // }
-    // },
   });
 
   useEffect(() => {
