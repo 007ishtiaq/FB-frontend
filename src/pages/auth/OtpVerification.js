@@ -23,6 +23,10 @@ const OtpVerification = ({ history }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (user && user.token) history.push("/");
+  }, [user, history]);
+
+  useEffect(() => {
     const handleOnlineStatus = () => {
       if (navigator.onLine) {
         setNoNetModal(false);
@@ -33,10 +37,6 @@ const OtpVerification = ({ history }) => {
       window.removeEventListener("online", handleOnlineStatus);
     };
   }, []);
-
-  useEffect(() => {
-    if (user && user.token) history.push("/");
-  }, [user, history]);
 
   // ---------formik usage--------
 
@@ -84,11 +84,16 @@ const OtpVerification = ({ history }) => {
   });
 
   useEffect(() => {
+    if (!window.localStorage.getItem("emailForRegistration")) history.push("/");
     // Retrieve email from local storage
     const storedEmail = window.localStorage.getItem("emailForRegistration");
     // Set the email value using setValues
     setValues((prevValues) => ({ ...prevValues, email: storedEmail }));
   }, []);
+
+  useEffect(() => {
+    if (user && user.token) history.push("/");
+  }, [user, history]);
 
   return (
     <div className="container">

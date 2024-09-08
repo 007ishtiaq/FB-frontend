@@ -56,3 +56,9 @@ export const verifyOTP = async (values) => {
     values,
   });
 };
+
+export const infoOTP = async (email) => {
+  return await axios.post(`${process.env.REACT_APP_API}/otpinfo`, {
+    email,
+  });
+};

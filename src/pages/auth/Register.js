@@ -28,6 +28,7 @@ const Register = ({ history }) => {
         setNoNetModal(false);
       }
     };
+
     window.addEventListener("online", handleOnlineStatus);
     return () => {
       window.removeEventListener("online", handleOnlineStatus);

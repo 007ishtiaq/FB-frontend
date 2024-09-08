@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { createOrUpdateUser } from "../../functions/auth";
+import { createOrUpdateUser, infoOTP } from "../../functions/auth";
 import Spinner from "../../components/Spinner/Spinner";
 import Smallspinner from "../../components/Spinner/Smallspinner";
 import { ReactComponent as Logosvg } from "../../images/headersvgs/logosign.svg";
@@ -57,42 +57,56 @@ const RegisterComplete = ({ history }) => {
         try {
           const { email, password } = values;
 
-          const result = await auth.createUserWithEmailAndPassword(
-            email,
-            password
-          );
-          console.log("registration result", result);
-          if (result) {
-            // remove user email fom local storage
-            window.localStorage.removeItem("emailForRegistration");
-            // get user id token
-            let user = auth.currentUser;
-            const idTokenResult = await user.getIdTokenResult();
+          // Get OTP information before proceeding
+          const otpResponse = await infoOTP(email);
 
-            createOrUpdateUser(idTokenResult.token)
-              .then((res) => {
-                const updatedName = res.data.name
-                  ? res.data.name
-                  : email.split("@")[0];
-                dispatch({
-                  type: "LOGGED_IN_USER",
-                  payload: {
-                    name: updatedName,
-                    email: res.data.email,
-                    token: idTokenResult.token,
-                    role: res.data.role,
-                    _id: res.data._id,
-                  },
+          console.log("otpResponse", otpResponse.data.otpRecord.isVerified);
+
+          // Check if OTP is verified
+          if (otpResponse.data.otpRecord.isVerified) {
+            // Proceed with user registration if OTP is verified
+            const result = await auth.createUserWithEmailAndPassword(
+              email,
+              password
+            );
+
+            if (result) {
+              // Remove user email from local storage
+              window.localStorage.removeItem("emailForRegistration");
+
+              // Get user ID token
+              let user = auth.currentUser;
+              const idTokenResult = await user.getIdTokenResult();
+
+              createOrUpdateUser(idTokenResult.token)
+                .then((res) => {
+                  const updatedName = res.data.name
+                    ? res.data.name
+                    : email.split("@")[0];
+                  dispatch({
+                    type: "LOGGED_IN_USER",
+                    payload: {
+                      name: updatedName,
+                      email: res.data.email,
+                      token: idTokenResult.token,
+                      role: res.data.role,
+                      _id: res.data._id,
+                    },
+                  });
+                })
+                .catch((error) => {
+                  console.error("Error updating user in mongodb:", error);
                 });
-              })
-              .catch((error) => {
-                console.error("Error updating user in mongodb:", error);
-              });
 
-            // redirect
-            action.resetForm();
-            history.push("/");
+              // Reset form and redirect
+              action.resetForm();
+              history.push("/");
+              setLoading(false);
+            }
+          } else {
+            // OTP verification failed
             setLoading(false);
+            toast.error("OTP verification failed. Please try again.");
           }
         } catch (error) {
           setLoading(false);
@@ -101,7 +115,7 @@ const RegisterComplete = ({ history }) => {
             error.message ===
             "The email address is already in use by another account."
           ) {
-            toast.error("User Already Resgister");
+            toast.error("User Already Registered");
           } else {
             toast.error("Error completing registration.");
           }
@@ -113,11 +127,16 @@ const RegisterComplete = ({ history }) => {
   });
 
   useEffect(() => {
+    if (!window.localStorage.getItem("emailForRegistration")) history.push("/");
     // Retrieve email from local storage
     const storedEmail = window.localStorage.getItem("emailForRegistration");
     // Set the email value using setValues
     setValues((prevValues) => ({ ...prevValues, email: storedEmail }));
   }, []);
+
+  useEffect(() => {
+    if (user && user.token) history.push("/");
+  }, [user, history]);
 
   return (
     <div className="container">
