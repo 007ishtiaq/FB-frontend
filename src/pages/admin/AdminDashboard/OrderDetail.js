@@ -25,6 +25,8 @@ import ItemActioninfoModel from "../../../components/modal/ItemActioninfoModel";
 import Model from "../../../components/Model/Model";
 import ItemActionDetails from "../../../components/itemActionDetails/ItemActionDetails";
 import Switch from "../../../components/Switch/Switch";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import Invoice from "../../../components/order/Invoice";
 
 export default function OrderDetail({ match, history }) {
   const [order, setOrder] = useState("");
@@ -866,7 +868,7 @@ export default function OrderDetail({ match, history }) {
                     <button class="mybtn btnprimary">
                       Download Vendor Slip
                     </button>
-                    <button class="mybtn btnprimary">Download Invoice</button>
+
                     <button
                       class="mybtn btnprimary delorder"
                       onClick={() => {
@@ -875,6 +877,15 @@ export default function OrderDetail({ match, history }) {
                     >
                       Delete Order
                     </button>
+                    <span>
+                      <PDFDownloadLink
+                        document={<Invoice order={order} email={user.email} />}
+                        fileName="invoice.pdf"
+                        className="mybtn btnprimary"
+                      >
+                        Download Receipt PDF
+                      </PDFDownloadLink>
+                    </span>
                   </div>
                 </div>
               </div>
