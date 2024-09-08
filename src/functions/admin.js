@@ -101,6 +101,16 @@ export const deleteOrder = async (id, authtoken) =>
       },
     }
   );
+export const sendInvoiceToEmail = async (id, authtoken) =>
+  await axios.put(
+    `${process.env.REACT_APP_API}/admin/sendInvoice/`,
+    { id },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
 
 export const getActionInfo = async (prodId, currentinfo, authtoken) =>
   await axios.put(

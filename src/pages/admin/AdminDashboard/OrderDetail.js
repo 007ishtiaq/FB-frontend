@@ -14,6 +14,7 @@ import {
   setCashback,
   setPaid,
   setbackDeliver,
+  sendInvoiceToEmail,
 } from "../../../functions/admin";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -270,6 +271,22 @@ export default function OrderDetail({ match, history }) {
           toast.error("Something Went Wrong");
         });
     }
+  };
+
+  const sendInvoice = () => {
+    sendInvoiceToEmail(id, user.token)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success(res.data.message);
+        }
+        if (res.data.error) {
+          toast.error(res.data.error);
+        }
+      })
+      .catch((error) => {
+        // console.log(error);
+        toast.error("Something Went Wrong, Email failed");
+      });
   };
 
   const classToggle = () => {
@@ -862,12 +879,24 @@ export default function OrderDetail({ match, history }) {
                     </div>
                   )}
                   <div class="ordpdfcont">
-                    <button class="mybtn btnprimary">
+                    <button
+                      class="mybtn btnprimary"
+                      onClick={() => {
+                        sendInvoice();
+                      }}
+                    >
                       Send Invoice via Email
                     </button>
-                    <button class="mybtn btnprimary">
-                      Download Vendor Slip
-                    </button>
+
+                    <span>
+                      <PDFDownloadLink
+                        document={<Invoice order={order} email={user.email} />}
+                        fileName="invoice.pdf"
+                        className="mybtn btnprimary"
+                      >
+                        Download Invoice
+                      </PDFDownloadLink>
+                    </span>
 
                     <button
                       class="mybtn btnprimary delorder"
@@ -877,15 +906,6 @@ export default function OrderDetail({ match, history }) {
                     >
                       Delete Order
                     </button>
-                    <span>
-                      <PDFDownloadLink
-                        document={<Invoice order={order} email={user.email} />}
-                        fileName="invoice.pdf"
-                        className="mybtn btnprimary"
-                      >
-                        Download Receipt PDF
-                      </PDFDownloadLink>
-                    </span>
                   </div>
                 </div>
               </div>
