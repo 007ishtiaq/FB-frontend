@@ -202,6 +202,12 @@ tr td {
   position: absolute;
   cursor: pointer;
 }
+.delorder {
+  background: rgb(241, 37, 37);
+}
+.delorder:hover {
+  background: rgb(211, 31, 31);
+}
 
 /* ------------status styling  copied same as it is   (start)--------- */
 

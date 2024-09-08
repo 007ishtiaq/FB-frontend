@@ -10,6 +10,7 @@ import {
   changeAccept,
   OrderUpdate,
   removeOrderItem,
+  deleteOrder,
   setCashback,
   setPaid,
   setbackDeliver,
@@ -25,7 +26,7 @@ import Model from "../../../components/Model/Model";
 import ItemActionDetails from "../../../components/itemActionDetails/ItemActionDetails";
 import Switch from "../../../components/Switch/Switch";
 
-export default function OrderDetail({ match }) {
+export default function OrderDetail({ match, history }) {
   const [order, setOrder] = useState("");
   //for deposit slip modal
   const [showModel, setshowModel] = useState(false);
@@ -244,6 +245,27 @@ export default function OrderDetail({ match }) {
         .catch((err) => {
           console.log(err);
           toast.error(`Edit not Allowed, Somthing Went worng`);
+        });
+    }
+  };
+
+  const removeOrder = () => {
+    const userConfirmed = window.confirm(`Sure you want Remove Item ?`);
+
+    if (userConfirmed) {
+      deleteOrder(id, user.token)
+        .then((res) => {
+          if (res.data.success) {
+            toast.success(res.data.message);
+            history.push("/AdminPanel?page=OrderstoDispatch");
+          }
+          if (res.data.error) {
+            toast.error(res.data.error);
+          }
+        })
+        .catch((error) => {
+          // console.log(error);
+          toast.error("Something Went Wrong");
         });
     }
   };
@@ -839,10 +861,19 @@ export default function OrderDetail({ match }) {
                   )}
                   <div class="ordpdfcont">
                     <button class="mybtn btnprimary">
-                      Download Vendor Slip
+                      Send Invoice via Email
                     </button>
                     <button class="mybtn btnprimary">
-                      Send Invoice via Email
+                      Download Vendor Slip
+                    </button>
+                    <button class="mybtn btnprimary">Download Invoice</button>
+                    <button
+                      class="mybtn btnprimary delorder"
+                      onClick={() => {
+                        removeOrder();
+                      }}
+                    >
+                      Delete Order
                     </button>
                   </div>
                 </div>

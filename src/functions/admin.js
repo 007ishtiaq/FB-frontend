@@ -91,6 +91,17 @@ export const removeOrderItem = async (id, prodId, authtoken) =>
     }
   );
 
+export const deleteOrder = async (id, authtoken) =>
+  await axios.put(
+    `${process.env.REACT_APP_API}/admin/order/delete/`,
+    { id },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+
 export const getActionInfo = async (prodId, currentinfo, authtoken) =>
   await axios.put(
     `${process.env.REACT_APP_API}/order/action`,

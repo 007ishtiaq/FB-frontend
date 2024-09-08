@@ -60,7 +60,7 @@ const RegisterComplete = ({ history }) => {
           // Get OTP information before proceeding
           const otpResponse = await infoOTP(email);
 
-          console.log("otpResponse", otpResponse.data.otpRecord.isVerified);
+          // console.log("otpResponse", otpResponse.data.otpRecord.isVerified);
 
           // Check if OTP is verified
           if (otpResponse.data.otpRecord.isVerified) {
