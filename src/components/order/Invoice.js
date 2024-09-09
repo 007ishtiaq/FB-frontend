@@ -122,7 +122,7 @@ const Invoice = ({ order, email }) => (
           <TableCell style={styles.footerCell2}></TableCell>
           <TableCell style={styles.footerCell3}></TableCell>
           <TableCell style={styles.footerCell4}>
-            {order && `Rs. ${order.paymentIntent.amount}.00`}
+            {order && `$ ${order.paymentIntent.amount}.00`}
           </TableCell>
         </TableHeader>
       </Table>
