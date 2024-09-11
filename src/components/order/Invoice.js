@@ -65,11 +65,11 @@ const Invoice = ({ order, email }) => (
             style={styles.tableCell2}
           />
           <DataTableCell
-            getContent={(x) => `${x.price}`}
+            getContent={(x) => `${Number(x.price || 0).toFixed(2)}`}
             style={styles.tableCell3}
           />
           <DataTableCell
-            getContent={(x) => `${x.price * x.count}`}
+            getContent={(x) => `${(x.price * x.count).toFixed(2)}`}
             style={styles.tableCell4}
           />
         </TableBody>
@@ -99,7 +99,7 @@ const Invoice = ({ order, email }) => (
           <TableCell style={styles.tableCell3}></TableCell>
           <TableCell style={styles.tableCell4}>
             {order && order.paymentIntent && order.paymentIntent.discounted
-              ? `(${order.paymentIntent.discounted})`
+              ? `(${order.paymentIntent.discounted.toFixed(2)})`
               : " "}
           </TableCell>
         </TableHeader>
@@ -111,7 +111,7 @@ const Invoice = ({ order, email }) => (
           <TableCell style={styles.tableCell2}></TableCell>
           <TableCell style={styles.tableCell3}></TableCell>
           <TableCell style={styles.tableCell4}>
-            {order && order.shippingfee}
+            {order && order.shippingfee.toFixed(2)}
           </TableCell>
         </TableHeader>
       </Table>
@@ -122,7 +122,7 @@ const Invoice = ({ order, email }) => (
           <TableCell style={styles.footerCell2}></TableCell>
           <TableCell style={styles.footerCell3}></TableCell>
           <TableCell style={styles.footerCell4}>
-            {order && `$ ${order.paymentIntent.amount}.00`}
+            {order && `$ ${order.paymentIntent.amount.toFixed(2)}`}
           </TableCell>
         </TableHeader>
       </Table>

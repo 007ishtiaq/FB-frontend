@@ -55,7 +55,7 @@ export default function OrderEditForm({ form, setForm, removeItem }) {
                 <td class="ordli">{Color}</td>
 
                 <td class="ordli editli">
-                  Rs.{" "}
+                  ${" "}
                   {
                     <input
                       type="text"
@@ -65,10 +65,9 @@ export default function OrderEditForm({ form, setForm, removeItem }) {
                       onChange={handleChange}
                     ></input>
                   }
-                  .00
                 </td>
                 <td class="ordli editli">
-                  Rs.{" "}
+                  ${" "}
                   {
                     <input
                       type="text"
@@ -78,7 +77,6 @@ export default function OrderEditForm({ form, setForm, removeItem }) {
                       onChange={handleChange}
                     ></input>
                   }
-                  .00
                 </td>
                 <td class="ordli editli">
                   {
@@ -91,7 +89,7 @@ export default function OrderEditForm({ form, setForm, removeItem }) {
                     ></input>
                   }
                 </td>
-                <td class="ordli editli">Rs. {Price * Quantity}.00</td>
+                <td class="ordli editli">$ {(Price * Quantity).toFixed(2)}</td>
               </tr>
             </tbody>
           </table>

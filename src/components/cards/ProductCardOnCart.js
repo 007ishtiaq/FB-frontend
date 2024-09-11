@@ -165,7 +165,7 @@ export default function ProductCardOnCart({
                   <span>Free shipping</span>
                 </div>
               ) : (
-                `$ ${shippingcharges}.00`
+                `$ ${shippingcharges.toFixed(2)}`
               )}
             </span>
           </div>
@@ -174,9 +174,9 @@ export default function ProductCardOnCart({
       <div class="cartpropricedetails">
         {disprice !== null ? (
           <div className="cartpricebinder">
-            <div class="cartproprice">$ {disprice}.00</div>
+            <div class="cartproprice">$ {disprice.toFixed(2)}</div>
             <div class="cartprocutcont">
-              <div class="cartpropricelist">$ {price}.00</div>
+              <div class="cartpropricelist">$ {price.toFixed(2)}</div>
               <div class="dis-persontage">
                 {" "}
                 -{(100 - (disprice / price) * 100).toFixed(0)}%{" "}
@@ -184,7 +184,7 @@ export default function ProductCardOnCart({
             </div>
           </div>
         ) : (
-          <div class="cartproprice">$ {price}.00</div>
+          <div class="cartproprice">$ {price.toFixed(2)}</div>
         )}
         <div class="cartprobtns">
           <div onClick={handleRemove} class="cartprodel">

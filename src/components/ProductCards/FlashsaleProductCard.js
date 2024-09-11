@@ -132,7 +132,8 @@ const FlashsaleProductCard = ({
               <div class="dis p-side">
                 {disprice !== 0 ? (
                   <>
-                    <span>$ {disprice}</span>.00
+                    <span>$ {Math.floor(disprice)}</span>.
+                    {disprice.toFixed(2).split(".")[1]}
                   </>
                 ) : (
                   <span>$ FREE</span>
@@ -148,8 +149,8 @@ const FlashsaleProductCard = ({
           <div class="p-side common-p-side">
             {price && (
               <>
-                <span>$ {price}</span>
-                .00
+                <span>$ {Math.floor(price)}</span>.
+                {price.toFixed(2).split(".")[1]}
               </>
             )}
           </div>

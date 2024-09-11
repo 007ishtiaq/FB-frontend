@@ -349,7 +349,7 @@ const Cart = ({ history }) => {
               <div class="cartleftdown">
                 <div class="subtotalcont">
                   Subtotal ({cart.length} items) :{" "}
-                  <span> $ {getTotal()}.00 </span>
+                  <span> $ {getTotal().toFixed(2)}</span>
                 </div>
                 <div class="cartbtnscont">
                   <Link to="/">
@@ -397,12 +397,12 @@ const Cart = ({ history }) => {
             <div class="summarysubcont">
               <div class="amtcont">
                 <span> Subtotal </span>
-                <span> $ {getTotal()}.00 </span>
+                <span> $ {getTotal().toFixed(2)}</span>
               </div>
 
               <div class="amtcont">
                 <span> Shipping fee </span>
-                <span> $ {getTotalShipping()}.00 </span>
+                <span> $ {getTotalShipping().toFixed(2)}</span>
               </div>
 
               {discountPersent !== null && (
@@ -420,21 +420,14 @@ const Cart = ({ history }) => {
                   </span>
                   {couponType === "Discount" && (
                     <span>
-                      $ -{(getTotal() * discountPersent) / 100}
-                      .00{" "}
+                      $ -{((getTotal() * discountPersent) / 100).toFixed(2)}{" "}
                     </span>
                   )}
                   {couponType === "Cash" && (
-                    <span>
-                      $ -{discountPersent}
-                      .00{" "}
-                    </span>
+                    <span>$ -{discountPersent.toFixed(2)} </span>
                   )}
                   {couponType === "Shipping" && (
-                    <span>
-                      $ -{getTotalShipping()}
-                      .00{" "}
-                    </span>
+                    <span>$ -{getTotalShipping().toFixed(2)} </span>
                   )}
                 </div>
               )}
@@ -454,27 +447,39 @@ const Cart = ({ history }) => {
                     {couponType === "Discount" && (
                       <span>
                         ${" "}
-                        {getTotal() -
+                        {(
+                          getTotal() -
                           (getTotal() * discountPersent) / 100 +
-                          getTotalShipping()}
-                        .00{" "}
+                          getTotalShipping()
+                        ).toFixed(2)}{" "}
                       </span>
                     )}
                     {couponType === "Cash" && (
                       <span>
-                        $ {getTotal() - discountPersent + getTotalShipping()}
-                        .00{" "}
+                        ${" "}
+                        {(
+                          getTotal() -
+                          discountPersent +
+                          getTotalShipping()
+                        ).toFixed(2)}{" "}
                       </span>
                     )}
                     {couponType === "Shipping" && (
                       <span>
-                        $ {getTotal() - getTotalShipping() + getTotalShipping()}
-                        .00{" "}
+                        ${" "}
+                        {(
+                          getTotal() -
+                          getTotalShipping() +
+                          getTotalShipping()
+                        ).toFixed(2)}{" "}
                       </span>
                     )}
                   </>
                 ) : (
-                  <span> $ {getTotal() + getTotalShipping()}.00 </span>
+                  <span>
+                    {" "}
+                    $ {(getTotal() + getTotalShipping()).toFixed(2)}{" "}
+                  </span>
                 )}
               </div>
               {user ? (
