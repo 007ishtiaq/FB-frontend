@@ -281,7 +281,7 @@ export default function OrderDetails({ match }) {
                                 <div className="singleitembinder">
                                   <div class="qtybought">Qty: {pro.count}</div>
                                   <div class="singleitemprice">
-                                    Price: {pro.price}
+                                    Price: {pro.price.toFixed(2)}
                                   </div>
                                 </div>
                                 <div

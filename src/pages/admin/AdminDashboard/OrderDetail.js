@@ -893,7 +893,7 @@ export default function OrderDetail({ match, history }) {
                     <span>
                       <PDFDownloadLink
                         document={<Invoice order={order} email={user.email} />}
-                        fileName={`Order Invoice ID:${order.OrderId}.pdf`}
+                        fileName={`Order Invoice "ID:${order.OrderId}".pdf`}
                         className="mybtn btnprimary"
                       >
                         Download Invoice
