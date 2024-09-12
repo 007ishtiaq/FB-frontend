@@ -120,7 +120,7 @@ const Product = ({ product, contWidth }) => {
               <div class="dis p-side">
                 {disprice !== 0 ? (
                   <>
-                    <span>$ {disprice}</span>.00
+                    <span>$ {disprice.toFixed(2)}</span>
                   </>
                 ) : (
                   <span>$ FREE</span>
@@ -136,8 +136,7 @@ const Product = ({ product, contWidth }) => {
           <div class="p-side common-p-side">
             {price && (
               <>
-                <span>$ {price}</span>
-                .00
+                <span>$ {price.toFixed(2)}</span>
               </>
             )}
           </div>

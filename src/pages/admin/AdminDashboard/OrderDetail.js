@@ -690,17 +690,20 @@ export default function OrderDetail({ match, history }) {
                           </td>
                           <td class="ordli">{p.product.brand}</td>
                           <td class="ordli">{p.color}</td>
-                          <td class="ordli">$ {p.price}.00</td>
+                          <td class="ordli">$ {p.price.toFixed(2)}</td>
                           <td class="ordli">
-                            $ {p.product.shippingcharges}.00
+                            $ {p.product.shippingcharges.toFixed(2)}
                           </td>
                           <td class="ordli">{p.count}</td>
                           <td class="ordli">
-                            {p.price >= 1
+                            {(p.price >= 1
                               ? p.product.shippingcharges
-                              : p.product.shippingcharges * p.count}
+                              : p.product.shippingcharges * p.count
+                            ).toFixed(2)}
                           </td>
-                          <td class="ordli">$ {p.price * p.count}.00</td>
+                          <td class="ordli">
+                            $ {(p.price * p.count).toFixed(2)}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -709,11 +712,11 @@ export default function OrderDetail({ match, history }) {
                 <div class="ordinfosub ordercalc">
                   <ul>
                     <li>
-                      <span>Products Value:</span> $ {getTotal()}
-                      .00
+                      <span>Products Value:</span> $ {getTotal().toFixed(2)}
                     </li>
                     <li>
-                      <span>Delivery Charges: </span>$ {order.shippingfee}.00
+                      <span>Delivery Charges: </span>${" "}
+                      {order.shippingfee.toFixed(2)}
                     </li>
                     {order && order.paymentIntent.discounted && (
                       <li>
@@ -731,15 +734,14 @@ export default function OrderDetail({ match, history }) {
                             </div>
                           )}
                         </span>{" "}
-                        | $ -{order.paymentIntent.discounted}.00
+                        | $ -{order.paymentIntent.discounted.toFixed(2)}
                       </li>
                     )}
                     <li>
                       <span>
                         Total {order.isPaid ? "Paid" : "Payable"}:{" "}
                         {order.paymentIntent.currency}{" "}
-                        {order.paymentIntent.amount}
-                        .00
+                        {order.paymentIntent.amount.toFixed(2)}
                       </span>
                     </li>
                   </ul>

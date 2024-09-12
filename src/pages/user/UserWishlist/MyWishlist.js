@@ -161,7 +161,10 @@ export default function MyWishlist() {
                   </div>
                   <div className="wishlistbinder">
                     <div class="wishlistpprice">
-                      Rs. {pro.disprice ? pro.disprice : pro.price}.00
+                      Rs.{" "}
+                      {pro.disprice
+                        ? pro.disprice.toFixed(2)
+                        : pro.price.toFixed(2)}
                     </div>
                     <div
                       class="wishlistcartbtn"

@@ -392,18 +392,11 @@ export default function OrderDetails({ match }) {
                   <div class="previewprofilesub">
                     <div class="orderdetailsummary">
                       <span> Subtotal </span>
-                      <span>
-                        $ {getSubTotal()}
-                        .00
-                      </span>
+                      <span>$ {Number(getSubTotal()).toFixed(2)} </span>
                     </div>
                     <div class="orderdetailsummary">
                       <span> Shipping fee </span>
-                      <span>
-                        {" "}
-                        $ {order.shippingfee}
-                        .00{" "}
-                      </span>
+                      <span> $ {Number(order.shippingfee).toFixed(2)} </span>
                     </div>
                     {order && order.paymentIntent.discounted && (
                       <div class="orderdetailsummary">
@@ -422,7 +415,10 @@ export default function OrderDetails({ match }) {
                             </div>
                           )}
                         </span>
-                        <span> $ -{order.paymentIntent.discounted}.00 </span>
+                        <span>
+                          {" "}
+                          $ -{order.paymentIntent.discounted.toFixed(2)}{" "}
+                        </span>
                       </div>
                     )}
                     <hr />
@@ -430,8 +426,7 @@ export default function OrderDetails({ match }) {
                       <span> Total Payment: </span>{" "}
                       <span>
                         {" "}
-                        $ {order && order.paymentIntent.amount}
-                        .00
+                        $ {order && order.paymentIntent.amount.toFixed(2)}
                       </span>
                     </div>
                     <div class="paidmode">Paid By: {order.paymentStatus}</div>

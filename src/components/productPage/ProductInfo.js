@@ -377,16 +377,20 @@ export default function ProductInfo({ product, similarProduct }) {
                             <span>
                               {disprice !== 0 ? (
                                 <>
-                                  <span className="pricesize">{disprice}</span>
+                                  <span className="pricesize">
+                                    {Math.floor(disprice)}
+                                  </span>
 
-                                  <span className="pricesmallpart">.00</span>
+                                  <span className="pricesmallpart">
+                                    .{disprice.toFixed(2).split(".")[1]}
+                                  </span>
                                 </>
                               ) : (
                                 <span className="pricesize">FREE</span>
                               )}
                             </span>
                           </div>
-                          <div class="normalprice">$ {price}.00</div>
+                          <div class="normalprice">$ {price.toFixed(2)}</div>
                           <div class="dispersent">
                             <span>
                               -{(100 - (disprice / price) * 100).toFixed(0)}%
@@ -417,8 +421,13 @@ export default function ProductInfo({ product, similarProduct }) {
                       </div>
                       <div className="centerprice">
                         <span className="pricesmallpart">$ </span>
-                        <span className="pricesize">{disprice}</span>
-                        <span className="pricesmallpart">.00</span>
+                        <span className="pricesize">
+                          {Math.floor(disprice)}
+                        </span>
+
+                        <span className="pricesmallpart">
+                          .{disprice.toFixed(2).split(".")[1]}
+                        </span>
                       </div>
                     </>
                   )}
@@ -426,15 +435,17 @@ export default function ProductInfo({ product, similarProduct }) {
                 {!saleTime && (
                   <div className="listprice">
                     <span>List Price: </span>
-                    <span className="crossedprice">$ {price}.00</span>
+                    <span className="crossedprice">$ {price.toFixed(2)}</span>
                   </div>
                 )}
               </>
             ) : (
               <div className="centerprice">
                 <span className="pricesmallpart">$ </span>{" "}
-                <span className="pricesize">{price}</span>
-                <span className="pricesmallpart">.00</span>
+                <span className="pricesize">{Math.floor(price)}</span>
+                <span className="pricesmallpart">
+                  .{price.toFixed(2).split(".")[1]}
+                </span>
               </div>
             )
           ) : (
@@ -541,9 +552,26 @@ export default function ProductInfo({ product, similarProduct }) {
           <div className="rightprice">
             <span className="pricesmallpart">$ </span>{" "}
             <span className="pricesize">
-              {disprice !== null ? (disprice === 0 ? "FREE" : disprice) : price}
+              {disprice !== null ? (
+                disprice === 0 ? (
+                  "FREE"
+                ) : (
+                  <>
+                    {Math.floor(disprice)}
+                    <span className="pricesmallpart">
+                      .{disprice.toFixed(2).split(".")[1]}
+                    </span>
+                  </>
+                )
+              ) : (
+                <>
+                  {Math.floor(price)}
+                  <span className="pricesmallpart">
+                    .{price.toFixed(2).split(".")[1]}
+                  </span>
+                </>
+              )}
             </span>
-            <span className="pricesmallpart">.00</span>
           </div>
         ) : (
           <div className="rightprice">
@@ -634,7 +662,7 @@ export default function ProductInfo({ product, similarProduct }) {
                       <span>Free shipping</span>
                     </div>
                   ) : (
-                    `$ ${shippingcharges}.00`
+                    `$ ${shippingcharges.toFixed(2)}`
                   )}
                 </span>
               ) : (

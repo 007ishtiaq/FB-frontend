@@ -410,11 +410,11 @@ const Checkout = ({ history }) => {
             <div class="summarysubcont">
               <div class="amtcont">
                 <span> Subtotal </span>
-                <span> $ {total}.00 </span>
+                <span> $ {total.toFixed(2)} </span>
               </div>
               <div class="amtcont">
                 <span> Shipping fee </span>
-                <span> $ {shippingfee}.00 </span>
+                <span> $ {shippingfee.toFixed(2)} </span>
               </div>
               {discounted > 0 && (
                 <div class="amtcont">
@@ -429,18 +429,15 @@ const Checkout = ({ history }) => {
                       </div>
                     )}
                   </span>
-                  <span>
-                    $ -{discounted}
-                    .00
-                  </span>
+                  <span>$ -{discounted.toFixed(2)}</span>
                 </div>
               )}
               <div class="totalamt amtcont">
                 <span> Total </span>
                 {totalAfterDiscount > 0 ? (
-                  <span>$ {totalAfterDiscount}.00</span>
+                  <span>$ {totalAfterDiscount.toFixed(2)}</span>
                 ) : (
-                  <span> $ {total + shippingfee}.00 </span>
+                  <span> $ {(total + shippingfee).toFixed(2)} </span>
                 )}
               </div>
               {COD ? (

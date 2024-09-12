@@ -159,10 +159,10 @@ export default function OrdersReturnd({ orders }) {
                       <th class="ordli">Order ID</th>
                       <th class="ordli">Customer Name</th>
                       <th class="ordli">Order Place On</th>
-                      <th class="ordli">Mode or payment</th>
+                      <th class="ordli">Mode of payment</th>
                       <th class="ordli">Total Value</th>
                       <th class="ordli">Payment</th>
-                      <th class="ordli">CashBack</th>
+                      <th class="ordli">Delivered</th>
                       <th class="ordli">Status</th>
                     </tr>
                   </thead>
@@ -170,11 +170,19 @@ export default function OrdersReturnd({ orders }) {
                     {orders.map((order) => (
                       <tr key={order._id}>
                         <td class="ordli">{order.OrderId}</td>
-                        <td class="ordli">{order.shippingto.Name}</td>
+                        <td class="ordli">
+                          {order.shippingto.Name}
+                          {order.products.some(
+                            (product) => product.isCancelled === true
+                          ) && <div className="cnlcircle"></div>}
+                          {order.products.some(
+                            (product) => product.isReturned === true
+                          ) && <div className="rtncircle"></div>}
+                        </td>
                         <td class="ordli">{showMoment(date)}</td>
                         <td class="ordli">{order.paymentStatus}</td>
                         <td class="ordli">
-                          Rs. {order.paymentIntent.amount}.00
+                          $ {order.paymentIntent.amount.toFixed(2)}
                         </td>
                         <td class="ordli">
                           {order.isPaid ? (
@@ -188,7 +196,7 @@ export default function OrdersReturnd({ orders }) {
                           )}
                         </td>
                         <td class="ordli">
-                          {order.isCashBack ? (
+                          {order.isDelivered ? (
                             <div className="stateticksvg">
                               <Ticksvg />
                             </div>
@@ -226,9 +234,10 @@ export default function OrdersReturnd({ orders }) {
                   <th class="ordli">Order ID</th>
                   <th class="ordli">Customer Name</th>
                   <th class="ordli">Order Place On</th>
-                  <th class="ordli">Shipping Address</th>
-                  <th class="ordli">Mode or payment</th>
+                  <th class="ordli">Mode of payment</th>
                   <th class="ordli">Total Value</th>
+                  <th class="ordli">Payment</th>
+                  <th class="ordli">Delivered</th>
                   <th class="ordli">Status</th>
                 </tr>
               </thead>
@@ -236,14 +245,42 @@ export default function OrdersReturnd({ orders }) {
                 {filteredOrders.map((order) => (
                   <tr key={order._id}>
                     <td class="ordli">{order.OrderId}</td>
-                    <td class="ordli">{order.shippingto.Name}</td>
-                    <td class="ordli">2 mints ago, Sep 25, 2023</td>
                     <td class="ordli">
-                      {order.shippingto.Address}
-                      {order.shippingto.City}
+                      {order.shippingto.Name}
+                      {order.products.some(
+                        (product) => product.isCancelled === true
+                      ) && <div className="cnlcircle"></div>}
+                      {order.products.some(
+                        (product) => product.isReturned === true
+                      ) && <div className="rtncircle"></div>}
                     </td>
+                    <td class="ordli">{showMoment(order.createdAt)}</td>
                     <td class="ordli">{order.paymentStatus}</td>
-                    <td class="ordli">Rs. {order.paymentIntent.amount}.00</td>
+                    <td class="ordli">
+                      $ {order.paymentIntent.amount.toFixed(2)}
+                    </td>
+                    <td class="ordli">
+                      {order.isPaid ? (
+                        <div className="stateticksvg">
+                          <Ticksvg />
+                        </div>
+                      ) : (
+                        <div className="statecrossvg">
+                          <Crosssvg />
+                        </div>
+                      )}
+                    </td>
+                    <td class="ordli">
+                      {order.isDelivered ? (
+                        <div className="stateticksvg">
+                          <Ticksvg />
+                        </div>
+                      ) : (
+                        <div className="statecrossvg">
+                          <Crosssvg />
+                        </div>
+                      )}
+                    </td>
                     <td className="ordli">
                       <Link to={`/admin/order/${order._id}`}>
                         <div
