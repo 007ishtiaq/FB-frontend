@@ -86,7 +86,7 @@ const OtpVerification = ({ history }) => {
   });
 
   useEffect(() => {
-    // if (!window.localStorage.getItem("emailForRegistration")) history.push("/");
+    if (!window.localStorage.getItem("emailForRegistration")) history.push("/");
     // Retrieve email from local storage
     const storedEmail = window.localStorage.getItem("emailForRegistration");
     setUserEmail(window.localStorage.getItem("emailForRegistration"));
