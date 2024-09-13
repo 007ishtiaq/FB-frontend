@@ -1,0 +1,37 @@
+.otpcont {
+  font-family: "Raleway", sans-serif;
+  font-weight: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+}
+
+.digit-group {
+  display: flex;
+  align-items: center;
+}
+
+.digit-group input {
+  width: 30px;
+  height: 50px;
+  border: 1px solid #ccc;
+  line-height: 50px;
+  text-align: center;
+  font-size: 24px;
+  color: rgb(78, 78, 78);
+  margin: 0 2px;
+}
+.digit-group input:hover,
+.digit-group input:focus {
+  border-color: var(--org-primary) !important;
+  box-shadow: 0 0 7px rgba(255, 165, 0, 0.5);
+}
+
+.digit-group .splitter {
+  padding: 0 5px;
+  color: rgb(88, 88, 88);
+  font-size: 24px;
+}

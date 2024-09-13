@@ -14,10 +14,12 @@ import { otpSchema } from "../../schemas";
 import NoNetModal from "../../components/NoNetModal/NoNetModal";
 import { ReactComponent as Googlesvg } from "../../images/login/google.svg";
 import { ReactComponent as Facebooksvg } from "../../images/login/facebook.svg";
+import Otpinput from "../../components/otpinput/Otpinput";
 
 const OtpVerification = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const [noNetModal, setNoNetModal] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
 
   const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
@@ -84,9 +86,10 @@ const OtpVerification = ({ history }) => {
   });
 
   useEffect(() => {
-    if (!window.localStorage.getItem("emailForRegistration")) history.push("/");
+    // if (!window.localStorage.getItem("emailForRegistration")) history.push("/");
     // Retrieve email from local storage
     const storedEmail = window.localStorage.getItem("emailForRegistration");
+    setUserEmail(window.localStorage.getItem("emailForRegistration"));
     // Set the email value using setValues
     setValues((prevValues) => ({ ...prevValues, email: storedEmail }));
   }, []);
@@ -118,32 +121,14 @@ const OtpVerification = ({ history }) => {
                 )}
               </div>
               <div class="welcometxt">Welcome to Appliance Bazar</div>
-              <div class="guidetxt">Type your Email for Registration</div>
+              <div class="guidetxt">Enter OTP Sent to {userEmail}</div>
               <form onSubmit={handleSubmit} className="submitionform">
-                <div class="logininputcont">
-                  <div class="logininput registerinputcont">
-                    <label for="otp">OTP</label>
-                    <input
-                      name="otp"
-                      id="otp"
-                      type="text"
-                      value={values.otp}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Your OTP"
-                      autoComplete="off"
-                      autoFocus
-                    />
-                    {errors.otp && touched.otp ? (
-                      <p className="errorstate">{errors.otp}</p>
-                    ) : null}
-                  </div>
-                </div>
+                <Otpinput setValues={setValues} />
                 <div class="submitbtncont">
                   <button
                     type="submit"
                     class="submitbtn"
-                    disabled={!values.otp || isSubmitting}
+                    disabled={values.otp.length !== 6 || isSubmitting}
                   >
                     Verify OTP
                   </button>
