@@ -15,6 +15,7 @@ import NoNetModal from "../../components/NoNetModal/NoNetModal";
 import { ReactComponent as Googlesvg } from "../../images/login/google.svg";
 import { ReactComponent as Facebooksvg } from "../../images/login/facebook.svg";
 import Otpinput from "../../components/otpinput/Otpinput";
+import { SendOTP } from "../../functions/auth";
 
 const OtpVerification = ({ history }) => {
   const [loading, setLoading] = useState(false);
@@ -98,6 +99,27 @@ const OtpVerification = ({ history }) => {
     if (user && user.token) history.push("/");
   }, [user, history]);
 
+  const resendOtp = async () => {
+    if (navigator.onLine) {
+      setLoading(true);
+      try {
+        const response = await SendOTP(values.email);
+        if (response.status === 200) {
+          toast.success(`OTP successfully resent to your email`);
+          setLoading(false);
+        } else {
+          toast.error(response.data.error || "Error sending OTP");
+        }
+      } catch (error) {
+        setLoading(false);
+        toast.error(error.response.data.error || "Error sending OTP");
+      }
+    } else {
+      setLoading(false);
+      setNoNetModal(true);
+    }
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -124,6 +146,16 @@ const OtpVerification = ({ history }) => {
               <div class="guidetxt">Enter OTP Sent to {userEmail}</div>
               <form onSubmit={handleSubmit} className="submitionform">
                 <Otpinput setValues={setValues} />
+                <div className="retrycont">
+                  Don't get the code?{" "}
+                  <button
+                    className="mybtn btnsecond resendbtn"
+                    onClick={resendOtp}
+                    type="button"
+                  >
+                    Resend
+                  </button>
+                </div>
                 <div class="submitbtncont">
                   <button
                     type="submit"

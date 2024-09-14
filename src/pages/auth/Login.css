@@ -282,6 +282,15 @@
 .registerinputcont {
   height: 6rem;
 }
+.retrycont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.resendbtn {
+  margin-left: 1rem;
+  padding: 0.5rem 0.7rem;
+}
 /*****************************************
 **************Responsiveness***********
 *************************************** */
