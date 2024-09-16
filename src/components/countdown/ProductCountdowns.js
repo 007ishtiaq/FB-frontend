@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-export default function ProductCountdowns({ products, getcurrentFlash }) {
-  const [saleEnded, setSaleEnded] = useState(false);
-
+export default function ProductCountdowns({
+  products,
+  getcurrentFlash,
+  saleEnded,
+  setSaleEnded,
+}) {
   const now = new Date();
   const uniqueTimes = Array.from(
     new Set(products.map((product) => new Date(product.saleTime)))
@@ -22,15 +25,6 @@ export default function ProductCountdowns({ products, getcurrentFlash }) {
 
     return () => clearInterval(countdown);
   }, [nearestSaleTime]);
-
-  useEffect(() => {
-    if (saleEnded) {
-      setTimeout(() => {
-        getcurrentFlash();
-        // window.location.reload();
-      }, 3000); // Reload after 3 seconds when the sale ends
-    }
-  }, [saleEnded]);
 
   const CountdownTimer = ({ targetTime }) => {
     const calculateTimeLeft = () => {

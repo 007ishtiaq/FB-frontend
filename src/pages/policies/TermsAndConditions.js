@@ -22,7 +22,6 @@ export default function TermsAndConditions() {
         <div class="contacttopcont">
           <div class="contactheadcont">
             <p>
-              Terms and Conditions{" "}
               {staticTexts && staticTexts.length > 0 && staticTexts[0].info1}
             </p>
           </div>

@@ -1,21 +1,10 @@
 import React from "react";
+import search from "./Placeanorder/1.webp";
 
 export default function Placeanorder() {
   return (
     <div class="contentswrap">
       <h2 className="maincontecthead">How to place an order</h2>
-      <p>&nbsp;</p>
-      <p>
-        <iframe
-          title="YouTube video player"
-          src="https://www.youtube.com/embed/XyUwkOvzqCA?si=2tX0gzDpXJuLVsNx"
-          width="560"
-          height="315"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen="allowfullscreen"
-        ></iframe>
-      </p>
       <p>&nbsp;</p>
       <p dir="ltr">Place an order in a few simple steps:</p>
       <p dir="ltr">&nbsp;</p>
@@ -39,8 +28,8 @@ export default function Placeanorder() {
             >
               <div class="IZ6rdc">
                 •&nbsp;Browse the&nbsp;
-                <a class="-cta" href="https://www.jumia.com.ng/">
-                  JUMIA WEBSITE&nbsp;
+                <a class="-cta" href="https://www.fashionblush.com/">
+                  FASHION BLUSH&nbsp;
                 </a>
                 or use the search bar to find the product you want to order.
               </div>
@@ -72,23 +61,20 @@ export default function Placeanorder() {
       <p dir="ltr">&nbsp;</p>
       <p dir="ltr">
         <strong>
-          Ensure to check the seller score, product rating, pricing, warranty
-          information, and the product description.
+          Ensure to check the product rating, pricing and the product
+          description.
         </strong>
       </p>
       <p dir="ltr">&nbsp;</p>
       <p>
-        <img
-          class="-dkimg"
-          src="https://ng.jumia.is/cms/0-1-initiatives/cxp/2023/place-order-1-dk.png"
-        />
+        <img class="-dkimg" src={search} />
       </p>
-      <p>
+      {/* <p>
         <img
           class="-mbimg"
           src="https://ng.jumia.is/cms/0-1-initiatives/cxp/2023/place-order/place-order-1-m.png"
         />
-      </p>
+      </p> */}
       <p dir="ltr">&nbsp;</p>
       <p dir="ltr">
         <strong>Step 2</strong>:&nbsp;
@@ -108,18 +94,18 @@ export default function Placeanorder() {
           src="https://ng.jumia.is/cms/0-1-initiatives/cxp/2023/place-order-2-dk.png"
         />
       </p>
-      <p>
+      {/* <p>
         <img
           class="-mbimg"
           src="https://ng.jumia.is/cms/0-1-initiatives/cxp/2023/place-order/place-order-2-m.png"
         />
-      </p>
-      <p>
+      </p> */}
+      {/* <p>
         <img
           class="-mbimg"
           src="https://ng.jumia.is/cms/0-1-initiatives/cxp/2023/place-order/place-order-3-m.png"
         />
-      </p>
+      </p> */}
       <p dir="ltr">&nbsp;</p>
       <p>
         <img

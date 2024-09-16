@@ -10,6 +10,7 @@ import ProductCardSkull from "../../Skeletons/ProductCardSkull";
 const ProductsGroup = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [saleEnded, setSaleEnded] = useState(false);
 
   const [contwidth, setContwidth] = useState(0);
   const [elementwidth, setElementwidth] = useState(0);
@@ -19,7 +20,7 @@ const ProductsGroup = () => {
       setLoading(false);
       setProducts(p.data);
     });
-  }, []);
+  }, [saleEnded]);
 
   useEffect(() => {
     const proarea = document.querySelector(".productsarea");
@@ -52,6 +53,8 @@ const ProductsGroup = () => {
             <ProductCountdowns
               products={products}
               getcurrentFlash={getcurrentFlash}
+              saleEnded={saleEnded}
+              setSaleEnded={setSaleEnded}
             />
 
             <Link to={`/Flashsale`}>

@@ -199,11 +199,6 @@ export default function Footer() {
                       Pay for Order
                     </Link>
                   </li>
-                  <li>
-                    <Link to="/ReturnandRefundPolicy" class="col-li">
-                      Returns & Refunds
-                    </Link>
-                  </li>
 
                   <li>
                     <Link to="/ContactUs" class="col-li">
@@ -215,7 +210,7 @@ export default function Footer() {
             </div>
 
             <div class="footer-colum">
-              <div class="col-heading">PearlyTouch</div>
+              <div class="col-heading">Fashion Blush</div>
               <div class="col-ul">
                 <ul>
                   <li>
@@ -236,6 +231,11 @@ export default function Footer() {
                   <li>
                     <Link to="/CookiePolicy" class="col-li">
                       Cookie Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/ReturnandRefundPolicy" class="col-li">
+                      Returns & Refunds policy
                     </Link>
                   </li>
                 </ul>
