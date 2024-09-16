@@ -97,8 +97,8 @@ export default function SearchFilter({ products, setProducts }) {
         price[1] === 0 &&
         !star &&
         !sub &&
-        !color
-        // && !shipping
+        !color &&
+        !shipping
       ) {
         loadAllProducts();
       }
@@ -442,7 +442,20 @@ export default function SearchFilter({ products, setProducts }) {
 
   return (
     <div class="filtercont">
-      <div onClick={Clearfilter} className="clearfilter btn btnsecond">
+      <div
+        onClick={Clearfilter}
+        className={`clearfilter btn btnsecond ${
+          (category ||
+            brand ||
+            star ||
+            sub ||
+            color ||
+            shipping ||
+            price[0] !== 0 ||
+            price[1] !== 0) &&
+          "filteractive"
+        }`}
+      >
         <div className="clearsvgcont">
           <Clearsvg></Clearsvg>
         </div>

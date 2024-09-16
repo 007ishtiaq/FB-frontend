@@ -395,6 +395,13 @@ input[type="range"]::-moz-range-thumb {
   align-items: center;
   padding: 0.5rem;
   font-size: 1.2rem;
+  background-color: #f1f1f1;
+}
+.clearfilter.filteractive {
+  background-color: #ffbebe;
+}
+.clearfilter.filteractive:hover {
+  background-color: #ff9898;
 }
 .clearsvgcont {
   width: 2rem;
