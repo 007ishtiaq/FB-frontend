@@ -31,7 +31,7 @@ export default function SearchFilter({ products, setProducts }) {
   const [brand, setBrand] = useState("");
   const [colors, setColors] = useState([]); // to show the available list of colors
   const [color, setColor] = useState("");
-  // const [shipping, setShipping] = useState("");
+  const [shipping, setShipping] = useState("");
   const [highestPrice, setHighestPrice] = useState(0); // Highest Price for price filter
   const [selectedSub2, setSelectedSub2] = useState(null);
 
@@ -111,7 +111,7 @@ export default function SearchFilter({ products, setProducts }) {
         setSub("");
         setBrand("");
         setColor("");
-        // setShipping("");
+        setShipping("");
       }
     }, 500);
     return () => clearTimeout(delayed);
@@ -137,7 +137,7 @@ export default function SearchFilter({ products, setProducts }) {
     setSub("");
     setBrand("");
     setColor("");
-    // setShipping("");
+    setShipping("");
     // setTimeout(() => {
     //   setOk(!ok);
     // }, 300);
@@ -172,7 +172,7 @@ export default function SearchFilter({ products, setProducts }) {
     setSub("");
     setBrand("");
     setColor("");
-    // setShipping("");
+    setShipping("");
 
     setCategory(e.target.value);
     fetchProducts({ category: e.target.value });
@@ -217,7 +217,7 @@ export default function SearchFilter({ products, setProducts }) {
     setStar("");
     setColor("");
     setBrand(e.target.value);
-    // setShipping("");
+    setShipping("");
     fetchProducts({ brand: e.target.value });
   };
 
@@ -306,7 +306,7 @@ export default function SearchFilter({ products, setProducts }) {
     setSub("");
     setBrand("");
     setColor("");
-    // setShipping("");
+    setShipping("");
     fetchProducts({ stars: num });
   };
 
@@ -346,7 +346,7 @@ export default function SearchFilter({ products, setProducts }) {
     setStar("");
     setBrand("");
     setColor("");
-    // setShipping("");
+    setShipping("");
     fetchProducts({ sub: sub2Item });
   };
 
@@ -376,32 +376,32 @@ export default function SearchFilter({ products, setProducts }) {
     setStar("");
     setBrand("");
     setColor(e.target.value);
-    // setShipping("");
+    setShipping("");
     fetchProducts({ color: e.target.value });
   };
 
   // 9. show products based on shipping yes/no  // working pending
-  // const showShipping = () => (
-  //   <>
-  //     <Checkbox
-  //       className="pb-2 pl-4 pr-4"
-  //       onChange={handleShippingchange}
-  //       value="Yes"
-  //       checked={shipping === "Yes"}
-  //     >
-  //       Yes
-  //     </Checkbox>
+  const showShipping = () => (
+    <>
+      <Checkbox
+        className="pb-2 pl-4 pr-4"
+        onChange={handleShippingchange}
+        value="Yes"
+        checked={shipping === "Yes"}
+      >
+        Yes
+      </Checkbox>
 
-  //     <Checkbox
-  //       className="pb-2 pl-4 pr-4"
-  //       onChange={handleShippingchange}
-  //       value="No"
-  //       checked={shipping === "No"}
-  //     >
-  //       No
-  //     </Checkbox>
-  //   </>
-  // );
+      <Checkbox
+        className="pb-2 pl-4 pr-4"
+        onChange={handleShippingchange}
+        value="No"
+        checked={shipping === "No"}
+      >
+        No
+      </Checkbox>
+    </>
+  );
 
   const Clearfilter = () => {
     loadAllProducts();
@@ -419,26 +419,26 @@ export default function SearchFilter({ products, setProducts }) {
     setSub("");
     setBrand("");
     setColor("");
-    // setShipping("");
+    setShipping("");
     // setTimeout(() => {
     //   setOk(!ok);
     // }, 300);
   };
 
-  // const handleShippingchange = (e) => {
-  //   setSub("");
-  //   dispatch({
-  //     type: "SEARCH_QUERY",
-  //     payload: { text: "" },
-  //   });
-  //   setPrice([0, 0]);
-  //   setCategory("");
-  //   setStar("");
-  //   setBrand("");
-  //   setColor("");
-  //   setShipping(e.target.value);
-  //   fetchProducts({ shipping: e.target.value });
-  // };
+  const handleShippingchange = (e) => {
+    setSub("");
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategory("");
+    setStar("");
+    setBrand("");
+    setColor("");
+    setShipping(e.target.value);
+    fetchProducts({ shipping: e.target.value });
+  };
 
   return (
     <div class="filtercont">
@@ -539,9 +539,9 @@ export default function SearchFilter({ products, setProducts }) {
           key="17"
           title={<div class="filterheading">FREE SHIPPING</div>}
         >
-          {/* <div style={{ maringTop: "-10px" }} className="pr-5">
+          <div style={{ maringTop: "-10px" }} className="pr-5">
             {showShipping()}
-          </div> */}
+          </div>
         </SubMenu>
       </Menu>
     </div>
