@@ -150,6 +150,7 @@ export default function ProductInfo({ product, similarProduct }) {
           cart.map((prod, i) => {
             if (prod._id == product._id) {
               cart[i].count = qty;
+              toast.success("Added to Cart");
             }
           });
         } else {
