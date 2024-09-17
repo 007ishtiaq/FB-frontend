@@ -224,6 +224,11 @@ export default function Footer() {
                     </Link>
                   </li>
                   <li>
+                    <Link to="/ReturnandRefundPolicy" class="col-li">
+                      Returns & Refunds policy
+                    </Link>
+                  </li>
+                  <li>
                     <Link to="/PrivacyPolicy" class="col-li">
                       Privacy Policy
                     </Link>
@@ -231,11 +236,6 @@ export default function Footer() {
                   <li>
                     <Link to="/CookiePolicy" class="col-li">
                       Cookie Policy
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/ReturnandRefundPolicy" class="col-li">
-                      Returns & Refunds policy
                     </Link>
                   </li>
                 </ul>

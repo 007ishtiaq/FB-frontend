@@ -16,9 +16,10 @@ export default function AboutUs() {
             <img src={visionimg} alt="" />
           </div>
           <div className="visiontextside">
+            <h2 className="visionhead">Vision</h2>
             <p>
-              My vision text jhhkjhkj jkhkjhkhk kjhkjhkhkjh khkjhkjh kjhkjhkjh
-              khkjhk jkhkjhkjh khkjh kjhkjh kjh{" "}
+              We are building the most beloved and trusted shopping destination
+              for United State.
             </p>
           </div>
         </div>

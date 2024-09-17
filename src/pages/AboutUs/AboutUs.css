@@ -18,17 +18,27 @@
   border-radius: 0.8rem;
   overflow: hidden;
 }
+.visionhead {
+  color: white;
+  font-size: 3rem;
+  font-weight: 600;
+}
 .visiontextside {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100%;
   background-color: #ff8a20;
   color: white;
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 400;
   width: 60%;
-  padding: 2rem;
+  padding: 2rem 4rem;
+}
+.visiontextside p {
+  text-align: center;
+  width: 90%;
 }
 .visionimgside {
   width: 40%;
@@ -86,7 +96,14 @@
   }
   .visiontextside {
     font-size: 1.5rem;
-    padding: 1rem;
+    padding: 1rem 2rem;
+  }
+  .visionhead {
+    font-size: 2rem;
+    font-weight: 500;
+  }
+  .visiontextside p {
+    width: 90%;
   }
 }
 @media (max-width: 550px) {
