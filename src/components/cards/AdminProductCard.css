@@ -1,0 +1,15 @@
+.actionbtns {
+  display: flex;
+}
+.actionbtns * {
+  margin: 0 0.3rem;
+}
+.common-p-side {
+  display: flex;
+}
+.shippinginfoadmin {
+  margin-left: 1rem;
+}
+.dis.p-side.shippinginfoadmin {
+  font-size: 2rem;
+}

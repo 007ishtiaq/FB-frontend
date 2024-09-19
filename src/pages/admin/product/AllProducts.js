@@ -5,6 +5,8 @@ import AdminProductCard from "../../../components/cards/AdminProductCard";
 import { removeProduct } from "../../../functions/product";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
+import FlashsaleProductCard from "../../../components/ProductCards/FlashsaleProductCard";
+import "../../../components/ProductCards/ProductCardsAll.css";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -50,12 +52,18 @@ const AllProducts = () => {
       {loading ? (
         <h4 className="text-danger">Loading...</h4>
       ) : (
-        <h4>All Products</h4>
+        <h4>All Products (This will load 100 products Only)</h4>
       )}
       <div className="row">
-        {products.map((product) => (
-          <div key={product._id} className="col-md-4 pb-3">
-            <AdminProductCard product={product} handleRemove={handleRemove} />
+        {products.map((prod) => (
+          <div key={prod._id} className="col-md-3 pb-3">
+            <AdminProductCard
+              key={prod._id}
+              product={prod}
+              contWidth={1200}
+              FlashSalesCont={true}
+              handleRemove={handleRemove}
+            />
           </div>
         ))}
       </div>
