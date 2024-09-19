@@ -68,7 +68,7 @@ const Checkout = ({ history }) => {
       setCouponType(res.data.discountType);
       setTotalAfterDiscount(res.data.totalAfterDiscount);
 
-      if (res.data.cartTotal === 0) {
+      if (res.data.cartTotal === 0 && res.data.shippingfee === 0) {
         history.push("/404");
       }
     });
@@ -393,7 +393,7 @@ const Checkout = ({ history }) => {
               </div>
               {!values.Address && (
                 <div class="shippingmissing">
-                  Shipping details missing, Please Shipping details for
+                  Shipping details missing, Please provide Shipping details to
                   process.*
                 </div>
               )}
