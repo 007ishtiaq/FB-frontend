@@ -68,9 +68,9 @@ const Checkout = ({ history }) => {
       setCouponType(res.data.discountType);
       setTotalAfterDiscount(res.data.totalAfterDiscount);
 
-      // if (res.data.cartTotal === 0 && res.data.shippingfee === 0) {
-      //   history.push("/404");
-      // }
+      if (res.data.cartTotal === 0 && res.data.shippingfee === 0) {
+        history.push("/404");
+      }
     });
   }, []);
 
