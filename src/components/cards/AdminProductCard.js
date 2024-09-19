@@ -129,7 +129,7 @@ const AdminProductCard = ({
         >
           <span>{title}</span>
         </div>
-        <div class="remaincount">
+        <div class="remaincount adminprodcard">
           {onSale === "Yes" ? (
             <div class="remaincount-side">{quantity} items left</div>
           ) : (
@@ -148,13 +148,13 @@ const AdminProductCard = ({
                 className="smallsvgbtn"
               />
             </div>
-            <span>
+            <div>
               <Link to={`/admin/product/${slug}`}>
                 <div className="smallsvgbtncont">
                   <Editsvg className="smallsvgbtn" />
                 </div>
               </Link>
-            </span>
+            </div>
           </div>
         </div>
         {onSale === "Yes" && quantity > 0 && (

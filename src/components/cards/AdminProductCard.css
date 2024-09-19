@@ -13,3 +13,9 @@
 .dis.p-side.shippinginfoadmin {
   font-size: 2rem;
 }
+.remaincount.adminprodcard {
+  align-items: center;
+}
+.actionbtns .smallsvgbtncont {
+  display: inline-block;
+}

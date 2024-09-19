@@ -451,6 +451,7 @@ export default function SearchFilter({ products, setProducts }) {
             sub ||
             color ||
             shipping ||
+            text ||
             price[0] !== 0 ||
             price[1] !== 0) &&
           "filteractive"
