@@ -68,9 +68,9 @@ const Checkout = ({ history }) => {
       setCouponType(res.data.discountType);
       setTotalAfterDiscount(res.data.totalAfterDiscount);
 
-      if (res.data.cartTotal === 0 && res.data.shippingfee === 0) {
-        history.push("/404");
-      }
+      // if (res.data.cartTotal === 0 && res.data.shippingfee === 0) {
+      //   history.push("/404");
+      // }
     });
   }, []);
 
@@ -305,7 +305,7 @@ const Checkout = ({ history }) => {
   };
 
   const tooltiphandlerCOD = () => {
-    if (!total) {
+    if (total + shippingfee === 0) {
       return "Cart is Empty";
     }
     if (!values.Contact) {
@@ -318,7 +318,7 @@ const Checkout = ({ history }) => {
     }
   };
   const tooltiphandler = () => {
-    if (!total) {
+    if (total + shippingfee === 0) {
       return "Cart is Empty";
     }
     if (!values.Contact) {
@@ -443,7 +443,11 @@ const Checkout = ({ history }) => {
               {COD ? (
                 <button
                   className="checkoutbtn"
-                  disabled={!values.Contact || !values.Address || !total}
+                  disabled={
+                    !values.Contact ||
+                    !values.Address ||
+                    total + shippingfee === 0
+                  }
                   onClick={createCashOrder}
                 >
                   <Tooltip title={tooltiphandlerCOD()}>
@@ -454,7 +458,10 @@ const Checkout = ({ history }) => {
                 <button
                   className="checkoutbtn"
                   disabled={
-                    !values.Contact || !values.Address || !file || !total
+                    !values.Contact ||
+                    !values.Address ||
+                    !file ||
+                    total + shippingfee === 0
                   }
                   onClick={createOrder}
                 >
