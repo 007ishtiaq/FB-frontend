@@ -93,8 +93,8 @@ export default function SearchFilter({ setProducts, page, setProductsCount }) {
       }
     }, 300);
 
-    return () => clearTimeout(delayed); // Cleanup to avoid multiple triggers
-  }, [page, text]);
+    return () => clearTimeout(delayed);
+  }, [page]);
 
   // 2. load products on user search input
   useEffect(() => {
