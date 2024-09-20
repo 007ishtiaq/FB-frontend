@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
-import { getProductsByCount } from "../../../functions/product";
 import AdminProductCard from "../../../components/cards/AdminProductCard";
 import { removeProduct } from "../../../functions/product";
 import { useSelector } from "react-redux";
@@ -26,9 +25,9 @@ const AllProducts = () => {
 
   useEffect(() => {
     const delayed = setTimeout(() => {
-      fetchProducts({ query: text });
-
-      if (!text) {
+      if (text) {
+        fetchProducts({ query: text });
+      } else {
         loadAllProducts();
       }
     }, 300);
@@ -36,18 +35,18 @@ const AllProducts = () => {
     return () => clearTimeout(delayed);
   }, [page, text]);
 
-  const loadAllProducts = () => {
-    setLoading(true);
-    getProductsByPage(page)
-      .then((p) => {
-        setProducts(p.data.products);
-        setProductsCount(p.data.totalProducts);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-      });
+  const loadAllProducts = async () => {
+    try {
+      setLoading(true);
+      const { data } = await getProductsByPage(page);
+      setProducts(data.products);
+      setProductsCount(data.totalProducts);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to load products");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleRemove = (slug) => {
@@ -120,7 +119,8 @@ const AllProducts = () => {
         <div class="previewpagination">
           <Pagination
             current={page}
-            total={(productsCount / 2) * 10}
+            total={productsCount}
+            pageSize={2} // Since you're showing 2 products per page
             onChange={(value) => setPage(value)}
           />
         </div>
