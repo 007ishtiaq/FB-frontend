@@ -8,7 +8,10 @@ export const createProduct = async (product, authtoken) =>
   });
 
 export const getProductsByCount = async (count) =>
-  await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
+  await axios.get(`${process.env.REACT_APP_API}/productsByCount/${count}`);
+
+export const getProductsByPage = async (page) =>
+  await axios.get(`${process.env.REACT_APP_API}/products/${page}`);
 
 export const removeProduct = async (slug, authtoken) =>
   await axios.delete(`${process.env.REACT_APP_API}/product/${slug}`, {

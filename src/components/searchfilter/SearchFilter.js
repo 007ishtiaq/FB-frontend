@@ -4,7 +4,7 @@ import { Menu, Slider, Checkbox, Radio } from "antd";
 import { getCategorySubs } from "../../functions/category";
 import { getSubsSub2 } from "../../functions/sub";
 import {
-  getProductsByCount,
+  getProductsByPage,
   fetchProductsByFilter,
   getHighestPrice,
 } from "../../functions/product";
@@ -14,13 +14,12 @@ import { getSubs } from "../../functions/sub";
 import { getBrands } from "../../functions/brands";
 import { getColors } from "../../functions/color";
 import { ReactComponent as StarFull } from "../../images/searchpage/starfull.svg";
-import { ReactComponent as StarHalf } from "../../images/searchpage/starhalf.svg";
 import { ReactComponent as StarEmpty } from "../../images/searchpage/starempty.svg";
 import { ReactComponent as Clearsvg } from "../../images/clear.svg";
 
 const { SubMenu, ItemGroup } = Menu;
 
-export default function SearchFilter({ products, setProducts }) {
+export default function SearchFilter({ setProducts, page, setProductsCount }) {
   const [price, setPrice] = useState([0, 0]); // price range search
   const [categories, setCategories] = useState([]); // to show the available list of categories
   const [category, setCategory] = useState(""); // selected categories to search
@@ -67,11 +66,23 @@ export default function SearchFilter({ products, setProducts }) {
 
   // 1. load products by default on page load
   const loadAllProducts = () => {
-    getProductsByCount(12).then((p) => {
-      setProducts(p.data);
+    getProductsByPage(page).then((p) => {
+      setProducts(p.data.products);
+      setProductsCount(p.data.totalProducts);
       // setLoading(false);
     });
   };
+
+  // useEffect(() => {
+  //   const delayed = setTimeout(() => {
+  //     fetchProducts({ query: text });
+
+  //     if (!text) {
+  //       loadAllProducts();
+  //     }
+  //   }, 300);
+  //   return () => clearTimeout(delayed);
+  // }, [page]);
 
   useEffect(() => {
     const delayed = setTimeout(() => {
@@ -81,8 +92,9 @@ export default function SearchFilter({ products, setProducts }) {
         loadAllProducts();
       }
     }, 300);
-    return () => clearTimeout(delayed);
-  }, []);
+
+    return () => clearTimeout(delayed); // Cleanup to avoid multiple triggers
+  }, [page, text]);
 
   // 2. load products on user search input
   useEffect(() => {
@@ -115,7 +127,7 @@ export default function SearchFilter({ products, setProducts }) {
       }
     }, 500);
     return () => clearTimeout(delayed);
-  }, [text]);
+  }, [text, page]);
 
   // 3. load products based on price range
   useEffect(() => {

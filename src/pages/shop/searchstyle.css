@@ -16,6 +16,18 @@
   background-color: #6c757d; /* Example secondary color */
   color: white;
 }
+.filterproright {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchpagi {
+  margin: 0 0.5rem;
+  border-top: 0.1rem solid var(--gry-topbar);
+}
+.searchpagi .previewpagination {
+  margin-right: 2rem;
+}
 /* -----------search filter left side------ */
 
 .searchfilterleft {

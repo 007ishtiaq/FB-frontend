@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./searchstyle.css";
-// import "./colorHeadProduct.css";
 import "../../components/ProductCards/ProductCardsAll.css";
-import { Link } from "react-router-dom";
-import Img from "../../components/productsSlidable/img/Image";
-import { showAverage } from "../../functions/rating";
-import Laptop from "../../images/laptop.png";
-import { Card } from "antd";
-import { toast } from "react-hot-toast";
 import _ from "lodash";
 import FlashsaleProductCard from "../../components/ProductCards/FlashsaleProductCard";
 import { ReactComponent as Filtersvg } from "../../images/filter.svg";
 import SearchFilter from "../../components/searchfilter/SearchFilter";
 import SideDrawer from "../../components/SideDrawer/SideDrawer";
 import NoItemFound from "../../components/cards/NoItemFound/NoItemFound";
+import { Pagination } from "antd";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [contwidth, setContwidth] = useState(0);
   const [FilterDrawervisible, setFilterDrawervisible] = useState(false);
+  const [page, setPage] = useState(1);
+  const [productsCount, setProductsCount] = useState(0);
 
   let dispatch = useDispatch();
 
@@ -41,7 +37,12 @@ const Shop = () => {
     <>
       <div class="searchcontainer">
         <div class="searchfilterleft">
-          <SearchFilter products={products} setProducts={setProducts} />
+          <SearchFilter
+            products={products}
+            setProducts={setProducts}
+            page={page}
+            setProductsCount={setProductsCount}
+          />
         </div>
 
         <div className="smallfilterbtncont">
@@ -55,7 +56,12 @@ const Shop = () => {
             </p>
           </div>
           <SideDrawer Open={FilterDrawervisible} close={close} Drawer="Filter">
-            <SearchFilter products={products} setProducts={setProducts} />
+            <SearchFilter
+              products={products}
+              setProducts={setProducts}
+              page={page}
+              setProductsCount={setProductsCount}
+            />
           </SideDrawer>
         </div>
 
@@ -68,7 +74,7 @@ const Shop = () => {
               </div>
             </div>
             <div class="headingright">
-              <span>Sort By: </span>
+              <span>Sort By: {JSON.stringify(page)}</span>
               <span class="sortoptions">Popularity</span>
             </div>
           </div>
@@ -88,6 +94,16 @@ const Shop = () => {
                     WidthIdea={"Seachpagewidth"}
                   />
                 ))}
+            </div>
+          </div>
+
+          <div class="productreviewbottom searchpagi">
+            <div class="previewpagination">
+              <Pagination
+                current={page}
+                total={(productsCount / 2) * 10}
+                onChange={(value) => setPage(value)}
+              />
             </div>
           </div>
         </div>
