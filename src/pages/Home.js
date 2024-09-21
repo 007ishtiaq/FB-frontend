@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { trackEvent } from "../utils/facebookPixel";
 import Sliderdiv from "../components/SliderDiv/Sliderdiv";
 import ProductsGroup from "../components/productsSlidable/productGroup/ProductsGroup";
 import CommonProductsCont from "../components/CommonProductsCont/CommonProductsCont";
@@ -18,6 +19,10 @@ const Home = () => {
       loadBannerData();
     }
   }, [navigator.onLine, Online]);
+
+  useEffect(() => {
+    trackEvent("HomePageView", { page: "home" });
+  }, []);
 
   const loadBannerData = () => {
     getRelatedBanners("FlashSaleBanner")

@@ -64,37 +64,31 @@ export default function SearchFilter({ setProducts, page, setProductsCount }) {
     });
   };
 
-  // 1. load products by default on page load
-  const loadAllProducts = () => {
-    getProductsByPage(page).then((p) => {
-      setProducts(p.data.products);
-      setProductsCount(p.data.totalProducts);
+  const loadAllProducts = async () => {
+    try {
+      // setLoading(true);
+      const { data } = await getProductsByPage(page);
+      setProducts(data.products);
+      setProductsCount(data.totalProducts);
+    } catch (err) {
+      console.error(err);
+      // toast.error("Failed to load products");
+    } finally {
       // setLoading(false);
-    });
+    }
   };
 
-  // useEffect(() => {
-  //   const delayed = setTimeout(() => {
-  //     fetchProducts({ query: text });
-
-  //     if (!text) {
-  //       loadAllProducts();
-  //     }
-  //   }, 300);
-  //   return () => clearTimeout(delayed);
-  // }, [page]);
-
   useEffect(() => {
-    const delayed = setTimeout(() => {
+    // const delayed = setTimeout(() => {
+    if (text) {
       fetchProducts({ query: text });
+    } else {
+      loadAllProducts();
+    }
+    // }, 300);
 
-      if (!text) {
-        loadAllProducts();
-      }
-    }, 300);
-
-    return () => clearTimeout(delayed);
-  }, [page]);
+    // return () => clearTimeout(delayed);
+  }, [page, text]);
 
   // 2. load products on user search input
   useEffect(() => {

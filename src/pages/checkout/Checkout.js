@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { trackEvent } from "../../utils/facebookPixel";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -57,6 +58,10 @@ const Checkout = ({ history }) => {
     return () => {
       window.removeEventListener("online", handleOnlineStatus);
     };
+  }, []);
+
+  useEffect(() => {
+    trackEvent("CheckoutPageView", { page: "checkout" });
   }, []);
 
   useEffect(() => {

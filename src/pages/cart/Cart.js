@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { trackEvent } from "../../utils/facebookPixel";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductCardOnCart from "../../components/cards/ProductCardOnCart";
@@ -53,6 +54,10 @@ const Cart = ({ history }) => {
     if (typeof window !== "undefined") {
       setCoupon(JSON.parse(localStorage.getItem("coupon")));
     }
+  }, []);
+
+  useEffect(() => {
+    trackEvent("CartPageView", { page: "cart", cartValue: 120.5 });
   }, []);
 
   useEffect(() => {
@@ -132,6 +137,8 @@ const Cart = ({ history }) => {
       if (user && user.token) {
         userCart(cart, user.token)
           .then((res) => {
+            trackEvent("CheckoutButtonPressed", { page: "cart-button" });
+
             if (res.data.ok) history.push("/checkout");
           })
           .catch((err) => console.log("cart save err", err));

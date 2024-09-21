@@ -101,7 +101,8 @@ const Shop = () => {
             <div class="previewpagination">
               <Pagination
                 current={page}
-                total={(productsCount / 2) * 10}
+                total={productsCount}
+                pageSize={2} // Since you're showing 2 products per page
                 onChange={(value) => setPage(value)}
               />
             </div>

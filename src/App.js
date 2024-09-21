@@ -11,6 +11,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "./loader.css";
 import ScrollToTop from "./components/Scroll/ScrollToTop";
 import GoToTop from "./components/Scroll/GoToTop";
+import Pixel from "./components/pixel/Pixel";
 
 // using lazy
 const Login = lazy(() => import("./pages/auth/Login"));
@@ -215,6 +216,7 @@ const App = () => {
             setNoNetModal={setNoNetModalshow}
             handleRetry={handleRetry}
           />
+          <Pixel />
           <ScrollToTop />
           <Header />
           <Toaster />
