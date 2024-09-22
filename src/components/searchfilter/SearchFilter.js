@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Menu, Slider, Checkbox, Radio } from "antd";
-import { getCategorySubs } from "../../functions/category";
-import { getSubsSub2 } from "../../functions/sub";
+// import { getCategorySubs } from "../../functions/category";
+// import { getSubsSub2 } from "../../functions/sub";
+// import { getSubs } from "../../functions/sub";
 import {
   getProductsByPage,
   fetchProductsByFilter,
@@ -10,7 +11,6 @@ import {
 } from "../../functions/product";
 import "../../pages/shop/searchstyle.css";
 import { getCategories } from "../../functions/category";
-import { getSubs } from "../../functions/sub";
 import { getBrands } from "../../functions/brands";
 import { getColors } from "../../functions/color";
 import { ReactComponent as StarFull } from "../../images/searchpage/starfull.svg";
@@ -29,8 +29,8 @@ export default function SearchFilter({
   const [categories, setCategories] = useState([]); // to show the available list of categories
   const [category, setCategory] = useState(""); // selected categories to search
   const [star, setStar] = useState("");
-  const [subs, setSubs] = useState([]);
-  const [sub, setSub] = useState("");
+  // const [subs, setSubs] = useState([]);
+  // const [sub, setSub] = useState("");
   const [brands, setBrands] = useState([]); // to show the available list of brands
   const [brand, setBrand] = useState("");
   const [colors, setColors] = useState([]); // to show the available list of colors
@@ -91,7 +91,7 @@ export default function SearchFilter({
       setCategory("");
       setPrice([0, 0]);
       setStar("");
-      setSub("");
+      // setSub("");
       setBrand("");
       setColor("");
       setShipping("");
@@ -121,7 +121,7 @@ export default function SearchFilter({
     setCategory("");
     setPrice(value);
     setStar("");
-    setSub("");
+    // setSub("");
     setBrand("");
     setColor("");
     setShipping("");
@@ -156,7 +156,7 @@ export default function SearchFilter({
     });
     setPrice([0, 0]);
     setStar("");
-    setSub("");
+    // setSub("");
     setBrand("");
     setColor("");
     setShipping("");
@@ -164,18 +164,18 @@ export default function SearchFilter({
     setCategory(e.target.value);
     fetchProducts({ category: e.target.value });
 
-    try {
-      const subRes = await getCategorySubs(e.target.value);
-      const subsWithSub2 = await Promise.all(
-        subRes.data.map(async (sub) => {
-          const sub2Res = await getSubsSub2(sub._id);
-          return { ...sub, sub2: sub2Res.data };
-        })
-      );
-      setSubs(subsWithSub2);
-    } catch (error) {
-      console.error("Error fetching subcategories:", error);
-    }
+    //   try {
+    //     const subRes = await getCategorySubs(e.target.value);
+    //     // const subsWithSub2 = await Promise.all(
+    //     //   subRes.data.map(async (sub) => {
+    //     //     const sub2Res = await getSubsSub2(sub._id);
+    //     //     return { ...sub, sub2: sub2Res.data };
+    //     //   })
+    //     // );
+    //     // setSubs(subsWithSub2);
+    //   } catch (error) {
+    //     console.error("Error fetching subcategories:", error);
+    //   }
   };
 
   // 7. show products based on brand name
@@ -194,7 +194,7 @@ export default function SearchFilter({
     ));
 
   const handleBrand = (e) => {
-    setSub("");
+    // setSub("");
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
@@ -290,7 +290,7 @@ export default function SearchFilter({
     setPrice([0, 0]);
     setCategory("");
     setStar(num);
-    setSub("");
+    // setSub("");
     setBrand("");
     setColor("");
     setShipping("");
@@ -298,44 +298,43 @@ export default function SearchFilter({
   };
 
   // 6. show products by sub category
-  const showSubs = (sub2, selectedSub2, handleSub) =>
-    sub2.map((sub2Item) => (
-      // <div
-      //   key={sub2Item._id}
-      //   onClick={() => handleSub(sub2Item._id)}
-      //   className="p-1 m-1 badge badge-secondary"
-      //   style={{ cursor: "pointer" }}
-      // >
-      //   {sub2Item.name}
-      // </div>
-      <div
-        key={sub2Item._id}
-        onClick={() => handleSub(sub2Item)}
-        className={`p-1 m-1 badge ${
-          selectedSub2 === sub2Item._id ? "badge-primary" : "badge-secondary"
-        }`}
-        style={{ cursor: "pointer" }}
-      >
-        {sub2Item.name}
-      </div>
-    ));
+  // const showSubs = (sub2, selectedSub2, handleSub) =>
+  //   sub2.map((sub2Item) => (
+  //     // <div
+  //     //   key={sub2Item._id}
+  //     //   onClick={() => handleSub(sub2Item._id)}
+  //     //   className="p-1 m-1 badge badge-secondary"
+  //     //   style={{ cursor: "pointer" }}
+  //     // >
+  //     //   {sub2Item.name}
+  //     // </div>
+  //     <div
+  //       key={sub2Item._id}
+  //       onClick={() => handleSub(sub2Item)}
+  //       className={`p-1 m-1 badge ${
+  //         selectedSub2 === sub2Item._id ? "badge-primary" : "badge-secondary"
+  //       }`}
+  //       style={{ cursor: "pointer" }}
+  //     >
+  //       {sub2Item.name}
+  //     </div>
+  //   ));
 
-  const handleSub = (sub2Item) => {
-    // console.log("sub2Item", sub2Item);
-    setSelectedSub2(sub2Item._id);
-    setSub(sub2Item);
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-    setPrice([0, 0]);
-    // setCategory("");
-    setStar("");
-    setBrand("");
-    setColor("");
-    setShipping("");
-    fetchProducts({ sub: sub2Item });
-  };
+  // const handleSub = (sub2Item) => {
+  //   setSelectedSub2(sub2Item._id);
+  //   setSub(sub2Item);
+  //   dispatch({
+  //     type: "SEARCH_QUERY",
+  //     payload: { text: "" },
+  //   });
+  //   setPrice([0, 0]);
+  //   // setCategory("");
+  //   setStar("");
+  //   setBrand("");
+  //   setColor("");
+  //   setShipping("");
+  //   fetchProducts({ sub: sub2Item });
+  // };
 
   // 8. show products based on color
   const showColors = () =>
@@ -353,7 +352,7 @@ export default function SearchFilter({
     ));
 
   const handleColor = (e) => {
-    setSub("");
+    // setSub("");
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
@@ -406,7 +405,7 @@ export default function SearchFilter({
     setCategory("");
     setPrice([0, 0]);
     setStar("");
-    setSub("");
+    // setSub("");
     setBrand("");
     setColor("");
     setShipping("");
@@ -416,7 +415,7 @@ export default function SearchFilter({
   };
 
   const handleShippingchange = (e) => {
-    setSub("");
+    // setSub("");
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
@@ -438,7 +437,7 @@ export default function SearchFilter({
           (category ||
             brand ||
             star ||
-            sub ||
+            // sub ||
             color ||
             shipping ||
             text ||
@@ -478,7 +477,7 @@ export default function SearchFilter({
         >
           <div style={{ maringTop: "10px" }}>{showCategories()}</div>
         </SubMenu>
-        {subs.map((s, index) => (
+        {/* {subs.map((s, index) => (
           <SubMenu
             class="filtercont"
             key={index + 25}
@@ -488,7 +487,7 @@ export default function SearchFilter({
               {showSubs(s.sub2, selectedSub2, handleSub)}
             </div>
           </SubMenu>
-        ))}
+        ))} */}
 
         {/* <SubMenu
           class="filtercont"
