@@ -51,6 +51,7 @@ const Shop = () => {
               products={products}
               setProducts={setProducts}
               page={page}
+              setPage={setPage}
               setProductsCount={setProductsCount}
             />
           </div>
@@ -74,6 +75,7 @@ const Shop = () => {
                 products={products}
                 setProducts={setProducts}
                 page={page}
+                setPage={setPage}
                 setProductsCount={setProductsCount}
               />
             </SideDrawer>

@@ -96,8 +96,8 @@ export const getSimilar = async (productSlug) =>
 // export const getRelated = async (productId) =>
 //   await axios.get(`${process.env.REACT_APP_API}/product/related/${productId}`);
 
-export const fetchProductsByFilter = async (arg) =>
-  await axios.post(`${process.env.REACT_APP_API}/search/filters`, arg);
+export const fetchProductsByFilter = async (data) =>
+  await axios.post(`${process.env.REACT_APP_API}/search/filters`, data);
 
 export const getHighestPrice = async () =>
   await axios.get(`${process.env.REACT_APP_API}/search/highestprice`);

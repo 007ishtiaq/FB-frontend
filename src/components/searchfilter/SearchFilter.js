@@ -19,7 +19,12 @@ import { ReactComponent as Clearsvg } from "../../images/clear.svg";
 
 const { SubMenu, ItemGroup } = Menu;
 
-export default function SearchFilter({ setProducts, page, setProductsCount }) {
+export default function SearchFilter({
+  setProducts,
+  page,
+  setPage,
+  setProductsCount,
+}) {
   const [price, setPrice] = useState([0, 0]); // price range search
   const [categories, setCategories] = useState([]); // to show the available list of categories
   const [category, setCategory] = useState(""); // selected categories to search
@@ -59,8 +64,9 @@ export default function SearchFilter({ setProducts, page, setProductsCount }) {
   }, []);
 
   const fetchProducts = (arg) => {
-    fetchProductsByFilter(arg).then((res) => {
-      setProducts(res.data);
+    fetchProductsByFilter({ arg, page }).then((res) => {
+      setProducts(res.data.products);
+      setProductsCount(res.data.totalProducts);
     });
   };
 
@@ -81,11 +87,6 @@ export default function SearchFilter({ setProducts, page, setProductsCount }) {
   useEffect(() => {
     if (text) {
       fetchProducts({ query: text });
-    } else {
-      loadAllProducts();
-    }
-
-    if (text) {
       //reset
       setCategory("");
       setPrice([0, 0]);
@@ -94,8 +95,14 @@ export default function SearchFilter({ setProducts, page, setProductsCount }) {
       setBrand("");
       setColor("");
       setShipping("");
+    } else {
+      loadAllProducts();
     }
   }, [page, text]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [text]);
 
   // 3. load products based on price range
   useEffect(() => {
@@ -384,13 +391,16 @@ export default function SearchFilter({ setProducts, page, setProductsCount }) {
   );
 
   const Clearfilter = () => {
-    loadAllProducts();
-
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-
+    if (text) {
+      dispatch({
+        type: "SEARCH_QUERY",
+        payload: { text: "" },
+      });
+      setPage(1);
+    } else {
+      setPage(1);
+      loadAllProducts();
+    }
     // reset
     setSelectedSub2(null);
     setCategory("");
