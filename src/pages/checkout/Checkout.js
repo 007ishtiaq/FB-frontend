@@ -147,7 +147,11 @@ const Checkout = ({ history }) => {
     if (navigator.onLine) {
       createCashOrderForUser(user.token, COD, couponTrueOrFalse, values)
         .then((res) => {
-          console.log("USER CASH ORDER CREATED RES ", res);
+          trackEvent("Purchase", {
+            value: 50.0, // The total purchase amount
+            currency: "USD", // Currency in ISO 4217 format
+          });
+          // console.log("USER CASH ORDER CREATED RES ", res);
           if (res.data.error) {
             toast.error(`${res.data.error}`);
           }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import "./searchstyle.css";
 import "../../components/ProductCards/ProductCardsAll.css";
 import _ from "lodash";
@@ -17,13 +16,23 @@ const Shop = () => {
   const [FilterDrawervisible, setFilterDrawervisible] = useState(false);
   const [page, setPage] = useState(1);
   const [productsCount, setProductsCount] = useState(0);
-
-  let dispatch = useDispatch();
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 700); // Determine if screen width is greater than 700px
 
   useEffect(() => {
     const proarea = document.querySelector(".productsarea");
     const contwidth = proarea.clientWidth;
     setContwidth(contwidth);
+
+    // Handle screen resizing
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 700);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const toggle = () => {
@@ -35,52 +44,58 @@ const Shop = () => {
 
   return (
     <>
-      <div class="searchcontainer">
-        <div class="searchfilterleft">
-          <SearchFilter
-            products={products}
-            setProducts={setProducts}
-            page={page}
-            setProductsCount={setProductsCount}
-          />
-        </div>
-
-        <div className="smallfilterbtncont">
-          <div onClick={toggle} className="smallfilterbtncont btn btnsecond">
-            <div className="filtersvgcont">
-              <Filtersvg />
-            </div>
-            <p>
-              Filter Based on <span>Category</span> | <span>Brand</span> |{" "}
-              <span> Color </span>
-            </p>
-          </div>
-          <SideDrawer Open={FilterDrawervisible} close={close} Drawer="Filter">
+      <div className="searchcontainer">
+        {isDesktop ? (
+          <div className="searchfilterleft">
             <SearchFilter
               products={products}
               setProducts={setProducts}
               page={page}
               setProductsCount={setProductsCount}
             />
-          </SideDrawer>
-        </div>
+          </div>
+        ) : (
+          <div className="smallfilterbtncont">
+            <div onClick={toggle} className="smallfilterbtncont btn btnsecond">
+              <div className="filtersvgcont">
+                <Filtersvg />
+              </div>
+              <p>
+                Filter Based on <span>Category</span> | <span>Brand</span> |{" "}
+                <span>Color</span>
+              </p>
+            </div>
+            <SideDrawer
+              Open={FilterDrawervisible}
+              close={close}
+              Drawer="Filter"
+            >
+              <SearchFilter
+                products={products}
+                setProducts={setProducts}
+                page={page}
+                setProductsCount={setProductsCount}
+              />
+            </SideDrawer>
+          </div>
+        )}
 
-        <div class="filterproright">
-          <div class="rightsideheadercont">
-            <div class="headingname">
-              <div class="foundpros">
+        <div className="filterproright">
+          <div className="rightsideheadercont">
+            <div className="headingname">
+              <div className="foundpros">
                 {products.length} {products.length > 1 ? "Products" : "Product"}{" "}
                 found
               </div>
             </div>
-            <div class="headingright">
-              <span>Sort By: {JSON.stringify(page)}</span>
-              <span class="sortoptions">Popularity</span>
+            <div className="headingright">
+              <span>Sort By: </span>
+              <span className="sortoptions">Popularity</span>
             </div>
           </div>
 
-          <div class="contentcont">
-            <div class="productsarea">
+          <div className="contentcont">
+            <div className="productsarea">
               {loading && <h4 className="text-danger">Loading...</h4>}
 
               {products.length < 1 && <NoItemFound />}
@@ -97,8 +112,8 @@ const Shop = () => {
             </div>
           </div>
 
-          <div class="productreviewbottom searchpagi">
-            <div class="previewpagination">
+          <div className="productreviewbottom searchpagi">
+            <div className="previewpagination">
               <Pagination
                 current={page}
                 total={productsCount}

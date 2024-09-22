@@ -79,49 +79,23 @@ export default function SearchFilter({ setProducts, page, setProductsCount }) {
   };
 
   useEffect(() => {
-    // const delayed = setTimeout(() => {
     if (text) {
       fetchProducts({ query: text });
     } else {
       loadAllProducts();
     }
-    // }, 300);
 
-    // return () => clearTimeout(delayed);
+    if (text) {
+      //reset
+      setCategory("");
+      setPrice([0, 0]);
+      setStar("");
+      setSub("");
+      setBrand("");
+      setColor("");
+      setShipping("");
+    }
   }, [page, text]);
-
-  // 2. load products on user search input
-  useEffect(() => {
-    const delayed = setTimeout(() => {
-      fetchProducts({ query: text });
-
-      if (
-        !text &&
-        !category &&
-        !brand &&
-        price[0] === 0 &&
-        price[1] === 0 &&
-        !star &&
-        !sub &&
-        !color &&
-        !shipping
-      ) {
-        loadAllProducts();
-      }
-
-      if (text) {
-        // reset
-        setCategory("");
-        setPrice([0, 0]);
-        setStar("");
-        setSub("");
-        setBrand("");
-        setColor("");
-        setShipping("");
-      }
-    }, 500);
-    return () => clearTimeout(delayed);
-  }, [text, page]);
 
   // 3. load products based on price range
   useEffect(() => {

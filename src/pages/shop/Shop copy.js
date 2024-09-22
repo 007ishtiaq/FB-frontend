@@ -1,87 +1,115 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import "./searchstyle.css";
+import "../../components/ProductCards/ProductCardsAll.css";
+import _ from "lodash";
+import FlashsaleProductCard from "../../components/ProductCards/FlashsaleProductCard";
+import { ReactComponent as Filtersvg } from "../../images/filter.svg";
+import SearchFilter from "../../components/searchfilter/SearchFilter";
+import SideDrawer from "../../components/SideDrawer/SideDrawer";
+import NoItemFound from "../../components/cards/NoItemFound/NoItemFound";
 import { Pagination } from "antd";
-import { fetchProductsByFilter, getProductsByPage } from "../functions/product";
-import SearchFilter from "./SearchFilter";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
-  const [totalProducts, setTotalProducts] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1); // Handles current page state
-  const [filters, setFilters] = useState({}); // Manages filters state
-  const [loading, setLoading] = useState(false); // Loading state for UX
+  const [loading, setLoading] = useState(false);
+  const [contwidth, setContwidth] = useState(0);
+  const [FilterDrawervisible, setFilterDrawervisible] = useState(false);
+  const [page, setPage] = useState(1);
+  const [productsCount, setProductsCount] = useState(0);
 
-  // Fetch products by page (default view without filters)
-  const fetchProducts = async (page) => {
-    setLoading(true);
-    try {
-      const { data } = await getProductsByPage(page);
-      setProducts(data.products);
-      setTotalProducts(data.totalProducts); // Update total products for pagination
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      setLoading(false);
-    }
-  };
+  let dispatch = useDispatch();
 
-  // Fetch products by filters
-  const fetchFilteredProducts = async (filters) => {
-    setLoading(true);
-    try {
-      const { data } = await fetchProductsByFilter(filters);
-      setProducts(data.products);
-      setTotalProducts(data.totalProducts);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching filtered products:", error);
-      setLoading(false);
-    }
-  };
-
-  // Effect to fetch products initially and when the page changes
   useEffect(() => {
-    if (Object.keys(filters).length === 0) {
-      // Fetch without filters
-      fetchProducts(currentPage);
-    }
-  }, [currentPage]);
+    const proarea = document.querySelector(".productsarea");
+    const contwidth = proarea.clientWidth;
+    setContwidth(contwidth);
+  }, []);
 
-  // Effect to handle filters change (resets page to 1 when filters are applied)
-  useEffect(() => {
-    if (Object.keys(filters).length > 0) {
-      setCurrentPage(1); // Reset page to 1 when filters change
-      fetchFilteredProducts(filters);
-    }
-  }, [filters]);
+  const toggle = () => {
+    setFilterDrawervisible(!FilterDrawervisible);
+  };
+  const close = () => {
+    setFilterDrawervisible(false);
+  };
 
   return (
-    <div className="shop-container">
-      <div className="filters">
-        {/* SearchFilter component will set the filters */}
-        <SearchFilter setFilters={setFilters} />
-      </div>
-      <div className="products">
-        {loading ? (
-          <h4>Loading...</h4>
-        ) : (
-          products.map((product) => (
-            <div key={product._id} className="product-item">
-              {/* Display product details here */}
-              <h5>{product.name}</h5>
-              {/* Add more product details if needed */}
+    <>
+      <div class="searchcontainer">
+        <div class="searchfilterleft">
+          <SearchFilter
+            products={products}
+            setProducts={setProducts}
+            page={page}
+            setProductsCount={setProductsCount}
+          />
+        </div>
+
+        <div className="smallfilterbtncont">
+          <div onClick={toggle} className="smallfilterbtncont btn btnsecond">
+            <div className="filtersvgcont">
+              <Filtersvg />
             </div>
-          ))
-        )}
+            <p>
+              Filter Based on <span>Category</span> | <span>Brand</span> |{" "}
+              <span> Color </span>
+            </p>
+          </div>
+          <SideDrawer Open={FilterDrawervisible} close={close} Drawer="Filter">
+            <SearchFilter
+              products={products}
+              setProducts={setProducts}
+              page={page}
+              setProductsCount={setProductsCount}
+            />
+          </SideDrawer>
+        </div>
+
+        <div class="filterproright">
+          <div class="rightsideheadercont">
+            <div class="headingname">
+              <div class="foundpros">
+                {products.length} {products.length > 1 ? "Products" : "Product"}{" "}
+                found
+              </div>
+            </div>
+            <div class="headingright">
+              <span>Sort By: {JSON.stringify(page)}</span>
+              <span class="sortoptions">Popularity</span>
+            </div>
+          </div>
+
+          <div class="contentcont">
+            <div class="productsarea">
+              {loading && <h4 className="text-danger">Loading...</h4>}
+
+              {products.length < 1 && <NoItemFound />}
+
+              {products &&
+                products.map((prod) => (
+                  <FlashsaleProductCard
+                    key={prod._id}
+                    product={prod}
+                    contWidth={contwidth}
+                    WidthIdea={"Seachpagewidth"}
+                  />
+                ))}
+            </div>
+          </div>
+
+          <div class="productreviewbottom searchpagi">
+            <div class="previewpagination">
+              <Pagination
+                current={page}
+                total={productsCount}
+                pageSize={2} // Since you're showing 2 products per page
+                onChange={(value) => setPage(value)}
+              />
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="pagination">
-        <Pagination
-          current={currentPage}
-          total={totalProducts}
-          onChange={(page) => setCurrentPage(page)} // Changes the current page
-          pageSize={2} // Set per page size to match backend limit
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
