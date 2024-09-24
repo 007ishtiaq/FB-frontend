@@ -283,6 +283,12 @@ input[type="range"]::-moz-range-thumb {
   padding: 0.3rem 0.6rem;
   font-size: 1.2rem;
 }
+.sortingcont {
+  display: flex;
+}
+.sortingcont > div {
+  margin: 0 0.8rem;
+}
 
 /* ----------Ant design resets----------- */
 .filtercont .ant-menu-submenu-title {

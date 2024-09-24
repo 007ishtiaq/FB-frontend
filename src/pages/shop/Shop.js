@@ -14,7 +14,8 @@ const Shop = () => {
   const [loading, setLoading] = useState(false);
   const [contwidth, setContwidth] = useState(0);
   const [FilterDrawervisible, setFilterDrawervisible] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); // page number
+  const [perPage, setPerpage] = useState(2); // per page Size
   const [productsCount, setProductsCount] = useState(0);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 700); // Determine if screen width is greater than 700px
 
@@ -52,6 +53,7 @@ const Shop = () => {
               setProducts={setProducts}
               page={page}
               setPage={setPage}
+              perPage={perPage}
               setProductsCount={setProductsCount}
             />
           </div>
@@ -76,6 +78,7 @@ const Shop = () => {
                 setProducts={setProducts}
                 page={page}
                 setPage={setPage}
+                perPage={perPage}
                 setProductsCount={setProductsCount}
               />
             </SideDrawer>
@@ -86,13 +89,19 @@ const Shop = () => {
           <div className="rightsideheadercont">
             <div className="headingname">
               <div className="foundpros">
-                {products.length} {products.length > 1 ? "Products" : "Product"}{" "}
+                {productsCount} {productsCount > 1 ? "Products" : "Product"}{" "}
                 found
               </div>
             </div>
-            <div className="headingright">
-              <span>Sort By: </span>
-              <span className="sortoptions">Popularity</span>
+            <div className="sortingcont">
+              <div className="headingright">
+                <span>Sort By: </span>
+                <span className="sortoptions">Popularity</span>
+              </div>
+              <div className="headingright">
+                <span>Results Per Page: </span>
+                <span className="sortoptions">{perPage}</span>
+              </div>
             </div>
           </div>
 
@@ -119,7 +128,7 @@ const Shop = () => {
               <Pagination
                 current={page}
                 total={productsCount}
-                pageSize={2} // Since you're showing 2 products per page
+                pageSize={perPage}
                 onChange={(value) => setPage(value)}
               />
             </div>

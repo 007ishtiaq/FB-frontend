@@ -10,8 +10,11 @@ export const createProduct = async (product, authtoken) =>
 export const getProductsByCount = async (count) =>
   await axios.get(`${process.env.REACT_APP_API}/productsByCount/${count}`);
 
-export const getProductsByPage = async (page) =>
-  await axios.get(`${process.env.REACT_APP_API}/products/${page}`);
+export const getProductsByPage = async (data) =>
+  await axios.post(`${process.env.REACT_APP_API}/productsByPage`, data);
+
+export const fetchProductsByFilter = async (data) =>
+  await axios.post(`${process.env.REACT_APP_API}/search/filters`, data);
 
 export const removeProduct = async (slug, authtoken) =>
   await axios.delete(`${process.env.REACT_APP_API}/product/${slug}`, {
@@ -95,9 +98,6 @@ export const getSimilar = async (productSlug) =>
 
 // export const getRelated = async (productId) =>
 //   await axios.get(`${process.env.REACT_APP_API}/product/related/${productId}`);
-
-export const fetchProductsByFilter = async (data) =>
-  await axios.post(`${process.env.REACT_APP_API}/search/filters`, data);
 
 export const getHighestPrice = async () =>
   await axios.get(`${process.env.REACT_APP_API}/search/highestprice`);

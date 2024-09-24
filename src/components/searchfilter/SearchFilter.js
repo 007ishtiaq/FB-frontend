@@ -23,6 +23,7 @@ export default function SearchFilter({
   setProducts,
   page,
   setPage,
+  perPage,
   setProductsCount,
 }) {
   const [price, setPrice] = useState([0, 0]); // price range search
@@ -64,7 +65,7 @@ export default function SearchFilter({
   }, []);
 
   const fetchProducts = (arg) => {
-    fetchProductsByFilter({ arg, page }).then((res) => {
+    fetchProductsByFilter({ arg, page, perPage }).then((res) => {
       setProducts(res.data.products);
       setProductsCount(res.data.totalProducts);
     });
@@ -73,7 +74,7 @@ export default function SearchFilter({
   const loadAllProducts = async () => {
     try {
       // setLoading(true);
-      const { data } = await getProductsByPage(page);
+      const { data } = await getProductsByPage({ page, perPage });
       setProducts(data.products);
       setProductsCount(data.totalProducts);
     } catch (err) {
