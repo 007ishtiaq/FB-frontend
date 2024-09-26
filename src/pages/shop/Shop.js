@@ -8,6 +8,7 @@ import SearchFilter from "../../components/searchfilter/SearchFilter";
 import SideDrawer from "../../components/SideDrawer/SideDrawer";
 import NoItemFound from "../../components/cards/NoItemFound/NoItemFound";
 import { Pagination } from "antd";
+import { Link } from "react-router-dom";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -101,6 +102,24 @@ const Shop = () => {
               <div className="headingright">
                 <span>Results Per Page: </span>
                 <span className="sortoptions">{perPage}</span>
+              </div>
+              <div className="headingright pagedropdown">
+                <div class="sec-center">
+                  <input
+                    class="dropdown"
+                    type="checkbox"
+                    id="dropdown"
+                    name="dropdown"
+                  />
+                  <label class="for-dropdown" for="dropdown">
+                    Dropdown Menu icon here
+                  </label>
+                  <div class="section-dropdown">
+                    <Link to="#">Dropdown Link</Link>
+                    <Link to="#">Dropdown Link</Link>
+                    <Link to="#">Dropdown Link</Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
