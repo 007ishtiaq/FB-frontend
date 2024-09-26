@@ -209,7 +209,11 @@ const Header = () => {
                   </div>
                   {showAccountDropdown && (
                     <Suspense fallback={" "}>
-                      <AccountDropdown user={user} logout={logout} />
+                      <AccountDropdown
+                        user={user}
+                        logout={logout}
+                        showAccountDropdown={showAccountDropdown}
+                      />
                     </Suspense>
                   )}
                 </div>

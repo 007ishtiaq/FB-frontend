@@ -44,6 +44,10 @@ const Shop = () => {
     setFilterDrawervisible(false);
   };
 
+  // Calculate start and end of the current page range
+  const start = (page - 1) * perPage + 1;
+  const end = Math.min(start + perPage - 1, productsCount);
+
   return (
     <>
       <div className="searchcontainer">
@@ -90,37 +94,20 @@ const Shop = () => {
           <div className="rightsideheadercont">
             <div className="headingname">
               <div className="foundpros">
+                {productsCount > 0 && (
+                  <p>
+                    {start}-{end} of over {productsCount} results
+                  </p>
+                )}
+              </div>
+              {/* <div className="foundpros">
                 {productsCount} {productsCount > 1 ? "Products" : "Product"}{" "}
                 found
-              </div>
+              </div> */}
             </div>
-            <div className="sortingcont">
-              <div className="headingright">
-                <span>Sort By: </span>
-                <span className="sortoptions">Popularity</span>
-              </div>
-              <div className="headingright">
-                <span>Results Per Page: </span>
-                <span className="sortoptions">{perPage}</span>
-              </div>
-              <div className="headingright pagedropdown">
-                <div class="sec-center">
-                  <input
-                    class="dropdown"
-                    type="checkbox"
-                    id="dropdown"
-                    name="dropdown"
-                  />
-                  <label class="for-dropdown" for="dropdown">
-                    Dropdown Menu icon here
-                  </label>
-                  <div class="section-dropdown">
-                    <Link to="#">Dropdown Link</Link>
-                    <Link to="#">Dropdown Link</Link>
-                    <Link to="#">Dropdown Link</Link>
-                  </div>
-                </div>
-              </div>
+            <div className="headingright">
+              <span>Sort By: </span>
+              <span className="sortoptions">Popularity</span>
             </div>
           </div>
 

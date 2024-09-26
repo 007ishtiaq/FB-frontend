@@ -1,5 +1,5 @@
 // AccountDropdown.js
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Adminsvg } from "../../images/acnav/admin.svg";
 import { ReactComponent as Managesvg } from "../../images/acnav/manage.svg";
@@ -8,9 +8,22 @@ import { ReactComponent as Reviewssvg } from "../../images/acnav/reviews.svg";
 import { ReactComponent as Wishlistsvg } from "../../images/acnav/wishlist.svg";
 import { ReactComponent as Returnssvg } from "../../images/acnav/returns.svg";
 
-const AccountDropdown = ({ user, logout }) => {
+const AccountDropdown = ({ user, logout, showAccountDropdown }) => {
+  const [dropdownActive, setDropdownActive] = useState(false);
+
+  useEffect(() => {
+    let activeClassTimeout;
+    if (showAccountDropdown) {
+      activeClassTimeout = setTimeout(() => {
+        setDropdownActive(true);
+      }, 100);
+    } else {
+      setDropdownActive(false);
+    }
+  }, [showAccountDropdown]);
+
   return (
-    <div id="accountdiv" class="accountlistdiv">
+    <div id="accountdiv" class={`accountlistdiv ${dropdownActive && "active"}`}>
       <div class="accountlist">
         <div class="accountlistbtndiv">
           {user && (

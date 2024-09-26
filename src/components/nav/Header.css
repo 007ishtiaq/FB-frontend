@@ -454,7 +454,18 @@
   width: 20.6rem;
   min-width: 20.6rem;
   z-index: 1;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: all 200ms linear;
 }
+.accountlistdiv.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
 .accountlist {
   border-radius: 0.4rem;
   background-color: #fff;
