@@ -352,7 +352,8 @@ hr {
   border: 1px solid #ededed;
 }
 .similerImg {
-  max-width: 10rem;
+  max-width: 7rem;
+  margin: 0.4rem;
 }
 .prodtimer {
   display: flex;

@@ -102,7 +102,7 @@ const Product = ({ match, history }) => {
   return (
     <>
       <ProductInfo product={product} similarProduct={similarProduct} />
-      <ProductDescription />
+      <ProductDescription product={product} />
       <ProductServices />
       {/* <ProductQnA /> */}
       <ProductReviews

@@ -146,7 +146,7 @@ const ProductUpdateForm = ({
       </div>
 
       <div className="form-group">
-        <label>Brand (Required)</label>
+        <label>Brand (Required) [Should be the Same for similer/color]</label>
         <select
           value={brand}
           name="brand"

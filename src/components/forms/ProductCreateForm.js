@@ -141,7 +141,7 @@ const ProductCreateForm = ({
       </div>
 
       <div className="form-group">
-        <label>Brand (Required)</label>
+        <label>Brand (Required) [Should be the Same for similer/color]</label>
         <select name="brand" className="form-control" onChange={handleChange}>
           <option>Please select</option>
           {brands.map((b) => (

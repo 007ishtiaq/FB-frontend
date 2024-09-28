@@ -1,11 +1,11 @@
 import React from "react";
 import "./productdesc.css";
 
-export default function ProductDescription() {
+export default function ProductDescription({ product }) {
   return (
     <div class="prodowncont">
       <div class="prodownsub">
-        <div class="headingcont">Description</div>
+        <div class="headingcont">Product Description</div>
         <hr />
         <div class="desccontent">
           <div class="desccontentleft">
@@ -33,9 +33,9 @@ export default function ProductDescription() {
             </table>
           </div>
           <div class="desccontentright">
-            <strong>Product Description: </strong>
+            <strong>About this item: </strong>
             <br />
-            <span> Men's Summer Print Short Sleeve Shirt </span>
+            <p className="">{`${product.description}`}</p>
           </div>
         </div>
       </div>

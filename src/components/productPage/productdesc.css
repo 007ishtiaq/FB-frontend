@@ -27,12 +27,12 @@
   font-size: var(--fontsize-eemedium);
 }
 .desccontentleft {
-  /* width: 40%; */
+  width: 30%;
 }
 
 .desccontentright {
   padding: 0 2rem;
-  /* width: 45%; */
+  width: 65%;
 }
 strong {
   font-weight: 600;

@@ -452,6 +452,27 @@ export default function ProductInfo({ product, similarProduct }) {
           ) : (
             <Skeleton width={200} count={4} />
           )}
+          {similarProduct.length > 0 && (
+            <div className="similer">
+              <p>Available Colors</p>
+              <ProductsSlider
+                containerwidth={481}
+                elementwidth={100}
+                step={200}
+              >
+                {similarProduct.map((p, i) => (
+                  <Img
+                    className="similerImg"
+                    key={i}
+                    onClick={() => history.push(`/product/${p.slug}`)}
+                    src={p.img.url}
+                    alt={p.title}
+                  />
+                ))}
+              </ProductsSlider>
+            </div>
+          )}
+          <hr />
           <div className="desc_ul">
             {title ? (
               <ul>
@@ -514,37 +535,6 @@ export default function ProductInfo({ product, similarProduct }) {
               <Skeleton width={150} count={2} />
             )}
           </div>
-          {similarProduct.length > 0 && (
-            <div className="similer">
-              <p>Available Colors</p>
-              <ProductsSlider
-                containerwidth={481}
-                elementwidth={100}
-                step={200}
-              >
-                {similarProduct.map((p, i) => (
-                  <Img
-                    className="similerImg"
-                    key={i}
-                    onClick={() => history.push(`/product/${p.slug}`)}
-                    src={p.img.url}
-                    alt={p.title}
-                  />
-                ))}
-              </ProductsSlider>
-            </div>
-          )}
-          <hr />
-          <div className="proaboutcont headingcont">
-            <strong>About this item</strong>
-          </div>
-          {title ? (
-            <div className="proabouttxt">{`${
-              description && description.substring(0, 40)
-            }...`}</div>
-          ) : (
-            <Skeleton count={3} />
-          )}
         </div>
       </div>
 

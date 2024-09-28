@@ -16,7 +16,7 @@ const AccountDropdown = ({ user, logout, showAccountDropdown }) => {
     if (showAccountDropdown) {
       activeClassTimeout = setTimeout(() => {
         setDropdownActive(true);
-      }, 100);
+      }, 50);
     } else {
       setDropdownActive(false);
     }
