@@ -17,7 +17,8 @@ const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); // page number
+  const [perPage, setPerpage] = useState(2); // per page Size
   const [productsCount, setProductsCount] = useState(0);
 
   // redux
@@ -66,8 +67,9 @@ const AllProducts = () => {
   };
 
   const fetchProducts = (arg) => {
-    fetchProductsByFilter(arg).then((res) => {
-      setProducts(res.data);
+    fetchProductsByFilter({ arg, page, perPage }).then((res) => {
+      setProducts(res.data.products);
+      setProductsCount(res.data.totalProducts);
     });
   };
 
@@ -120,7 +122,7 @@ const AllProducts = () => {
           <Pagination
             current={page}
             total={productsCount}
-            pageSize={2} // Since you're showing 2 products per page
+            pageSize={perPage}
             onChange={(value) => setPage(value)}
           />
         </div>

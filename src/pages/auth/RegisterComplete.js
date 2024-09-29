@@ -34,6 +34,7 @@ const RegisterComplete = ({ history }) => {
   // ---------formik usage--------
 
   let initialValues = {
+    name: "",
     email: "",
     password: "",
     confim_password: "",
@@ -55,7 +56,7 @@ const RegisterComplete = ({ history }) => {
       if (navigator.onLine) {
         setLoading(true);
         try {
-          const { email, password } = values;
+          const { name, email, password } = values;
 
           // Get OTP information before proceeding
           const otpResponse = await infoOTP(email);
@@ -80,13 +81,10 @@ const RegisterComplete = ({ history }) => {
 
               createOrUpdateUser(idTokenResult.token)
                 .then((res) => {
-                  const updatedName = res.data.name
-                    ? res.data.name
-                    : email.split("@")[0];
                   dispatch({
                     type: "LOGGED_IN_USER",
                     payload: {
-                      name: updatedName,
+                      name: name,
                       email: res.data.email,
                       token: idTokenResult.token,
                       role: res.data.role,
@@ -165,6 +163,22 @@ const RegisterComplete = ({ history }) => {
               <form onSubmit={handleSubmit} className="submitionform">
                 <div class="logininputcont">
                   <div class="logininput">
+                    <label for="email">Name</label>
+                    <input
+                      name="name"
+                      id="name"
+                      type="text"
+                      value={values.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder="Your Name"
+                      autoComplete="off"
+                    />
+                    {errors.name && touched.name ? (
+                      <p className="errorstate">{errors.name}</p>
+                    ) : null}
+                  </div>
+                  <div class="logininput">
                     <label for="email">Email</label>
                     <input
                       name="email"
@@ -213,6 +227,7 @@ const RegisterComplete = ({ history }) => {
                     type="submit"
                     disabled={
                       values.password.length < 6 ||
+                      !values.name ||
                       !values.email ||
                       !values.confim_password ||
                       isSubmitting

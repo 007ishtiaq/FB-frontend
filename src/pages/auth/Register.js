@@ -263,7 +263,6 @@ const Register = ({ history }) => {
                       onBlur={handleBlur}
                       placeholder="Your email"
                       autoComplete="off"
-                      autoFocus
                     />
                     {errors.email && touched.email ? (
                       <p className="errorstate">{errors.email}</p>

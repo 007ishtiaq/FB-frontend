@@ -84,7 +84,7 @@ export default function OrderDetail({ match, history }) {
     getOrder(orderID, user.token)
       .then((res) => {
         // console.log("orderID", orderID);
-        // console.log(JSON.stringify(res.data, null, 4));
+        console.log(JSON.stringify(res.data, null, 4));
         setOrder(res.data);
         if (res.data) {
           setIsCashbacked(res.data.isCashBack);
@@ -652,7 +652,9 @@ export default function OrderDetail({ match, history }) {
                               onClick={() => handleModelToggle(p._id)}
                               className="prodimgbtn"
                             >
-                              {p.product.title}
+                              {p.product.art} - {p._id}
+                              <br />
+                              {p.product.title.substring(0, 35)}
                             </span>
                             {/* {p.isCancelled && <div className="cnlcircle"></div>} */}
                             {p.isCancelled && (

@@ -139,6 +139,7 @@
 }
 .singleitembindertwo {
   display: flex;
+  align-items: center;
   width: 24rem;
 }
 .orderlistli.singleitemli {
