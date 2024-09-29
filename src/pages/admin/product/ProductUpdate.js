@@ -36,6 +36,7 @@ const ProductUpdate = ({ match, history }) => {
   const [subOptions, setSubOptions] = useState([]);
   const [sub2Options, setSub2Options] = useState([]);
   const [attributes, setAttributes] = useState([]);
+  const [desattributes, setDesattributes] = useState([]);
   const [brands, setBrands] = useState([]);
   const [colors, setColors] = useState([]);
   const [arrayOfSubs2, setArrayOfSubs2] = useState([]);
@@ -63,6 +64,7 @@ const ProductUpdate = ({ match, history }) => {
       // 1 load single proudct
       setValues({ ...values, ...p.data });
       setAttributes(p.data.attributes);
+      setDesattributes(p.data.desattributes);
       // 2 load single product category subs
       getCategorySubs(p.data.category._id).then((res) => {
         setSubOptions(res.data); // on first load, show default subs
@@ -106,7 +108,7 @@ const ProductUpdate = ({ match, history }) => {
     values.category = selectedCategory ? selectedCategory : values.category;
     // values.subs = selectedSubCategory ? selectedSubCategory : values.subs;
     // values.subs2 = arrayOfSubs2;
-    const payload = { ...values, attributes };
+    const payload = { ...values, attributes, desattributes };
     updateProduct(slug, payload, user.token)
       .then((res) => {
         setLoading(false);
@@ -195,6 +197,16 @@ const ProductUpdate = ({ match, history }) => {
     setAttributes([...attributes, { subs: "", subs2: [] }]);
   };
 
+  const addDesAttribute = () => {
+    setDesattributes([...desattributes, {}]);
+  };
+
+  const handleDesAttributeChange = (index, key, value) => {
+    const updatedDesattributes = [...desattributes];
+    updatedDesattributes[index] = { [key]: value };
+    setDesattributes(updatedDesattributes);
+  };
+
   return (
     <div class="manageacmaincont">
       <div class="manageaccont">
@@ -216,7 +228,6 @@ const ProductUpdate = ({ match, history }) => {
                 setLoading={setLoading}
               />
             </div>
-
             <ProductUpdateForm
               handleSubmit={handleSubmit}
               handleChange={handleChange}
@@ -228,13 +239,16 @@ const ProductUpdate = ({ match, history }) => {
               handleSubChange={handleSubChange}
               handleSub2Change={handleSub2Change}
               addAttribute={addAttribute}
+              addDesAttribute={addDesAttribute}
               categories={categories}
               subOptions={subOptions}
               sub2Options={sub2Options}
               arrayOfSubs2={arrayOfSubs2}
               setArrayOfSubs2={setArrayOfSubs2}
               attributes={attributes}
+              desattributes={desattributes}
               selectedCategory={selectedCategory}
+              handleDesAttributeChange={handleDesAttributeChange}
             />
             <hr />
           </div>

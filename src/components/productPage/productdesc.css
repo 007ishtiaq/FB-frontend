@@ -22,17 +22,17 @@
 }
 .desccontent {
   display: flex;
-  padding: 0 12rem;
+  padding: 1rem 2rem;
   justify-content: space-between;
   font-size: var(--fontsize-eemedium);
 }
 .desccontentleft {
-  width: 30%;
+  width: 50%;
 }
 
 .desccontentright {
   padding: 0 2rem;
-  width: 65%;
+  width: 45%;
 }
 strong {
   font-weight: 600;
@@ -61,7 +61,88 @@ strong {
 thead th {
   font-weight: 600;
 }
+/* --------------products deccription table styling--------------- */
+.tabledesattri {
+  width: 100%;
+  border-collapse: collapse;
+}
 
+.tabledesattri thead th {
+  background-color: #f0f0f0; /* Light grey for header background */
+  text-align: left;
+  padding: 0.7rem 2rem;
+  border: 1px solid #ddd; /* Border around header cells */
+}
+
+.tabledesattri tbody td {
+  padding: 0.7rem 2rem;
+  border: 1px solid #ddd; /* Border around body cells */
+  text-align: left;
+}
+
+.tabledesattri tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light background for even rows */
+}
+
+/* Column-specific background or border styles */
+.tabledesattri thead th:nth-child(1),
+.tabledesattri tbody td:nth-child(1) {
+  border-left: 3px solid #ff4500; /* Add a left border to the Size column */
+}
+
+.tabledesattri thead th:nth-child(2),
+.tabledesattri tbody td:nth-child(2) {
+  border-left: 3px solid #1e90ff; /* Add a left border to the Fabric Material column */
+}
+
+.tabledesattri thead th:nth-child(3),
+.tabledesattri tbody td:nth-child(3) {
+  border-left: 3px solid #32cd32; /* Add a left border to the Suitable Type column */
+}
+
+.tabledesattri thead th:nth-child(4),
+.tabledesattri tbody td:nth-child(4) {
+  border-left: 3px solid #8b4513; /* Add a left border to the Thickness column */
+}
+
+.tabledesattri thead th:nth-child(5),
+.tabledesattri tbody td:nth-child(5) {
+  border-left: 3px solid #ff69b4; /* Add a left border to the Colour column */
+}
+
+.tabledesattri thead th:nth-child(6),
+.tabledesattri tbody td:nth-child(6) {
+  border-left: 3px solid #9400d3; /* Add a left border to the Occasion column */
+}
+.tabledesattri thead th:nth-child(7),
+.tabledesattri tbody td:nth-child(7) {
+  border-left: 3px solid #ff4500; /* Add a left border to the Size column */
+}
+
+.tabledesattri thead th:nth-child(8),
+.tabledesattri tbody td:nth-child(8) {
+  border-left: 3px solid #1e90ff; /* Add a left border to the Fabric Material column */
+}
+
+.tabledesattri thead th:nth-child(9),
+.tabledesattri tbody td:nth-child(9) {
+  border-left: 3px solid #32cd32; /* Add a left border to the Suitable Type column */
+}
+
+.tabledesattri thead th:nth-child(10),
+.tabledesattri tbody td:nth-child(10) {
+  border-left: 3px solid #8b4513; /* Add a left border to the Thickness column */
+}
+
+.tabledesattri thead th:nth-child(11),
+.tabledesattri tbody td:nth-child(11) {
+  border-left: 3px solid #ff69b4; /* Add a left border to the Colour column */
+}
+
+.tabledesattri thead th:nth-child(12),
+.tabledesattri tbody td:nth-child(12) {
+  border-left: 3px solid #9400d3; /* Add a left border to the Occasion column */
+}
 /*****************************************
 **************Responsiveness***********
 *************************************** */

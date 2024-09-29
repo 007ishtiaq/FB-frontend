@@ -20,7 +20,10 @@ const ProductUpdateForm = ({
   setArrayOfSubs2,
   selectedCategory,
   attributes,
+  desattributes,
   addAttribute,
+  addDesAttribute,
+  handleDesAttributeChange,
 }) => {
   // destructure
   const {
@@ -73,6 +76,44 @@ const ProductUpdateForm = ({
           onChange={handleChange}
         />
       </div>
+
+      {desattributes.map((desattr, index) => {
+        // Get the current key and value from the object
+        const currentKey = Object.keys(desattr)[0] || "";
+        const currentValue = Object.values(desattr)[0] || "";
+
+        return (
+          <div key={index} className="form-group">
+            <label>Key</label>
+            <input
+              type="text"
+              className="form-control"
+              value={currentKey}
+              onChange={(e) =>
+                handleDesAttributeChange(index, e.target.value, currentValue)
+              }
+            />
+
+            <label>Value</label>
+            <input
+              type="text"
+              className="form-control"
+              value={currentValue}
+              onChange={(e) =>
+                handleDesAttributeChange(index, currentKey, e.target.value)
+              }
+            />
+          </div>
+        );
+      })}
+
+      <button
+        type="button"
+        className="btn btn-outline-secondary"
+        onClick={addDesAttribute}
+      >
+        Add Description Attribute
+      </button>
 
       <div className="form-group">
         <label>Price [0 or ~] (required)</label>

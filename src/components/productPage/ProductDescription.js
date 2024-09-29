@@ -2,6 +2,8 @@ import React from "react";
 import "./productdesc.css";
 
 export default function ProductDescription({ product }) {
+  // const { description, desattributes } = product;
+
   return (
     <div class="prodowncont">
       <div class="prodownsub">
@@ -9,25 +11,21 @@ export default function ProductDescription({ product }) {
         <hr />
         <div class="desccontent">
           <div class="desccontentleft">
-            <table class="table table2nd">
+            <table class="table table2nd tabledesattri">
               <thead>
                 <tr>
-                  <th>Size:</th>
-                  <th>Fabric Material:</th>
-                  <th>Suitable Type:</th>
-                  <th>Thickness:</th>
-                  <th>Colour:</th>
-                  <th>Occasion:</th>
+                  {product.desattributes &&
+                    product.desattributes.map((desattr, index) => (
+                      <th key={index}>{Object.keys(desattr)[0]}:</th> // Render the key as the table header
+                    ))}
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>ABC</td>
-                  <td>Jell</td>
-                  <td>All</td>
-                  <td>Mint</td>
-                  <td>Adult</td>
-                  <td>Leisure</td>
+                  {product.desattributes &&
+                    product.desattributes.map((desattr, index) => (
+                      <td key={index}>{Object.values(desattr)[0]}</td> // Render the value as table data
+                    ))}
                 </tr>
               </tbody>
             </table>

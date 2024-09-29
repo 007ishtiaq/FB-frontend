@@ -308,7 +308,7 @@ hr {
   display: none;
 }
 .carousel.carousel-slider .control-arrow {
-  margin: auto 0;
+  margin: auto 0 !important;
   height: 10%;
   width: 10%;
   background: rgba(0, 0, 0, 0.2);
@@ -327,6 +327,24 @@ hr {
   top: 50%;
   right: 50%;
   transform: translate(100%, -50%);
+}
+/* small size img right left errow styling */
+.carousel.carousel-slider .control-prev.control-arrow:before {
+  border-right: 8px solid #ffffff !important;
+  right: 50%;
+}
+.carousel.carousel-slider .control-next.control-arrow:before {
+  border-left: 8px solid #ffffff !important;
+  left: 50%;
+}
+/* small size img right left errow styling */
+.carousel .control-prev.control-arrow:before {
+  border-right: 8px solid #ff9100 !important;
+  right: 80%;
+}
+.carousel .control-next.control-arrow:before {
+  border-left: 8px solid #ff9100 !important;
+  left: 80%;
 }
 .carousel .thumb {
   width: 7rem !important;

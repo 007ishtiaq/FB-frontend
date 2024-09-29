@@ -35,6 +35,7 @@ const ProductCreate = () => {
   const [subOptions, setSubOptions] = useState([]);
   const [sub2Options, setSub2Options] = useState([]);
   const [attributes, setAttributes] = useState([{ subs: "", subs2: [] }]);
+  const [desattributes, setDesattributes] = useState([{}]);
   const [loading, setLoading] = useState(false);
 
   // redux
@@ -65,7 +66,7 @@ const ProductCreate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = { ...values, attributes };
+    const payload = { ...values, attributes, desattributes };
     createProduct(payload, user.token)
       .then((res) => {
         window.alert(`"${res.data.title}" is created`);
@@ -115,6 +116,16 @@ const ProductCreate = () => {
     setAttributes([...attributes, { subs: "", subs2: [] }]);
   };
 
+  const addDesAttribute = () => {
+    setDesattributes([...desattributes, {}]);
+  };
+
+  const handleDesAttributeChange = (index, key, value) => {
+    const updatedDesattributes = [...desattributes];
+    updatedDesattributes[index] = { [key]: value };
+    setDesattributes(updatedDesattributes);
+  };
+
   return (
     <div className="col-md-10">
       {loading ? (
@@ -131,7 +142,6 @@ const ProductCreate = () => {
           setLoading={setLoading}
         />
       </div>
-
       <ProductCreateForm
         handleSubmit={handleSubmit}
         handleChange={handleChange}
@@ -144,6 +154,10 @@ const ProductCreate = () => {
         handleSub2Change={handleSub2Change}
         attributes={attributes}
         addAttribute={addAttribute}
+        addDesAttribute={addDesAttribute}
+        desattributes={desattributes}
+        setDesattributes={setDesattributes}
+        handleDesAttributeChange={handleDesAttributeChange}
       />
     </div>
   );
