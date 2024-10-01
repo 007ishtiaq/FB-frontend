@@ -51,7 +51,7 @@ const Product = ({ match, history }) => {
         .then((res) => {
           setProduct(res.data);
 
-          // load Similar
+          // load Similar + color
           getSimilar(res.data.slug).then((res) => setSimilarProduct(res.data));
 
           // load related

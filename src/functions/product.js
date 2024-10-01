@@ -50,10 +50,9 @@ export const updateProduct = async (slug, product, authtoken) =>
 //     order,
 //     page,
 //   });
-export const getReviews = async (productslug, page) =>
+export const getReviews = async (data) =>
   await axios.post(`${process.env.REACT_APP_API}/reviews`, {
-    productslug,
-    page,
+    data,
   });
 
 // export const getFlashproducts = async () =>

@@ -36,8 +36,9 @@ export default function ProductReviews({
 
   const loadAllReviews = () => {
     setLoading(true);
-    getReviews(productslug, page).then((res) => {
-      setReviews(res.data.populatedReviews);
+
+    getReviews({ productslug, page }).then((res) => {
+      setReviews(res.data.reviews);
       setReviewsCount(res.data.totalReviews);
       setLoading(false);
     });
@@ -58,8 +59,8 @@ export default function ProductReviews({
   }
 
   function CalcAvg() {
-    if (product && product.ratings) {
-      let ratingsArray = product.ratings;
+    if (reviews) {
+      let ratingsArray = reviews;
       let total = [];
       let length = ratingsArray.length;
 
@@ -74,48 +75,15 @@ export default function ProductReviews({
     }
   }
 
-  function accumulateStarsByRating(ratings) {
-    // const ratings = [
-    //   {
-    //     star: 4,
-    //     comment: "Good job!",
-    //     postedBy: "user123",
-    //     postedOn: 1632496800000,
-    //   },
-    //   {
-    //     star: 3,
-    //     comment: "Could be better",
-    //     postedBy: "user456",
-    //     postedOn: 1632583200000,
-    //   },
-    //   {
-    //     star: 4,
-    //     comment: "Well done",
-    //     postedBy: "user789",
-    //     postedOn: 1632669600000,
-    //   },
-    //   {
-    //     star: 2,
-    //     comment: "Needs improvement",
-    //     postedBy: "user012",
-    //     postedOn: 1632756000000,
-    //   },
-    //   {
-    //     star: 5,
-    //     comment: "Excellent!",
-    //     postedBy: "user345",
-    //     postedOn: 1632842400000,
-    //   },
-    // ];
-
+  function accumulateStarsByRating(reviews) {
     let starAccumulator = {};
 
     for (let i = 1; i <= 5; i++) {
       starAccumulator[i] = 0;
     }
 
-    for (let i = 0; i < ratings.length; i++) {
-      const rating = ratings[i].star;
+    for (let i = 0; i < reviews.length; i++) {
+      const rating = reviews[i].star;
       if (typeof rating === "number" && !isNaN(rating)) {
         starAccumulator[rating]++;
       }
@@ -156,16 +124,16 @@ export default function ProductReviews({
         <div class="headingcont">Verified Customer Feedback</div>
         <hr />
 
-        {product.ratings && product.ratings.length > 0 ? (
+        {reviews && reviews.length > 0 ? (
           <>
             <div class="creviewup">
               <div class="starstatus">
                 <div class="reviewcount">
-                  Customer Reviews ({product.ratings && product.ratings.length})
+                  Customer Reviews ({reviews && reviews.length})
                 </div>
 
                 <div class="reviewbarcont">
-                  {accumulateStarsByRating(product.ratings)
+                  {accumulateStarsByRating(reviews)
                     .reverse()
                     .map((rating, i) => {
                       return (
@@ -174,19 +142,18 @@ export default function ProductReviews({
                           <div
                             style={{
                               backgroundImage: `linear-gradient(to right, #ff6600 ${
-                                (rating.count / product.ratings.length) * 100
+                                (rating.count / reviews.length) * 100
                               }%, #c7c7cd ${
-                                (rating.count / product.ratings.length) * 100
+                                (rating.count / reviews.length) * 100
                               }%)`,
                             }}
                             class="staravgbar"
                           ></div>
                           <div class="starpersent">
                             <span>
-                              {(
-                                (rating.count / product.ratings.length) *
-                                100
-                              ).toFixed(0)}
+                              {((rating.count / reviews.length) * 100).toFixed(
+                                0
+                              )}
                             </span>
                             %
                           </div>
@@ -208,7 +175,7 @@ export default function ProductReviews({
                   StarHalfclass={"avgstars avgstar-half"}
                   StarEmptyclass={"avgstars avgstar-empty"}
                 ></Mystars>
-                <div class="ratingcount"> {product.ratings.length} Ratings</div>
+                <div class="ratingcount"> {reviews.length} Ratings</div>
               </div>
               <div class="postnewriew">
                 <div class="postheading">Review this product</div>
@@ -309,7 +276,8 @@ export default function ProductReviews({
                 <div class="previewpagination">
                   <Pagination
                     current={page}
-                    total={(reviewsCount / 5) * 10}
+                    total={reviewsCount}
+                    pageSize={5}
                     onChange={(value) => setPage(value)}
                   />
                 </div>
