@@ -45,6 +45,7 @@ export default function UserProfile() {
 
   const loadUserRatedProducts = () => {
     getRatedproducts(user.token).then((res) => {
+      // console.log(res.data);
       setProducts(res.data);
     });
   };
@@ -91,20 +92,24 @@ export default function UserProfile() {
                     <div class="imgcont">
                       <img
                         src={
-                          pro.images && pro.images.length
-                            ? pro.images[0].url
+                          pro.product.images && pro.product.images.length
+                            ? pro.product.images[0].url
                             : laptop
                         }
-                        alt={pro.title}
+                        alt={pro.product.title}
                       />
                     </div>
                     <div class="myreviewptitlecont">
-                      <p class="wishlistptitle">{pro.title}</p>
-                      <p class="wishlistptitlesub">Color Family: {pro.color}</p>
+                      <p class="wishlistptitle">{pro.product.title}</p>
+                      <p class="wishlistptitlesub">
+                        Color Family: {pro.product.color}
+                      </p>
                     </div>
                     <div class="mreviewstars">
-                      {pro && pro.ratings && pro.ratings.length > 0 ? (
-                        showAverage(pro)
+                      {pro.product &&
+                      pro.product.ratings &&
+                      pro.product.ratings.length > 0 ? (
+                        showAverage(pro.product)
                       ) : (
                         <div className="text-center pt-1 pb-3">
                           No rating yet
@@ -115,14 +120,14 @@ export default function UserProfile() {
                       onModalok={onModalok}
                       setModalVisible={setModalVisible}
                       modalVisible={modalVisible}
-                      data={pro.ratings[0]}
-                      productId={pro._id}
+                      data={pro.product.ratings[0]}
+                      productId={pro.product._id}
                       setProductIdforreview={setProductIdforreview}
                       setStar={setStar}
                       setComment={setComment}
                     >
                       <StarRating
-                        name={pro._id}
+                        name={pro.product._id}
                         numberOfStars={5}
                         rating={star}
                         changeRating={onStarClick}
@@ -140,7 +145,9 @@ export default function UserProfile() {
                   </div>
                   <div class="myreview">
                     <div class="mreviewhead">Review :</div>
-                    <div class="mreviewsub">{pro.ratings[0].comment}</div>
+                    <div class="mreviewsub">
+                      {pro.product.ratings[0].comment}
+                    </div>
                   </div>
                 </li>
               ))

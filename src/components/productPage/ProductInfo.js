@@ -25,7 +25,7 @@ import { UserAddressAndContactSchema } from "../../schemas";
 import Skeleton from "react-loading-skeleton";
 import Countdown from "../countdown/Countdown";
 
-export default function ProductInfo({ product, similarProduct }) {
+export default function ProductInfo({ product, similarProduct, reviews }) {
   const {
     art,
     title,
@@ -112,8 +112,8 @@ export default function ProductInfo({ product, similarProduct }) {
   };
 
   function CalcAvg() {
-    if (product && product.ratings) {
-      let ratingsArray = product.ratings;
+    if (reviews) {
+      let ratingsArray = reviews;
       let total = [];
       let length = ratingsArray.length;
 
@@ -298,7 +298,7 @@ export default function ProductInfo({ product, similarProduct }) {
           </div>
           <div className="publicremarkcont">
             <div className="publicremark">
-              {product && product.ratings && product.ratings.length > 0 ? (
+              {reviews && reviews.length > 0 ? (
                 // showAverage(product)
                 <div>
                   <Mystars
@@ -323,9 +323,9 @@ export default function ProductInfo({ product, similarProduct }) {
               )}
               <div className="">
                 {title ? (
-                  product && product.ratings && product.ratings.length > 0 ? (
+                  reviews && reviews.length > 0 ? (
                     <>
-                      <span className="">{product.ratings.length} </span>
+                      <span className="">{reviews.length} </span>
                       <span>Review(s)</span>
                     </>
                   ) : (
