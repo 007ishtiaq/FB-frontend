@@ -8,17 +8,17 @@ import {
 } from "../functions/product";
 import { toast } from "react-hot-toast";
 import { Online } from "react-detect-offline";
-import ProductCard from "../components/cards/ProductCard";
+// import ProductCard from "../components/cards/ProductCard";
 import ProductInfo from "../components/productPage/ProductInfo";
 import ProductDescription from "../components/productPage/ProductDescription";
 import ProductServices from "../components/productPage/ProductServices";
-import ProductQnA from "../components/productPage/ProductQnA";
+// import ProductQnA from "../components/productPage/ProductQnA";
 import ProductReviews from "../components/productPage/ProductReviews";
 
 const Product = ({ match, history }) => {
   const [product, setProduct] = useState({});
   const [similarProduct, setSimilarProduct] = useState([]);
-  // const [related, setRelated] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [star, setStar] = useState(0);
   const [productIdforreview, setProductIdforreview] = useState("");
   const [comment, setComment] = useState("");
@@ -34,16 +34,20 @@ const Product = ({ match, history }) => {
   }, [slug, Online]);
 
   useEffect(() => {
-    if (product.ratings && user) {
-      let existingRatingObject = product.ratings.find(
-        (ele) => ele.postedBy && ele.postedBy.toString() === user._id.toString()
+    if (reviews && user) {
+      // Find the existing review left by the current user
+      let existingReview = reviews.find(
+        (review) =>
+          review.postedBy &&
+          review.postedBy._id.toString() === user._id.toString()
       );
-      if (existingRatingObject) {
-        setStar(existingRatingObject.star);
-        setComment(existingRatingObject.comment);
+      // If the review exists, set the star and comment
+      if (existingReview) {
+        setStar(existingReview.star);
+        setComment(existingReview.comment);
       }
     }
-  }, [modalVisible, product.ratings, user]);
+  }, [modalVisible, user]);
 
   const loadSingleProduct = async () => {
     if (navigator.onLine) {
@@ -80,6 +84,10 @@ const Product = ({ match, history }) => {
 
   const onModalok = () => {
     if (navigator.onLine) {
+      console.log("hitting productStar");
+      console.log("comment", comment);
+      console.log("productIdforreview", productIdforreview);
+
       productStar(productIdforreview, { star, comment }, user.token).then(
         (res) => {
           toast.success("Thanks for your review. It will appear soon");
@@ -110,11 +118,14 @@ const Product = ({ match, history }) => {
         productslug={slug}
         onStarClick={onStarClick}
         onModalok={onModalok}
+        reviews={reviews}
+        setReviews={setReviews}
         star={star}
         comment={comment}
         setComment={setComment}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
+        setProductIdforreview={setProductIdforreview}
       />
       <Online onChange={loadSingleProduct} />
       {/* ---related products disabled temporarily--- */}

@@ -15,13 +15,15 @@ export default function ProductReviews({
   productslug,
   onStarClick,
   onModalok,
+  reviews,
+  setReviews,
   star,
   setComment,
   comment,
   setModalVisible,
   modalVisible,
+  setProductIdforreview,
 }) {
-  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [reviewsCount, setReviewsCount] = useState(0);
   const [page, setPage] = useState(1);
@@ -29,10 +31,6 @@ export default function ProductReviews({
   useEffect(() => {
     loadAllReviews();
   }, [page, product]);
-
-  // useEffect(() => {
-  //   getProductsCount().then((res) => setProductsCount(res.data));
-  // }, []);
 
   const loadAllReviews = () => {
     setLoading(true);
@@ -199,7 +197,10 @@ export default function ProductReviews({
                     id="comment"
                     className="commenttxtbox"
                     value={comment}
-                    onChange={(e) => setComment(e.target.value)}
+                    onChange={(e) => {
+                      setComment(e.target.value);
+                      setProductIdforreview(product._id);
+                    }}
                     rows="7"
                   />
                 </RatingModal>
@@ -309,7 +310,10 @@ export default function ProductReviews({
                   id="comment"
                   className="commenttxtbox"
                   value={comment}
-                  onChange={(e) => setComment(e.target.value)}
+                  onChange={(e) => {
+                    setComment(e.target.value);
+                    setProductIdforreview(product._id);
+                  }}
                   cols="63"
                   rows="7"
                 />
