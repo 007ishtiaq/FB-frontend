@@ -12,7 +12,6 @@ const AdminReviewAddForm = ({
   setStar,
   comment,
   setComment,
-  image,
 }) => (
   <form onSubmit={handleSubmit}>
     <div className="form-group">
@@ -22,7 +21,6 @@ const AdminReviewAddForm = ({
         className="form-control"
         onChange={(e) => setProductId(e.target.value)}
         value={productId}
-        autoFocus
         required
       />
       <label>User Name</label>
@@ -30,8 +28,8 @@ const AdminReviewAddForm = ({
         type="text"
         className="form-control"
         onChange={(e) => setPosterName(e.target.value)}
-        value={posterName}
         autoFocus
+        value={posterName}
         required
       />
       <label>Posted Date (Exp: 13 sep 2024) [Default is Today Date]</label>
@@ -40,7 +38,6 @@ const AdminReviewAddForm = ({
         className="form-control"
         onChange={(e) => setPostedDate(e.target.value)}
         value={postedDate}
-        autoFocus
         required
       />
       <label>Stars [0 - 5]</label>

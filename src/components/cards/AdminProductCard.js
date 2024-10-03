@@ -8,6 +8,7 @@ import { showAverage } from "../../functions/rating";
 import Skeleton from "react-loading-skeleton";
 import { ReactComponent as Editsvg } from "../../images/edit.svg";
 import { ReactComponent as Deletesvg } from "../../images/delete.svg";
+import { ReactComponent as Reviewssvg } from "../../images/review.svg";
 import "./AdminProductCard.css";
 
 const AdminProductCard = ({
@@ -144,10 +145,9 @@ const AdminProductCard = ({
           )}
           <div className="actionbtns">
             <div className="smallsvgbtncont">
-              <Deletesvg
-                onClick={() => handleRemove(slug)}
-                className="smallsvgbtn"
-              />
+              <Link to={`/AdminPanel?page=AddReview&productID=${_id}`}>
+                <Reviewssvg className="smallsvgbtn" />
+              </Link>
             </div>
             <div className="smallsvgbtncont">
               <Deletesvg

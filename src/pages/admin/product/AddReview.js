@@ -1,28 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 // import "./CategoryCreate.css";
 import { useSelector } from "react-redux";
 import { createAdminReview } from "../../../functions/admin";
 import AdminReviewAddForm from "../../../components/forms/AdminReviewAddForm";
-import CategoryImgupload from "../../../components/forms/CategoryImgupload";
+import FileUpload from "../../../components/forms/FileUpload";
 import axios from "axios";
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 const AddReview = () => {
+  let query = useQuery();
   const { user } = useSelector((state) => ({ ...state }));
 
+  const [values, setValues] = useState({ images: [] });
   const [productId, setProductId] = useState("");
   const [posterName, setPosterName] = useState("");
   const [postedDate, setPostedDate] = useState("");
   const [star, setStar] = useState("");
   const [comment, setComment] = useState("");
-  const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Set productId from URL params
+  useEffect(() => {
+    if (query) {
+      setProductId(query.get("productID"));
+    }
+  }, [query.get("productID")]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
     createAdminReview(
-      { productId, posterName, postedDate, star, comment },
+      {
+        productId,
+        posterName,
+        postedDate,
+        star,
+        comment,
+        images: values.images,
+      },
       user.token
     )
       .then((res) => {
@@ -31,35 +51,13 @@ const AddReview = () => {
         setPosterName("");
         setStar("");
         setComment("");
-        setImage("");
+        setValues({ images: [] });
         toast.success(`Review Added Successfully`);
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
         if (err.response.status === 400) toast.error(err.response.data);
-      });
-  };
-
-  const handleImageRemove = (public_id) => {
-    setLoading(true);
-    axios
-      .post(
-        `${process.env.REACT_APP_API}/removeimage`,
-        { public_id },
-        {
-          headers: {
-            authtoken: user ? user.token : "",
-          },
-        }
-      )
-      .then((res) => {
-        setLoading(false);
-        setImage("");
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
       });
   };
 
@@ -71,11 +69,10 @@ const AddReview = () => {
         <h4>Add A Review</h4>
       )}
       <div className="p-3">
-        <CategoryImgupload
-          image={image}
-          setImage={setImage}
+        <FileUpload
+          values={values}
+          setValues={setValues}
           setLoading={setLoading}
-          handleImageRemove={handleImageRemove}
         />
       </div>
       <AdminReviewAddForm
@@ -90,7 +87,6 @@ const AddReview = () => {
         setStar={setStar}
         comment={comment}
         setComment={setComment}
-        image={image}
       />
     </div>
   );

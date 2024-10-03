@@ -18,10 +18,10 @@ export default function ProductServices() {
           <div class="servicesub">
             <Packagereturn class="serviceimg"></Packagereturn>
             <div class="serviceinfo">
-              <div class="headingcont"> 7 Days </div>
+              <div class="headingcont"> 15 Days </div>
               <div class="">
                 {" "}
-                Enjoy 7 days to return if any quality problems ascascsac
+                Enjoy 15 days to return if any quality problems ascascsac
                 ascascascas
               </div>
             </div>

@@ -9,6 +9,7 @@ import Mystars from "../ratingstars/Mystars";
 import RatingModal from "../modal/RatingModal";
 import { getReviews } from "../../functions/product";
 import { Pagination } from "antd";
+import Model from "../../components/Model/Model";
 
 export default function ProductReviews({
   product,
@@ -29,6 +30,7 @@ export default function ProductReviews({
   const [avgRating, setAvgRating] = useState(0);
   const [starAccumulator, setStarAccumulator] = useState("");
   const [page, setPage] = useState(1);
+  const [showModels, setShowModels] = useState([]);
 
   useEffect(() => {
     loadAllReviews();
@@ -82,6 +84,12 @@ export default function ProductReviews({
     const readmorebtn = e.currentTarget;
     readmorebtn.classList.toggle("active");
   }
+
+  const handleModelToggle = (index) => {
+    const newShowModels = [...showModels];
+    newShowModels[index] = !newShowModels[index];
+    setShowModels(newShowModels);
+  };
 
   return (
     <div class="prodowncont">
@@ -231,6 +239,27 @@ export default function ProductReviews({
                           <Downbtn className="downbtn"></Downbtn>
                           <span> Read more </span>
                         </button>
+                        <div className="reviewimgcont">
+                          {review.images &&
+                            review.images.map((img, index) => (
+                              <div>
+                                <Model
+                                  key={index}
+                                  show={showModels[index]}
+                                  closeModel={() => handleModelToggle(index)}
+                                >
+                                  <img className="" src={img.url} alt="" />
+                                </Model>
+                                <img
+                                  key={index}
+                                  src={img.url}
+                                  onClick={() => handleModelToggle(index)}
+                                  alt={`Review ${index + 1}`}
+                                  className="review-image"
+                                />
+                              </div>
+                            ))}
+                        </div>
                       </div>
                     </div>
                   );
