@@ -176,3 +176,14 @@ export const deleteEntry = async (id, authtoken) =>
       authtoken,
     },
   });
+
+export const createAdminReview = async (data, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/admin/add-review`,
+    { data },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );

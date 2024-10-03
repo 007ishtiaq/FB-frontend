@@ -26,6 +26,8 @@ export default function ProductReviews({
 }) {
   const [loading, setLoading] = useState(false);
   const [reviewsCount, setReviewsCount] = useState(0);
+  const [avgRating, setAvgRating] = useState(0);
+  const [starAccumulator, setStarAccumulator] = useState("");
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -38,6 +40,8 @@ export default function ProductReviews({
     getReviews({ productslug, page }).then((res) => {
       setReviews(res.data.reviews);
       setReviewsCount(res.data.totalReviews);
+      setAvgRating(res.data.avgRating);
+      setStarAccumulator(res.data.starAccumulator);
       setLoading(false);
     });
   };
@@ -54,43 +58,6 @@ export default function ProductReviews({
     const formattedDate = date.toLocaleDateString("en-US", options);
 
     return formattedDate;
-  }
-
-  function CalcAvg() {
-    if (reviews) {
-      let ratingsArray = reviews;
-      let total = [];
-      let length = ratingsArray.length;
-
-      ratingsArray.map((r) => total.push(r.star));
-      let totalReduced = total.reduce((p, n) => p + n, 0);
-
-      let highest = length * 5;
-
-      let result = (totalReduced * 5) / highest;
-
-      return result.toFixed(1);
-    }
-  }
-
-  function accumulateStarsByRating(reviews) {
-    let starAccumulator = {};
-
-    for (let i = 1; i <= 5; i++) {
-      starAccumulator[i] = 0;
-    }
-
-    for (let i = 0; i < reviews.length; i++) {
-      const rating = reviews[i].star;
-      if (typeof rating === "number" && !isNaN(rating)) {
-        starAccumulator[rating]++;
-      }
-    }
-
-    return Object.entries(starAccumulator).map(([rating, count]) => ({
-      rating: parseInt(rating),
-      count,
-    }));
   }
 
   // const commentExpand = (e) => {
@@ -127,31 +94,27 @@ export default function ProductReviews({
             <div class="creviewup">
               <div class="starstatus">
                 <div class="reviewcount">
-                  Customer Reviews ({reviews && reviews.length})
+                  Customer Reviews ({reviews && reviewsCount})
                 </div>
 
                 <div class="reviewbarcont">
-                  {accumulateStarsByRating(reviews)
-                    .reverse()
-                    .map((rating, i) => {
+                  {Object.entries(starAccumulator)
+                    .reverse() // Display from 5 stars down to 1 star
+                    .map(([rating, count], i) => {
                       return (
                         <div class="reviewbarsingle" key={i}>
-                          <p class="starnum">{rating.rating} Stars</p>
+                          <p class="starnum">{rating} Stars</p>
                           <div
                             style={{
                               backgroundImage: `linear-gradient(to right, #ff6600 ${
-                                (rating.count / reviews.length) * 100
-                              }%, #c7c7cd ${
-                                (rating.count / reviews.length) * 100
-                              }%)`,
+                                (count / reviewsCount) * 100
+                              }%, #c7c7cd ${(count / reviewsCount) * 100}%)`,
                             }}
                             class="staravgbar"
                           ></div>
                           <div class="starpersent">
                             <span>
-                              {((rating.count / reviews.length) * 100).toFixed(
-                                0
-                              )}
+                              {((count / reviewsCount) * 100).toFixed(0)}
                             </span>
                             %
                           </div>
@@ -163,17 +126,17 @@ export default function ProductReviews({
               <div class="staravgcont">
                 <div class="staravg">
                   {" "}
-                  <span class="totalavg">{CalcAvg()}</span>{" "}
+                  <span class="totalavg">{avgRating}</span>{" "}
                   <span class="outof">/5</span>{" "}
                 </div>
                 <Mystars
-                  rating={CalcAvg()}
+                  rating={avgRating}
                   containerclass={"reviewstarscont"}
                   StarFullclass={"avgstars"}
                   StarHalfclass={"avgstars avgstar-half"}
                   StarEmptyclass={"avgstars avgstar-empty"}
                 ></Mystars>
-                <div class="ratingcount"> {reviews.length} Ratings</div>
+                <div class="ratingcount"> {reviewsCount} Ratings</div>
               </div>
               <div class="postnewriew">
                 <div class="postheading">Review this product</div>
@@ -228,9 +191,9 @@ export default function ProductReviews({
                           <p>
                             {" "}
                             {`${
-                              review.postedBy && review.postedBy.name
-                                ? review.postedBy.name
-                                : "Unknown"
+                              review.postedBy && review.posterName
+                                ? review.posterName
+                                : review.postedBy.name
                             }`}{" "}
                           </p>
                         </div>

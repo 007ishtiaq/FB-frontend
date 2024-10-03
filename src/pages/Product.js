@@ -84,10 +84,6 @@ const Product = ({ match, history }) => {
 
   const onModalok = () => {
     if (navigator.onLine) {
-      console.log("hitting productStar");
-      console.log("comment", comment);
-      console.log("productIdforreview", productIdforreview);
-
       productStar(productIdforreview, { star, comment }, user.token).then(
         (res) => {
           toast.success("Thanks for your review. It will appear soon");

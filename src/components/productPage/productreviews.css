@@ -178,9 +178,10 @@
 }
 .cnamecont {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   width: 20%;
   padding: 1rem;
+  padding-left: 3rem;
   align-items: center;
   flex-shrink: 0;
 }
@@ -376,6 +377,9 @@
     width: 40px !important;
     height: 40px !important;
   }
+  .cnamecont {
+    padding-left: 1rem;
+  }
 }
 @media (max-width: 550px) {
   .creviewup {
@@ -409,6 +413,9 @@
   }
   .postsub {
     text-align: center;
+  }
+  .productreviewself {
+    flex-direction: column;
   }
 }
 @media (max-width: 415px) {

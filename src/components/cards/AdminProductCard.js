@@ -18,6 +18,7 @@ const AdminProductCard = ({
   handleRemove,
 }) => {
   const {
+    _id,
     title,
     slug,
     price,
@@ -142,6 +143,12 @@ const AdminProductCard = ({
             </div>
           )}
           <div className="actionbtns">
+            <div className="smallsvgbtncont">
+              <Deletesvg
+                onClick={() => handleRemove(slug)}
+                className="smallsvgbtn"
+              />
+            </div>
             <div className="smallsvgbtncont">
               <Deletesvg
                 onClick={() => handleRemove(slug)}

@@ -335,7 +335,7 @@ export default function ProductInfo({ product, similarProduct, reviews }) {
                   <Skeleton width={80} count={1} />
                 )}
               </div>
-              <div className="orderscont">
+              {/* <div className="orderscont">
                 {product && product.sold && product.sold > 0 ? (
                   <>
                     <span> {product.sold}+ </span>
@@ -344,7 +344,7 @@ export default function ProductInfo({ product, similarProduct, reviews }) {
                 ) : (
                   ""
                 )}
-              </div>
+              </div> */}
             </div>
             {title ? (
               <div className="artnum">

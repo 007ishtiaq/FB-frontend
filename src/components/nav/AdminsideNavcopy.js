@@ -77,6 +77,9 @@ export default function AdminsideNavcopy({ currentActive }) {
         <Link to="/AdminPanel?page=FlashSale">
           <li class="manageacli clsremove FlashSale">Flash sale</li>
         </Link>
+        <Link to="/AdminPanel?page=AddReview">
+          <li class="manageacli clsremove AddReview">Add Review</li>
+        </Link>
       </ul>
       <Link
         to="/AdminPanel?page=Transections"
