@@ -14,6 +14,7 @@ import laptop from "../../../images/laptop.png";
 import { ReactComponent as Nopublicreview } from "../../../images/productpage/nopublicreview.svg";
 import { ReactComponent as Returnsvg } from "../../../images/cart/return.svg";
 import { Link } from "react-router-dom";
+import { Pagination } from "antd";
 
 // user side reviews preview page
 export default function UserProfile() {
@@ -22,6 +23,9 @@ export default function UserProfile() {
   const [star, setStar] = useState(0);
   const [comment, setComment] = useState("");
   const [productIdforreview, setProductIdforreview] = useState("");
+  const [page, setPage] = useState(1); // page number
+  const [perPage, setPerpage] = useState(5); // per page Size
+  const [reviewssCount, setReviewssCount] = useState(0);
 
   const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
@@ -41,12 +45,14 @@ export default function UserProfile() {
         payload: true,
       });
     }
-  }, [user, Online]);
+  }, [user, Online, page]);
 
   const loadUserRatedProducts = () => {
-    getRatedproducts(user.token).then((res) => {
-      // console.log(res.data);
-      setProducts(res.data);
+    getRatedproducts({ page, perPage }, user.token).then((res) => {
+      console.log(res.data);
+      setProducts(res.data.ratedProductsWithRatings);
+      setReviewssCount(res.data.totalReviews);
+      setPage(res.data.currentPage);
     });
   };
 
@@ -170,6 +176,14 @@ export default function UserProfile() {
               </div>
             )}
           </ul>
+          <div class="previewpagination reviewpagination">
+            <Pagination
+              current={page}
+              total={reviewssCount}
+              pageSize={perPage}
+              onChange={(value) => setPage(value)}
+            />
+          </div>
         </div>
         <Online onChange={loadUserRatedProducts} />
       </div>

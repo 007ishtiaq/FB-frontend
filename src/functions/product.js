@@ -83,8 +83,8 @@ export const productStar = async (productId, reviewinfo, authtoken) =>
     }
   );
 
-export const getRatedproducts = async (authtoken) =>
-  await axios.get(`${process.env.REACT_APP_API}/ratedAll`, {
+export const getRatedproducts = async (data, authtoken) =>
+  await axios.post(`${process.env.REACT_APP_API}/ratedAll`, data, {
     headers: {
       authtoken,
     },
