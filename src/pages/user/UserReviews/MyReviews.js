@@ -25,7 +25,7 @@ export default function UserProfile() {
   const [productIdforreview, setProductIdforreview] = useState("");
   const [page, setPage] = useState(1); // page number
   const [perPage, setPerpage] = useState(5); // per page Size
-  const [reviewssCount, setReviewssCount] = useState(0);
+  const [reviewsCount, setReviewsCount] = useState(0);
 
   const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ export default function UserProfile() {
     getRatedproducts({ page, perPage }, user.token).then((res) => {
       console.log(res.data);
       setProducts(res.data.ratedProductsWithRatings);
-      setReviewssCount(res.data.totalReviews);
+      setReviewsCount(res.data.totalReviews);
       setPage(res.data.currentPage);
     });
   };
@@ -78,6 +78,14 @@ export default function UserProfile() {
 
   const onStarClick = (newRating) => {
     setStar(newRating);
+  };
+
+  const handlePageChange = (value) => {
+    setPage(value);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Smooth scroll to top on page change
+    });
   };
 
   return (
@@ -179,9 +187,9 @@ export default function UserProfile() {
           <div class="previewpagination reviewpagination">
             <Pagination
               current={page}
-              total={reviewssCount}
+              total={reviewsCount}
               pageSize={perPage}
-              onChange={(value) => setPage(value)}
+              onChange={handlePageChange}
             />
           </div>
         </div>

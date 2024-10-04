@@ -149,7 +149,14 @@ export const getOrder = async (id, authtoken) =>
   });
 
 export const getWishlist = async (authtoken) =>
-  await axios.get(`${process.env.REACT_APP_API}/user/wishlist`, {
+  await axios.get(`${process.env.REACT_APP_API}/getwishlist`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+export const wishlistByPage = async (data, authtoken) =>
+  await axios.post(`${process.env.REACT_APP_API}/getwishlistbypage`, data, {
     headers: {
       authtoken,
     },

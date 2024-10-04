@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Online } from "react-detect-offline";
 import ManageMyAccount from "../ManageMyAccount";
 import "../MyWishlist.css";
-import { getWishlist, removeWishlist } from "../../../functions/user";
+import { wishlistByPage, removeWishlist } from "../../../functions/user";
 import { ReactComponent as Deletesvg } from "../../../images/cart/delete.svg";
 import { ReactComponent as EmptyWishlistsvg } from "../../../images/manageacUser/emptywishlist.svg";
 import { ReactComponent as Returnsvg } from "../../../images/cart/return.svg";
@@ -12,11 +12,16 @@ import _ from "lodash";
 import { toast } from "react-hot-toast";
 import "../../cart/cart.css";
 import "./MyWishlist.css";
+import { Pagination } from "antd";
 
 // user side wishlist preview page
 export default function MyWishlist() {
-  const [wishlist, setWishlist] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
+
+  const [wishlist, setWishlist] = useState([]);
+  const [page, setPage] = useState(1); // page number
+  const [perPage, setPerpage] = useState(10); // per page Size
+  const [wishlistCount, setWishlistCount] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -33,12 +38,26 @@ export default function MyWishlist() {
         payload: true,
       });
     }
-  }, [user, navigator.onLine, Online]);
+  }, [user, navigator.onLine, Online, page]);
 
   const loadWishlist = () => {
     if (user && user.token) {
-      getWishlist(user.token).then((res) => {
+      wishlistByPage({ page, perPage }, user.token).then((res) => {
         setWishlist(res.data.wishlist);
+        setWishlistCount(res.data.wishlistCount);
+        setPage(res.data.currentPage);
+
+        // If the current page is empty but there are items in previous pages, go to the previous page
+        if (
+          res.data.wishlist.length === 0 &&
+          page > 1 &&
+          wishlistCount > perPage
+        ) {
+          setPage((prevPage) => prevPage - 1);
+        } else {
+          setPage(res.data.currentPage);
+        }
+
         dispatch({
           type: "USER_WISHLIST",
           payload: res.data.wishlist,
@@ -49,10 +68,12 @@ export default function MyWishlist() {
 
   const handleRemove = (productId) => {
     if (navigator.onLine) {
-      if (user && user.token) {
-        removeWishlist(productId, user.token).then((res) => {
-          loadWishlist();
-        });
+      if (window.confirm("Delete?")) {
+        if (user && user.token) {
+          removeWishlist(productId, user.token).then((res) => {
+            loadWishlist();
+          });
+        }
       }
     } else {
       dispatch({
@@ -108,6 +129,14 @@ export default function MyWishlist() {
         payload: unique,
       });
     }
+  };
+
+  const handlePageChange = (value) => {
+    setPage(value);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Smooth scroll to top on page change
+    });
   };
 
   return (
@@ -176,6 +205,14 @@ export default function MyWishlist() {
                 </li>
               ))}
           </ul>
+          <div class="previewpagination reviewpagination">
+            <Pagination
+              current={page}
+              total={wishlistCount}
+              pageSize={perPage}
+              onChange={handlePageChange}
+            />
+          </div>
         </div>
         <Online onChange={loadWishlist} />
       </div>
