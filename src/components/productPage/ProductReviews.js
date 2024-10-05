@@ -86,13 +86,12 @@ export default function ProductReviews({
   }
 
   const handleModelToggle = (textId) => {
-    console.log(showModels);
-
     setShowModels((prevShowModels) => ({
       ...prevShowModels,
       [textId]: !prevShowModels[textId],
     }));
   };
+
   return (
     <div class="prodowncont">
       <div class="prodownsub">

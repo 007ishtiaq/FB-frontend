@@ -15,6 +15,7 @@ import { ReactComponent as Nopublicreview } from "../../../images/productpage/no
 import { ReactComponent as Returnsvg } from "../../../images/cart/return.svg";
 import { Link } from "react-router-dom";
 import { Pagination } from "antd";
+import Model from "../../../components/Model/Model";
 
 // user side reviews preview page
 export default function UserProfile() {
@@ -26,6 +27,7 @@ export default function UserProfile() {
   const [page, setPage] = useState(1); // page number
   const [perPage, setPerpage] = useState(5); // per page Size
   const [reviewsCount, setReviewsCount] = useState(0);
+  const [showModels, setShowModels] = useState({});
 
   const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
@@ -86,6 +88,13 @@ export default function UserProfile() {
       top: 0,
       behavior: "smooth", // Smooth scroll to top on page change
     });
+  };
+
+  const handleModelToggle = (textId) => {
+    setShowModels((prevShowModels) => ({
+      ...prevShowModels,
+      [textId]: !prevShowModels[textId],
+    }));
   };
 
   return (
@@ -161,6 +170,27 @@ export default function UserProfile() {
                     <div class="mreviewhead">Review :</div>
                     <div class="mreviewsub">
                       {pro.product.ratings[0].comment}
+                    </div>
+                    <div className="reviewimgcont">
+                      {pro.product.ratings[0].images &&
+                        pro.product.ratings[0].images.map((img, index) => (
+                          <div>
+                            <Model
+                              key={index}
+                              show={showModels[img.url]}
+                              closeModel={() => handleModelToggle(img.url)}
+                            >
+                              <img className="" src={img.url} alt="" />
+                            </Model>
+                            <img
+                              key={index}
+                              src={img.url}
+                              onClick={() => handleModelToggle(img.url)}
+                              alt={`Review ${index + 1}`}
+                              className="review-image"
+                            />
+                          </div>
+                        ))}
                     </div>
                   </div>
                 </li>
