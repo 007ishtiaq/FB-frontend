@@ -30,7 +30,7 @@ export default function ProductReviews({
   const [avgRating, setAvgRating] = useState(0);
   const [starAccumulator, setStarAccumulator] = useState("");
   const [page, setPage] = useState(1);
-  const [showModels, setShowModels] = useState([]);
+  const [showModels, setShowModels] = useState({});
 
   useEffect(() => {
     loadAllReviews();
@@ -85,12 +85,14 @@ export default function ProductReviews({
     readmorebtn.classList.toggle("active");
   }
 
-  const handleModelToggle = (index) => {
-    const newShowModels = [...showModels];
-    newShowModels[index] = !newShowModels[index];
-    setShowModels(newShowModels);
-  };
+  const handleModelToggle = (textId) => {
+    console.log(showModels);
 
+    setShowModels((prevShowModels) => ({
+      ...prevShowModels,
+      [textId]: !prevShowModels[textId],
+    }));
+  };
   return (
     <div class="prodowncont">
       <div class="prodownsub">
@@ -245,15 +247,15 @@ export default function ProductReviews({
                               <div>
                                 <Model
                                   key={index}
-                                  show={showModels[index]}
-                                  closeModel={() => handleModelToggle(index)}
+                                  show={showModels[img.url]}
+                                  closeModel={() => handleModelToggle(img.url)}
                                 >
                                   <img className="" src={img.url} alt="" />
                                 </Model>
                                 <img
                                   key={index}
                                   src={img.url}
-                                  onClick={() => handleModelToggle(index)}
+                                  onClick={() => handleModelToggle(img.url)}
                                   alt={`Review ${index + 1}`}
                                   className="review-image"
                                 />
