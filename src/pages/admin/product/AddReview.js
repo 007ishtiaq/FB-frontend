@@ -11,7 +11,6 @@ import {
 } from "../../../functions/admin";
 import AdminReviewAddForm from "../../../components/forms/AdminReviewAddForm";
 import FileUpload from "../../../components/forms/FileUpload";
-import axios from "axios";
 import "./AddReview.css";
 
 function useQuery() {

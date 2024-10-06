@@ -151,7 +151,7 @@ const AdminProductCard = ({
             </div>
             <div className="smallsvgbtncont">
               <Deletesvg
-                onClick={() => handleRemove(slug)}
+                onClick={() => handleRemove(slug, images)}
                 className="smallsvgbtn"
               />
             </div>

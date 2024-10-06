@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
 import AdminProductCard from "../../../components/cards/AdminProductCard";
 import { removeProduct } from "../../../functions/product";
+import { deleteReviewImages } from "../../../functions/admin";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import FlashsaleProductCard from "../../../components/ProductCards/FlashsaleProductCard";
@@ -50,18 +51,26 @@ const AllProducts = () => {
     }
   };
 
-  const handleRemove = (slug) => {
-    // let answer = window.confirm("Delete?");
+  const handleRemove = (slug, images) => {
+    // Extract all public_ids from the images array
+    const publicIds = images.map((image) => image.public_id);
+
     if (window.confirm("Delete?")) {
-      // console.log("send delete request", slug);
-      removeProduct(slug, user.token)
-        .then((res) => {
-          loadAllProducts();
-          toast.error(`${res.data.title} is deleted`);
+      deleteReviewImages(publicIds, user.token)
+        .then(() => {
+          removeProduct(slug, user.token)
+            .then((res) => {
+              loadAllProducts();
+              toast.success(`${res.data.title} is deleted`);
+            })
+            .catch((err) => {
+              if (err.response.status === 400) toast.error(err.response.data);
+              console.log(err);
+            });
         })
         .catch((err) => {
-          if (err.response.status === 400) toast.error(err.response.data);
-          console.log(err);
+          // console.log("Failed to delete images", err);
+          toast.error("Failed to delete images");
         });
     }
   };
