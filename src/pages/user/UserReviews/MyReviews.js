@@ -28,6 +28,7 @@ export default function UserProfile() {
   const [perPage, setPerpage] = useState(5); // per page Size
   const [reviewsCount, setReviewsCount] = useState(0);
   const [showModels, setShowModels] = useState({});
+  const [commentLimit, setCommentLimit] = useState(800);
 
   const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
@@ -60,14 +61,17 @@ export default function UserProfile() {
 
   const onModalok = () => {
     if (navigator.onLine) {
+      if (comment.length > commentLimit) {
+        toast.error("Comment character limit exceeded.");
+        return;
+      }
+
       productStar(productIdforreview, { star, comment }, user.token).then(
         (res) => {
           toast.success("Thanks for your review. It will appear soon");
           setStar(0);
           setComment("");
-          getRatedproducts(user.token).then((res) => {
-            setProducts(res.data);
-          });
+          loadUserRatedProducts();
         }
       );
     } else {
@@ -161,9 +165,20 @@ export default function UserProfile() {
                         id="comment"
                         className="commenttxtbox"
                         value={comment}
-                        onChange={(e) => setComment(e.target.value)}
+                        onChange={(e) => {
+                          if (e.target.value.length > commentLimit) {
+                            toast.error("Character limit exceeded.");
+                            return;
+                          }
+                          setComment(e.target.value); // Update the comment if within the limit
+                        }}
                         rows="7"
+                        maxlength={801} // Add character limit
                       />
+                      {/* Display remaining character count */}
+                      <p>
+                        {commentLimit - comment.length} characters remaining
+                      </p>
                     </RatingModalMyRating>
                   </div>
                   <div class="myreview">

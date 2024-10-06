@@ -10,6 +10,7 @@ import RatingModal from "../modal/RatingModal";
 import { getReviews } from "../../functions/product";
 import { Pagination } from "antd";
 import Model from "../../components/Model/Model";
+import { toast } from "react-hot-toast";
 
 export default function ProductReviews({
   product,
@@ -31,6 +32,7 @@ export default function ProductReviews({
   const [starAccumulator, setStarAccumulator] = useState("");
   const [page, setPage] = useState(1);
   const [showModels, setShowModels] = useState({});
+  const [commentLimit, setCommentLimit] = useState(800);
 
   useEffect(() => {
     loadAllReviews();
@@ -170,11 +172,18 @@ export default function ProductReviews({
                     className="commenttxtbox"
                     value={comment}
                     onChange={(e) => {
+                      if (e.target.value.length > commentLimit) {
+                        toast.error("Character limit exceeded.");
+                        return;
+                      }
                       setComment(e.target.value);
                       setProductIdforreview(product._id);
                     }}
                     rows="7"
+                    maxlength={801} // Add character limit
                   />
+                  {/* Display remaining character count */}
+                  <p>{commentLimit - comment.length} characters remaining</p>
                 </RatingModal>
                 ,
                 {/* <button class="postbtn">Write a customer review </button> */}
