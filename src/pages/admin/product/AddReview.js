@@ -3,10 +3,15 @@ import { toast } from "react-hot-toast";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 // import "./CategoryCreate.css";
 import { useSelector } from "react-redux";
-import { createAdminReview } from "../../../functions/admin";
+import {
+  createAdminReview,
+  getAdminReviews,
+  deleteReview,
+} from "../../../functions/admin";
 import AdminReviewAddForm from "../../../components/forms/AdminReviewAddForm";
 import FileUpload from "../../../components/forms/FileUpload";
 import axios from "axios";
+import "./AddReview.css";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -23,13 +28,23 @@ const AddReview = () => {
   const [star, setStar] = useState("");
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
+  const [productReviews, setProductReviews] = useState([]);
 
   // Set productId from URL params
   useEffect(() => {
     if (query) {
       setProductId(query.get("productID"));
+      loadAdminReviews();
     }
   }, [query.get("productID")]);
+
+  const loadAdminReviews = () => {
+    setLoading(true);
+    getAdminReviews(query.get("productID"), user.token).then((res) => {
+      setProductReviews(res.data);
+      setLoading(false);
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,6 +76,34 @@ const AddReview = () => {
       });
   };
 
+  function showDate(postedOn) {
+    const date = new Date(postedOn);
+    const options = {
+      // weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    const formattedDate = date.toLocaleDateString("en-US", options);
+
+    return formattedDate;
+  }
+
+  const handleRemove = (reviewId) => {
+    if (window.confirm("Delete?")) {
+      deleteReview(reviewId, user.token)
+        .then((res) => {
+          loadAdminReviews();
+          toast.success(`Review is deleted`);
+        })
+        .catch((err) => {
+          if (err.response.status === 400) toast.error(err.response.data);
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <div className="col">
       {loading ? (
@@ -88,6 +131,46 @@ const AddReview = () => {
         comment={comment}
         setComment={setComment}
       />
+      <div>
+        {productReviews &&
+          productReviews.map((review, index) => (
+            <div key={index} className="adminreviewcont">
+              <span>{review.posterName}------</span>
+
+              <span>{showDate(review.postedOn)}------</span>
+              <span>
+                <img
+                  src={review.product.image.url}
+                  alt=""
+                  className="reviewimgcont"
+                />
+                ------
+              </span>
+              <span>{review.product.title.substring(0, 55)}</span>
+              <br />
+              <span>{review.star}</span>
+              <span>-----{review.comment.substring(0, 85)}</span>
+              <span>
+                -----
+                {review.images.length ? (
+                  <img
+                    src={review.images[0].url}
+                    alt=""
+                    className="reviewimgcont"
+                  />
+                ) : (
+                  <span>no Img</span>
+                )}
+              </span>
+              <span
+                className="reviewdelbtn"
+                onClick={() => handleRemove(review._id)}
+              >
+                Delete
+              </span>
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

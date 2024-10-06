@@ -51,7 +51,7 @@ export default function UserProfile() {
 
   const loadUserRatedProducts = () => {
     getRatedproducts({ page, perPage }, user.token).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setProducts(res.data.ratedProductsWithRatings);
       setReviewsCount(res.data.totalReviews);
       setPage(res.data.currentPage);
