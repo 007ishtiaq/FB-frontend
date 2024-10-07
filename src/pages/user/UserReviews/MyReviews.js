@@ -116,21 +116,25 @@ export default function UserProfile() {
               products.map((pro, i) => (
                 <li class="reviewlistli" key={i}>
                   <div class="reviewproductcont">
-                    <div class="imgcont">
-                      <img
-                        src={
-                          pro.product.images && pro.product.images.length
-                            ? pro.product.images[0].url
-                            : laptop
-                        }
-                        alt={pro.product.title}
-                      />
-                    </div>
+                    <Link to={`/product/${pro.product.slug}`}>
+                      <div class="imgcont">
+                        <img
+                          src={
+                            pro.product.images && pro.product.images.length
+                              ? pro.product.images[0].url
+                              : laptop
+                          }
+                          alt={pro.product.title}
+                        />
+                      </div>
+                    </Link>
                     <div class="myreviewptitlecont">
-                      <p class="wishlistptitle">{pro.product.title}</p>
-                      <p class="wishlistptitlesub">
-                        Color Family: {pro.product.color}
-                      </p>
+                      <Link to={`/product/${pro.product.slug}`}>
+                        <p class="wishlistptitle">{pro.product.title}</p>
+                        <p class="wishlistptitlesub">
+                          Color Family: {pro.product.color}
+                        </p>
+                      </Link>
                     </div>
                     <div class="mreviewstars">
                       {pro.product &&
