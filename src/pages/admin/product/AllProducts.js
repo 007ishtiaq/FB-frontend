@@ -37,10 +37,14 @@ const AllProducts = () => {
     return () => clearTimeout(delayed);
   }, [page, text]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [text]);
+
   const loadAllProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await getProductsByPage(page);
+      const { data } = await getProductsByPage({ page, perPage });
       setProducts(data.products);
       setProductsCount(data.totalProducts);
     } catch (err) {

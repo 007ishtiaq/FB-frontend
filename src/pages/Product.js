@@ -19,6 +19,8 @@ const Product = ({ match, history }) => {
   const [product, setProduct] = useState({});
   const [similarProduct, setSimilarProduct] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [avgRating, setAvgRating] = useState(0);
+  const [reviewsCount, setReviewsCount] = useState(0);
   const [star, setStar] = useState(0);
   const [productIdforreview, setProductIdforreview] = useState("");
   const [comment, setComment] = useState("");
@@ -108,7 +110,8 @@ const Product = ({ match, history }) => {
       <ProductInfo
         product={product}
         similarProduct={similarProduct}
-        reviews={reviews}
+        avgRating={avgRating}
+        reviewsCount={reviewsCount}
       />
       <ProductDescription product={product} />
       <ProductServices />
@@ -118,8 +121,12 @@ const Product = ({ match, history }) => {
         productslug={slug}
         onStarClick={onStarClick}
         onModalok={onModalok}
+        avgRating={avgRating}
         reviews={reviews}
         setReviews={setReviews}
+        setAvgRating={setAvgRating}
+        reviewsCount={reviewsCount}
+        setReviewsCount={setReviewsCount}
         star={star}
         comment={comment}
         setComment={setComment}

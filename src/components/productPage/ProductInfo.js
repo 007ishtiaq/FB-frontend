@@ -25,7 +25,12 @@ import { UserAddressAndContactSchema } from "../../schemas";
 import Skeleton from "react-loading-skeleton";
 import Countdown from "../countdown/Countdown";
 
-export default function ProductInfo({ product, similarProduct, reviews }) {
+export default function ProductInfo({
+  product,
+  similarProduct,
+  avgRating,
+  reviewsCount,
+}) {
   const {
     art,
     title,
@@ -110,23 +115,6 @@ export default function ProductInfo({ product, similarProduct, reviews }) {
       });
     }
   };
-
-  function CalcAvg() {
-    if (reviews) {
-      let ratingsArray = reviews;
-      let total = [];
-      let length = ratingsArray.length;
-
-      ratingsArray.map((r) => total.push(r.star));
-      let totalReduced = total.reduce((p, n) => p + n, 0);
-
-      let highest = length * 5;
-
-      let result = (totalReduced * 5) / highest;
-
-      return result.toFixed(1);
-    }
-  }
 
   const handleAddToCart = () => {
     if (product.quantity < 1) {
@@ -298,17 +286,17 @@ export default function ProductInfo({ product, similarProduct, reviews }) {
           </div>
           <div className="publicremarkcont">
             <div className="publicremark">
-              {reviews && reviews.length > 0 ? (
+              {avgRating ? (
                 // showAverage(product)
                 <div>
                   <Mystars
-                    rating={CalcAvg()}
+                    rating={avgRating}
                     containerclass={"prostarsspan"}
                     StarFullclass={"prostars"}
                     StarHalfclass={"prostars star-half"}
                     StarEmptyclass={"prostars star-empty"}
                   ></Mystars>
-                  <span class="prototalavg">{CalcAvg()}</span>
+                  <span class="prototalavg">{avgRating}</span>
                 </div>
               ) : (
                 <div className="">
@@ -323,9 +311,9 @@ export default function ProductInfo({ product, similarProduct, reviews }) {
               )}
               <div className="">
                 {title ? (
-                  reviews && reviews.length > 0 ? (
+                  avgRating ? (
                     <>
-                      <span className="">{reviews.length} </span>
+                      <span className="">{reviewsCount} </span>
                       <span>Review(s)</span>
                     </>
                   ) : (

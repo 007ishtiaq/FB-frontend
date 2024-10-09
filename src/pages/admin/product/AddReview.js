@@ -68,6 +68,7 @@ const AddReview = () => {
         setComment("");
         setValues({ images: [] });
         toast.success(`Review Added Successfully`);
+        loadAdminReviews();
       })
       .catch((err) => {
         console.log(err);

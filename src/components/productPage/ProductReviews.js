@@ -19,6 +19,10 @@ export default function ProductReviews({
   onModalok,
   reviews,
   setReviews,
+  avgRating,
+  setAvgRating,
+  reviewsCount,
+  setReviewsCount,
   star,
   setComment,
   comment,
@@ -27,8 +31,6 @@ export default function ProductReviews({
   setProductIdforreview,
 }) {
   const [loading, setLoading] = useState(false);
-  const [reviewsCount, setReviewsCount] = useState(0);
-  const [avgRating, setAvgRating] = useState(0);
   const [starAccumulator, setStarAccumulator] = useState("");
   const [page, setPage] = useState(1);
   const [showModels, setShowModels] = useState({});

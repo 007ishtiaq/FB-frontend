@@ -2,23 +2,8 @@ import axios from "axios";
 import React from "react";
 import StarRating from "react-star-ratings";
 
-export const showAverage = (p) => {
-  if (p && p.ratings) {
-    let ratingsArray = p && p.ratings;
-    let total = [];
-    let length = ratingsArray.length;
-    // console.log("length", length);
-
-    ratingsArray.map((r) => total.push(r.star));
-    let totalReduced = total.reduce((p, n) => p + n, 0);
-    // console.log("totalReduced", totalReduced);
-
-    let highest = length * 5;
-    // console.log("highest", highest);
-
-    let result = (totalReduced * 5) / highest;
-    // console.log("result", result);
-
+export const showAverage = (avr) => {
+  if (avr) {
     return (
       <div className="">
         <span>
@@ -26,11 +11,9 @@ export const showAverage = (p) => {
             starDimension="15px"
             starSpacing="0px"
             starRatedColor="var(--org-primary)"
-            rating={result}
+            rating={avr}
             editing={false}
           />
-          {/* start count show with star */}
-          {/* {result.toFixed(1)} */}
         </span>
       </div>
     );
