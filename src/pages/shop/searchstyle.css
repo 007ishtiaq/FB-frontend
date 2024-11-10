@@ -28,6 +28,33 @@
 .searchpagi .previewpagination {
   margin-right: 2rem;
 }
+
+.cateselect {
+  padding: 0.6rem 0.7rem;
+  color: #343434;
+  font-size: 1.2rem;
+  background-color: #cfcfcf;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cateselect span {
+  background: #727272;
+  border-radius: 80%;
+  padding: 0.2rem 0.6rem;
+  transition: 0.2s;
+}
+.cateselect span svg {
+  width: 0.9rem;
+  fill: white;
+}
+.cateselect:hover span {
+  background: var(--org-primary);
+}
+.cateselect:hover {
+  background-color: #ffdf9a;
+}
 /* -----------search filter left side------ */
 
 .searchfilterleft {
@@ -367,39 +394,39 @@ input[type="range"]::-moz-range-thumb {
 .ant-slider-handle.ant-tooltip-open,
 .ant-slider-handle:focus {
   border-color: var(--org-primary);
-  box-shadow: 0 0 0 5px rgb(255 120 0 / 21%);
-  -webkit-box-shadow: 0 0 0 5px rgb(255 120 0 / 21%);
+  box-shadow: 0 0 0 5px rgb(255 120 0 / 21%) !important;
+  -webkit-box-shadow: 0 0 0 5px rgb(255 120 0 / 21%) !important;
 }
 .ant-radio-wrapper {
-  display: block;
-  color: black;
-  margin-right: 0.4rem;
+  display: block !important;
+  color: black !important;
+  margin-right: 0.4rem !important;
 }
 .ant-radio-wrapper:hover .ant-radio-inner {
-  border-color: var(--org-primary);
+  border-color: var(--org-primary) !important;
 }
 .ant-radio-checked .ant-radio-inner {
-  border-color: var(--org-primary);
+  border-color: var(--org-primary) !important;
 }
 .ant-radio-inner::after {
-  background-color: var(--org-primary);
+  background-color: var(--org-primary) !important;
 }
 .ant-radio-input:focus + .ant-radio-inner {
-  box-shadow: 0 0 0 5px rgb(255 120 0 / 15%);
-  -webkit-box-shadow: 0 0 0 5px rgb(255 120 0 / 15%);
+  box-shadow: 0 0 0 5px rgb(255 120 0 / 15%) !important;
+  -webkit-box-shadow: 0 0 0 5px rgb(255 120 0 / 15%) !important;
 }
 
 .ant-radio-wrapper:hover .ant-radio,
 .ant-radio:hover .ant-radio-inner,
 .ant-radio-input:focus + .ant-radio-inner {
-  border-color: var(--org-primary);
+  border-color: var(--org-primary) !important;
 }
 
 .ant-radio-inner {
-  border-radius: 2px;
+  border-radius: 2px !important;
 }
 .ant-radio-inner::after {
-  border-radius: 0px;
+  border-radius: 0px !important;
 }
 
 .clearfilter {

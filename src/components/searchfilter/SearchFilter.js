@@ -20,20 +20,23 @@ import { ReactComponent as Clearsvg } from "../../images/clear.svg";
 const { SubMenu, ItemGroup } = Menu;
 
 export default function SearchFilter({
-  setProducts,
-  page,
-  setPage,
-  perPage,
-  setProductsCount,
+  handleCheck,
+  category,
+  brand,
+  text,
+  // handleBrand,
+  Clearfilter,
+  setCategory,
+  setBrand,
+  fetchProducts,
+  loadAllProducts,
 }) {
   const [price, setPrice] = useState([0, 0]); // price range search
   const [categories, setCategories] = useState([]); // to show the available list of categories
-  const [category, setCategory] = useState(""); // selected categories to search
   const [star, setStar] = useState("");
   // const [subs, setSubs] = useState([]);
   // const [sub, setSub] = useState("");
   const [brands, setBrands] = useState([]); // to show the available list of brands
-  const [brand, setBrand] = useState("");
   const [colors, setColors] = useState([]); // to show the available list of colors
   const [color, setColor] = useState("");
   const [shipping, setShipping] = useState("");
@@ -41,8 +44,6 @@ export default function SearchFilter({
   const [selectedSub2, setSelectedSub2] = useState(null);
 
   let dispatch = useDispatch();
-  let { search } = useSelector((state) => ({ ...state }));
-  const { text } = search;
 
   useEffect(() => {
     // loadAllProducts();
@@ -63,47 +64,6 @@ export default function SearchFilter({
       setHighestPrice(res.data);
     });
   }, []);
-
-  const fetchProducts = (arg) => {
-    fetchProductsByFilter({ arg, page, perPage }).then((res) => {
-      setProducts(res.data.products);
-      setProductsCount(res.data.totalProducts);
-    });
-  };
-
-  const loadAllProducts = async () => {
-    try {
-      // setLoading(true);
-      const { data } = await getProductsByPage({ page, perPage });
-      setProducts(data.products);
-      setProductsCount(data.totalProducts);
-    } catch (err) {
-      console.error(err);
-      // toast.error("Failed to load products");
-    } finally {
-      // setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (text) {
-      fetchProducts({ query: text });
-      //reset
-      setCategory("");
-      setPrice([0, 0]);
-      setStar("");
-      // setSub("");
-      setBrand("");
-      setColor("");
-      setShipping("");
-    } else {
-      loadAllProducts();
-    }
-  }, [page, text]);
-
-  useEffect(() => {
-    setPage(1);
-  }, [text]);
 
   // 3. load products based on price range
   useEffect(() => {
@@ -148,36 +108,6 @@ export default function SearchFilter({
         <br />
       </div>
     ));
-
-  // handle check for categories
-  const handleCheck = async (e) => {
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-    setPrice([0, 0]);
-    setStar("");
-    // setSub("");
-    setBrand("");
-    setColor("");
-    setShipping("");
-
-    setCategory(e.target.value);
-    fetchProducts({ category: e.target.value });
-
-    //   try {
-    //     const subRes = await getCategorySubs(e.target.value);
-    //     // const subsWithSub2 = await Promise.all(
-    //     //   subRes.data.map(async (sub) => {
-    //     //     const sub2Res = await getSubsSub2(sub._id);
-    //     //     return { ...sub, sub2: sub2Res.data };
-    //     //   })
-    //     // );
-    //     // setSubs(subsWithSub2);
-    //   } catch (error) {
-    //     console.error("Error fetching subcategories:", error);
-    //   }
-  };
 
   // 7. show products based on brand name
   const showBrands = () =>
@@ -389,31 +319,6 @@ export default function SearchFilter({
       </Checkbox>
     </>
   );
-
-  const Clearfilter = () => {
-    if (text) {
-      dispatch({
-        type: "SEARCH_QUERY",
-        payload: { text: "" },
-      });
-      setPage(1);
-    } else {
-      setPage(1);
-      loadAllProducts();
-    }
-    // reset
-    setSelectedSub2(null);
-    setCategory("");
-    setPrice([0, 0]);
-    setStar("");
-    // setSub("");
-    setBrand("");
-    setColor("");
-    setShipping("");
-    // setTimeout(() => {
-    //   setOk(!ok);
-    // }, 300);
-  };
 
   const handleShippingchange = (e) => {
     // setSub("");

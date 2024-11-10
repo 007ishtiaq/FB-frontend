@@ -223,10 +223,10 @@ const App = () => {
           <GoToTop />
           <Switch>
             {/* common unprotected Routes */}
-
             <Route exact path="/" component={Home} />
             <Route exact path="/product/:slug" component={Product} />
             <Route exact path="/shop" component={Shop} />
+            <Route exact path="/shop?category=:slug" component={Shop} />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/category" component={CategoryHome} />
             <Route
@@ -238,7 +238,6 @@ const App = () => {
             <Route exact path="/brand/" component={BrandsHome} />
             <Route exact path="/brand/?brand=:slug" component={BrandsHome} />
             <Route exact path="/sub/:slug" component={SubHome} />
-
             <Route exact path="/HelpCenter" component={HelpCenter} />
             <Route exact path="/HelpCenter?page=:page" component={HelpCenter} />
             <Route exact path="/aboutus" component={AboutUs} />
@@ -255,7 +254,6 @@ const App = () => {
               component={TermsAndConditions}
             />
             <Route exact path="/CookiePolicy" component={CookiePolicy} />
-
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/otpVerification" component={OtpVerification} />
@@ -265,9 +263,7 @@ const App = () => {
               component={RegisterComplete}
             />
             <Route exact path="/forgot/password" component={ForgotPassword} />
-
             {/* User protected Routes */}
-
             <UserRoute exact path="/checkout" component={Checkout} />
             <UserRoute
               exact
@@ -299,9 +295,7 @@ const App = () => {
             />
             {/* <UserRoute exact path="/user/userreviews" component={UserReviews} />
           <UserRoute exact path="/user/userwishlist" component={UserWishlist} /> */}
-
             {/* Admin protected Routes */}
-
             <AdminRoute exact path="/AdminPanel" component={AdminPanel} />
             <AdminRoute
               exact

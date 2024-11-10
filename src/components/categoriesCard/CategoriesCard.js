@@ -52,7 +52,7 @@ export default function CategoriesCard({ slug }) {
           <div class="contentcont categorycont">
             {categories.map((c) => (
               <div class={`itemcolum clsremove ${c.slug}`} key={c._id}>
-                <Link to={`/category/?category=${c.slug}`}>
+                <Link to={`/shop/?category=${c._id}`}>
                   <img
                     class="cateimg"
                     src={c.image.url}
