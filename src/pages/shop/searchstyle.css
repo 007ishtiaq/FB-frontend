@@ -1,7 +1,7 @@
 .searchcontainer {
   max-width: 118.4rem;
   padding: 0 0.8rem;
-  margin: 2rem auto;
+  margin: 1rem auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -567,8 +567,10 @@ input[type="range"]::-moz-range-thumb {
   .cateul {
     padding-left: 0.5rem;
   }
-
   .price-input .separator {
     width: 40px;
+  }
+  .searchcontainer {
+    margin: 0 auto 1rem;
   }
 }
