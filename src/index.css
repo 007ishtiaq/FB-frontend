@@ -413,7 +413,7 @@ textarea:focus {
 /* -------pagination commonly used----- */
 .productreviewbottom {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 .previewpagination {
   margin: 1rem 0;

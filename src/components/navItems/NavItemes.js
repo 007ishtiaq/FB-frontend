@@ -19,13 +19,11 @@ import {
   StarOutlined,
   HeartOutlined,
   AppstoreOutlined,
-  CrownOutlined,
   PhoneOutlined,
   QuestionCircleOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
 import { getCategories } from "../../functions/category";
-import { getBrands } from "../../functions/brands";
 import { ReactComponent as Leftsvg } from "../../images/homepage/rightbtn.svg";
 import { Menu } from "antd";
 
@@ -34,8 +32,7 @@ const { SubMenu } = Menu;
 //small size left drawer - chilren component insider data
 const NavItemes = () => {
   const [categories, setCategories] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [openKeys, setOpenKeys] = useState(["1"]);
+  const [openKeys, setOpenKeys] = useState(["1", "3"]);
 
   const history = useHistory();
   const location = useLocation(); // Get the current location
@@ -45,10 +42,6 @@ const NavItemes = () => {
     getCategories().then((c) => {
       setCategories(c.data);
     });
-  }, []);
-
-  useEffect(() => {
-    getBrands().then((b) => setBrands(b.data));
   }, []);
 
   const htmlToRender = (htmlString) => {
@@ -158,25 +151,6 @@ const NavItemes = () => {
                 <div className="liitemcont">
                   {c.svg ? htmlToRender(c.svg) : "-"}
                   <p className="liitemname">{c.name}</p>
-                </div>
-              </Menu.Item>
-            ))}
-          </SubMenu>
-          {/* Brand working */}
-          <SubMenu
-            key="4"
-            title={
-              <span>
-                <CrownOutlined /> Popular Brands
-              </span>
-            }
-            className="snavcont"
-          >
-            {brands.map((b) => (
-              <Menu.Item key={`/brand/?brand=${b.slug}`}>
-                <div className="liitemcont">
-                  {b.svg ? htmlToRender(b.svg) : "-"}
-                  <p className="liitemname">{b.name}</p>
                 </div>
               </Menu.Item>
             ))}

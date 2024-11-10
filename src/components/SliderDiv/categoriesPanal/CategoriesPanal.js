@@ -38,7 +38,7 @@ const CategoriesPanal = (props) => {
                   onMouseLeave={handleave}
                 >
                   <Link
-                    to={`/category/?category=${category.slug}`}
+                    to={`/shop/?category=${category._id}`}
                     className="categorylist"
                   >
                     <div className="catesvg">
