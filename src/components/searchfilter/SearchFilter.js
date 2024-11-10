@@ -296,7 +296,7 @@ export default function SearchFilter({
         <SubMenu
           class="filtercont"
           key="13"
-          title={<div class="filterheading">PRICE</div>}
+          title={<div class="filterheading">PRICE RANGE</div>}
         >
           <div>
             <Slider
