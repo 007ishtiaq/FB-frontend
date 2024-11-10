@@ -52,7 +52,7 @@ export default function UserProfile() {
 
   const loadUserRatedProducts = () => {
     getRatedproducts({ page, perPage }, user.token).then((res) => {
-      // console.log(res.data);
+      console.log(res.data);
       setProducts(res.data.ratedProductsWithRatings);
       setReviewsCount(res.data.totalReviews);
       setPage(res.data.currentPage);
@@ -140,7 +140,7 @@ export default function UserProfile() {
                       {pro.product &&
                       pro.product.ratings &&
                       pro.product.ratings.length > 0 ? (
-                        showAverage(pro.product)
+                        showAverage(pro.product.ratings[0].star)
                       ) : (
                         <div className="text-center pt-1 pb-3">
                           No rating yet
@@ -179,7 +179,6 @@ export default function UserProfile() {
                         rows="7"
                         maxlength={801} // Add character limit
                       />
-                      {/* Display remaining character count */}
                       <p>
                         {commentLimit - comment.length} characters remaining
                       </p>

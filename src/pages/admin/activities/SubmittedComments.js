@@ -21,6 +21,7 @@ export default function SubmittedComments() {
 
   const loadRatings = () =>
     getAllRatings(user.token).then((res) => {
+      console.log(res.data);
       setAllRatings(res.data);
       setShowModels(Array(res.data.length).fill(false));
     });
@@ -96,21 +97,23 @@ export default function SubmittedComments() {
                       <p>{rating.comment}</p>
                     </Model>
                     <p
-                      style={{ color: "blue" }}
+                      style={{ color: "blue", cursor: "pointer" }}
                       onClick={() => handleModelToggle(index)}
                     >
-                      {rating.comment.substring(0, 10)}
+                      {rating.comment.substring(0, 20)}
                     </p>
                   </>
                 </td>
                 <td class="ordli">
                   <Link to={`/product/${rating.product.slug}`}>
-                    <div style={{ color: "blue" }}>{rating.product.title}</div>
+                    <div style={{ color: "blue", cursor: "pointer" }}>
+                      {rating.product.title.substring(0, 20)}
+                    </div>
                   </Link>
                 </td>
                 <td class="ordli">
                   <div
-                    style={{ color: "blue" }}
+                    style={{ color: "blue", cursor: "pointer" }}
                     onClick={() => setcommentRead(rating.productId, rating._id)}
                   >
                     {rating.isRead ? "Read" : "Not Read"}
@@ -118,7 +121,7 @@ export default function SubmittedComments() {
                 </td>
                 <td class="ordli">
                   <div
-                    style={{ color: "blue" }}
+                    style={{ color: "blue", cursor: "pointer" }}
                     onClick={() =>
                       deleteUserComment(rating.productId, rating._id)
                     }

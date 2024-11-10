@@ -31,7 +31,9 @@ export default function OptinEmails() {
             {optinemails.map((email) => (
               <tr key={email._id}>
                 <td class="ordli">{email.email}</td>
-                <td class="ordli">{email.optedInAt}</td>
+                <td class="ordli">
+                  {new Date(email.optedInAt).toLocaleString()}
+                </td>
               </tr>
             ))}
           </tbody>
