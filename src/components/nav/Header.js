@@ -121,15 +121,13 @@ const Header = () => {
             </p>
           </div>
           <div class="newsright">
-            <div className="helperlinkcont">
-              <Callsvg></Callsvg>
-              <p className="top_tag_Right">
-                {contactinfo && contactinfo.length > 0 && contactinfo[0].info1}
-              </p>
+            <div className="helperlinkcont topemail">
+              <Mailsvg className="mailsvgcont" />
+              <p className="top_tag_Center">Info@Sharpedgepackaging.com</p>
             </div>
             <div className="seprator">{"|"}</div>
             <Link to="/ContactUs" className="helperlinkcont">
-              <Mailsvg className="mailsvgcont"></Mailsvg>
+              <Callsvg className="mailsvgcont"></Callsvg>
               <p class="top_tag_Right">Contact Now </p>
             </Link>
             <div className="seprator">{"|"}</div>

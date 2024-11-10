@@ -4,6 +4,7 @@ import { searchReducer } from "./searchReducer";
 import { cartReducer } from "./cartReducer";
 import { wishlistReducer } from "./wishlistReducer";
 import { NoNetModalReducer } from "./NoNetModalReducer";
+import { MobileSideNav } from "./MobileSideNav";
 import { couponReducer } from "./couponReducer";
 import { BFTReducer } from "./BFTReducer";
 import { WalletReducer } from "./WalletReducer";
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   cart: cartReducer,
   noNetModal: NoNetModalReducer,
+  mobileSideNav: MobileSideNav,
   coupon: couponReducer,
   BFT: BFTReducer,
   Wallet: WalletReducer,

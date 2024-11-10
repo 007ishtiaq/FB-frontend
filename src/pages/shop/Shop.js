@@ -8,7 +8,6 @@ import SearchFilter from "../../components/searchfilter/SearchFilter";
 import SideDrawer from "../../components/SideDrawer/SideDrawer";
 import NoItemFound from "../../components/cards/NoItemFound/NoItemFound";
 import { Pagination } from "antd";
-import { Link } from "react-router-dom";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
