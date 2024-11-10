@@ -25,13 +25,11 @@ const Shop = () => {
   const [perPage, setPerpage] = useState(5); // per page Size
   const [productsCount, setProductsCount] = useState(0);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 700); // Determine if screen width is greater than 700px
-  const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
-  const [categoryname, setCategoryname] = useState("");
+  const [filtername, setFiltername] = useState("");
   const [entry, setEntry] = useState(true);
   const [price, setPrice] = useState([0, 0]); // price range search
   const [star, setStar] = useState("");
-  const [color, setColor] = useState("");
   const [shipping, setShipping] = useState("");
 
   const { mobileSideNav } = useSelector((state) => ({ ...state }));
@@ -49,14 +47,11 @@ const Shop = () => {
     const proarea = document.querySelector(".productsarea");
     const contwidth = proarea.clientWidth;
     setContwidth(contwidth);
-
     // Handle screen resizing
     const handleResize = () => {
       setIsDesktop(window.innerWidth > 700);
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -70,8 +65,6 @@ const Shop = () => {
       setPrice([0, 0]);
       setStar("");
       // setSub("");
-      setBrand("");
-      setColor("");
       setShipping("");
     } else if (categoryslug && entry) {
       setCategory(categoryslug);
@@ -79,7 +72,6 @@ const Shop = () => {
       setEntry(false);
       //reset
       // setCategory("");
-      setBrand("");
     } else {
       loadAllProducts();
     }
@@ -95,8 +87,12 @@ const Shop = () => {
       setProducts(res.data.products);
       setLoading(false);
       if (res.data.products.length > 0) {
-        setCategoryname(res.data.products[0].category.name);
+        if (arg.category) {
+          setFiltername(res.data.products[0].category.name);
+        }
       }
+      console.log(arg);
+
       setProductsCount(res.data.totalProducts);
     });
   };
@@ -135,25 +131,52 @@ const Shop = () => {
       payload: false,
     });
     // reset
-    setBrand("");
     setCategory(e.target.value);
-    setCategoryname(e.target.name);
+    setFiltername(e.target.name);
+    setPrice([0, 0]);
+    setStar("");
+    setShipping("");
     fetchProducts({ category: e.target.value });
   };
 
-  // const handleBrand = (e) => {
-  //   dispatch({
-  //     type: "SEARCH_QUERY",
-  //     payload: { text: "" },
-  //   });
-  //   dispatch({
-  //     type: "SET_SIDENAV_VISIBLE",
-  //     payload: false,
-  //   });
-  //   setCategory("");
-  //   setBrand(e.target.value);
-  //   fetchProducts({ brand: e.target.value });
-  // };
+  const handleStarClick = (num) => {
+    // console.log(num);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    dispatch({
+      type: "SET_SIDENAV_VISIBLE",
+      payload: false,
+    });
+    setFiltername(`Rating ${num} Stars & Above`);
+    setCategory("");
+    setPrice([0, 0]);
+    setStar(num);
+    // setSub("");
+    setShipping("");
+    fetchProducts({ stars: num });
+  };
+
+  const handleShippingchange = (e) => {
+    // setSub("");
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    dispatch({
+      type: "SET_SIDENAV_VISIBLE",
+      payload: false,
+    });
+    setCategory("");
+    setPrice([0, 0]);
+    setStar("");
+    setShipping(e.target.value);
+    setFiltername(
+      e.target.value === "Yes" ? "With Free Shipping" : "With Shipping"
+    );
+    fetchProducts({ shipping: e.target.value });
+  };
 
   const Clearfilter = () => {
     if (text) {
@@ -170,12 +193,8 @@ const Shop = () => {
     }
     // reset
     setCategory("");
-    setBrand("");
-    setCategory("");
     setPrice([0, 0]);
     setStar("");
-    setBrand("");
-    setColor("");
     setShipping("");
   };
 
@@ -191,14 +210,21 @@ const Shop = () => {
             <SearchFilter
               handleCheck={handleCheck}
               category={category}
-              brand={brand}
               text={text}
               // handleBrand={handleBrand}
               Clearfilter={Clearfilter}
               setCategory={setCategory}
-              setBrand={setBrand}
               fetchProducts={fetchProducts}
               loadAllProducts={loadAllProducts}
+              price={price}
+              setPrice={setPrice}
+              star={star}
+              setStar={setStar}
+              shipping={shipping}
+              setShipping={setShipping}
+              handleStarClick={handleStarClick}
+              handleShippingchange={handleShippingchange}
+              setFiltername={setFiltername}
             />
           </div>
         ) : (
@@ -206,14 +232,21 @@ const Shop = () => {
             <SearchFilter
               handleCheck={handleCheck}
               category={category}
-              brand={brand}
               text={text}
               // handleBrand={handleBrand}
               Clearfilter={Clearfilter}
               setCategory={setCategory}
-              setBrand={setBrand}
               fetchProducts={fetchProducts}
               loadAllProducts={loadAllProducts}
+              price={price}
+              setPrice={setPrice}
+              star={star}
+              setStar={setStar}
+              shipping={shipping}
+              setShipping={setShipping}
+              handleStarClick={handleStarClick}
+              handleShippingchange={handleShippingchange}
+              setFiltername={setFiltername}
             />
           </SideDrawer>
         )}
@@ -227,11 +260,11 @@ const Shop = () => {
                     <p>
                       {start}-{end} of over {productsCount} results
                     </p>
-                  ) : !categoryname ? (
+                  ) : !filtername ? (
                     <CatenameSkull />
                   ) : (
                     <div className="cateselect" onClick={Clearfilter}>
-                      Results: {categoryname}{" "}
+                      Results: {filtername}{" "}
                       <span>
                         <Crosssvg />
                       </span>{" "}

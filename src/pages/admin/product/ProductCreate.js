@@ -7,7 +7,6 @@ import { getCategories, getCategorySubs } from "../../../functions/category";
 import { getSubsSub2 } from "../../../functions/sub";
 import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
-import { getBrands } from "../../../functions/brands";
 import { getColors } from "../../../functions/color";
 
 const initialState = {
@@ -23,9 +22,7 @@ const initialState = {
   weight: "500",
   images: [],
   colors: [],
-  brands: [],
   color: "White",
-  brand: "Apple",
   onSale: "No",
   saleTime: "",
 };
@@ -49,12 +46,6 @@ const ProductCreate = () => {
       setValues((prevValues) => ({
         ...prevValues,
         colors: colorsData.data.map((item) => item.name),
-      }));
-
-      const brandsData = await getBrands();
-      setValues((prevValues) => ({
-        ...prevValues,
-        brands: brandsData.data.map((item) => item.name),
       }));
     };
 

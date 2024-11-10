@@ -13,7 +13,6 @@ import AddReview from "./product/AddReview";
 import CategoryCreate from "./category/CategoryCreate";
 import SubCreate from "./sub/SubCreate";
 import Sub2Create from "./sub2/Sub2Create";
-import BrandCreate from "./brand/BrandCreate";
 import ColorCreate from "./color/ColorCreate";
 import BannerCreate from "./Slider&Banners/BannerCreate";
 import CreateShippingPage from "./shipping/CreateShippingPage";
@@ -52,7 +51,6 @@ export default function AdminPanel() {
           {query.get("page") === "CategoryCreate" && <CategoryCreate />}
           {query.get("page") === "SubCreate" && <SubCreate />}
           {query.get("page") === "Sub2Create" && <Sub2Create />}
-          {query.get("page") === "BrandCreate" && <BrandCreate />}
           {query.get("page") === "ColorCreate" && <ColorCreate />}
           {query.get("page") === "BannerCreate" && <BannerCreate />}
           {query.get("page") === "CreateShipping" && <CreateShippingPage />}

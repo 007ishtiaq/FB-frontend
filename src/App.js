@@ -50,10 +50,7 @@ const OrderDetail = lazy(() =>
 const CategoryUpdate = lazy(() =>
   import("./pages/admin/category/CategoryUpdate")
 );
-const BrandUpdate = lazy(() => import("./pages/admin/brand/BrandUpdate"));
-// const BannerCreate = lazy(() =>
-//   import("./pages/admin/Slider&Banners/BannerCreate")
-// );
+
 const BannerUpdate = lazy(() =>
   import("./pages/admin/Slider&Banners/BannerUpdate")
 );
@@ -69,7 +66,6 @@ const Sub2Update = lazy(() => import("./pages/admin/sub2/Sub2Update"));
 const ProductUpdate = lazy(() => import("./pages/admin/product/ProductUpdate"));
 const Product = lazy(() => import("./pages/Product"));
 const CategoryHome = lazy(() => import("./pages/category/CategoryHome"));
-const BrandsHome = lazy(() => import("./pages/brands/BrandsHome"));
 const FlashHome = lazy(() => import("./pages/flashsale/FlashHome"));
 const SubHome = lazy(() => import("./pages/sub/SubHome"));
 const Shop = lazy(() => import("./pages/shop/Shop"));
@@ -235,8 +231,6 @@ const App = () => {
               component={CategoryHome}
             />
             <Route exact path="/Flashsale" component={FlashHome} />
-            <Route exact path="/brand/" component={BrandsHome} />
-            <Route exact path="/brand/?brand=:slug" component={BrandsHome} />
             <Route exact path="/sub/:slug" component={SubHome} />
             <Route exact path="/HelpCenter" component={HelpCenter} />
             <Route exact path="/HelpCenter?page=:page" component={HelpCenter} />
@@ -307,11 +301,6 @@ const App = () => {
               exact
               path="/admin/category/:slug"
               component={CategoryUpdate}
-            />
-            <AdminRoute
-              exact
-              path="/admin/brand/:slug"
-              component={BrandUpdate}
             />
             <AdminRoute
               exact

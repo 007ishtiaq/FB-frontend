@@ -4,15 +4,9 @@ import { Menu, Slider, Checkbox, Radio } from "antd";
 // import { getCategorySubs } from "../../functions/category";
 // import { getSubsSub2 } from "../../functions/sub";
 // import { getSubs } from "../../functions/sub";
-import {
-  getProductsByPage,
-  fetchProductsByFilter,
-  getHighestPrice,
-} from "../../functions/product";
+import { getHighestPrice } from "../../functions/product";
 import "../../pages/shop/searchstyle.css";
 import { getCategories } from "../../functions/category";
-import { getBrands } from "../../functions/brands";
-import { getColors } from "../../functions/color";
 import { ReactComponent as StarFull } from "../../images/searchpage/starfull.svg";
 import { ReactComponent as StarEmpty } from "../../images/searchpage/starempty.svg";
 import { ReactComponent as Clearsvg } from "../../images/clear.svg";
@@ -22,26 +16,22 @@ const { SubMenu, ItemGroup } = Menu;
 export default function SearchFilter({
   handleCheck,
   category,
-  brand,
   text,
-  // handleBrand,
   Clearfilter,
   setCategory,
-  setBrand,
   fetchProducts,
-  loadAllProducts,
+  price,
+  setPrice,
+  star,
+  setStar,
+  shipping,
+  setShipping,
+  handleStarClick,
+  handleShippingchange,
+  setFiltername,
 }) {
-  const [price, setPrice] = useState([0, 0]); // price range search
   const [categories, setCategories] = useState([]); // to show the available list of categories
-  const [star, setStar] = useState("");
-  // const [subs, setSubs] = useState([]);
-  // const [sub, setSub] = useState("");
-  const [brands, setBrands] = useState([]); // to show the available list of brands
-  const [colors, setColors] = useState([]); // to show the available list of colors
-  const [color, setColor] = useState("");
-  const [shipping, setShipping] = useState("");
   const [highestPrice, setHighestPrice] = useState(0); // Highest Price for price filter
-  const [selectedSub2, setSelectedSub2] = useState(null);
 
   let dispatch = useDispatch();
 
@@ -52,13 +42,7 @@ export default function SearchFilter({
     // fetch subcategories
     // getSubs().then((res) => setSubs(res.data));
     // fetch brands (as set state is saprate for each value so no need to use async)
-    getBrands().then((b) => {
-      setBrands(b.data.map((item) => item.name));
-    });
-    // fetch colors (as set state is saprate for each value so no need to use async)
-    getColors().then((c) => {
-      setColors(c.data.map((item) => item.name));
-    });
+
     // fetch Highest available price
     getHighestPrice().then((res) => {
       setHighestPrice(res.data);
@@ -77,14 +61,12 @@ export default function SearchFilter({
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
-
+    setFiltername(`Price Range`);
     // reset
     setCategory("");
     setPrice(value);
     setStar("");
     // setSub("");
-    setBrand("");
-    setColor("");
     setShipping("");
     // setTimeout(() => {
     //   setOk(!ok);
@@ -108,36 +90,6 @@ export default function SearchFilter({
         <br />
       </div>
     ));
-
-  // 7. show products based on brand name
-  const showBrands = () =>
-    brands.map((b) => (
-      <Radio
-        key={b}
-        value={b}
-        name={b}
-        checked={b === brand}
-        onChange={handleBrand}
-        className="pb-1 pl-4 pr-4"
-      >
-        {b}
-      </Radio>
-    ));
-
-  const handleBrand = (e) => {
-    // setSub("");
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-    setPrice([0, 0]);
-    setCategory("");
-    setStar("");
-    setColor("");
-    setBrand(e.target.value);
-    setShipping("");
-    fetchProducts({ brand: e.target.value });
-  };
 
   // 5. show products by star rating
   const showStars = () => (
@@ -212,22 +164,6 @@ export default function SearchFilter({
     </div>
   );
 
-  const handleStarClick = (num) => {
-    // console.log(num);
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-    setPrice([0, 0]);
-    setCategory("");
-    setStar(num);
-    // setSub("");
-    setBrand("");
-    setColor("");
-    setShipping("");
-    fetchProducts({ stars: num });
-  };
-
   // 6. show products by sub category
   // const showSubs = (sub2, selectedSub2, handleSub) =>
   //   sub2.map((sub2Item) => (
@@ -267,36 +203,6 @@ export default function SearchFilter({
   //   fetchProducts({ sub: sub2Item });
   // };
 
-  // 8. show products based on color
-  const showColors = () =>
-    colors.map((c) => (
-      <Radio
-        key={c}
-        value={c}
-        name={c}
-        checked={c === color}
-        onChange={handleColor}
-        className="pb-1 pl-4 pr-4"
-      >
-        {c}
-      </Radio>
-    ));
-
-  const handleColor = (e) => {
-    // setSub("");
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-    setPrice([0, 0]);
-    setCategory("");
-    setStar("");
-    setBrand("");
-    setColor(e.target.value);
-    setShipping("");
-    fetchProducts({ color: e.target.value });
-  };
-
   // 9. show products based on shipping yes/no  // working pending
   const showShipping = () => (
     <>
@@ -320,31 +226,14 @@ export default function SearchFilter({
     </>
   );
 
-  const handleShippingchange = (e) => {
-    // setSub("");
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-    setPrice([0, 0]);
-    setCategory("");
-    setStar("");
-    setBrand("");
-    setColor("");
-    setShipping(e.target.value);
-    fetchProducts({ shipping: e.target.value });
-  };
-
   return (
     <div class="filtercont">
       <div
         onClick={Clearfilter}
         className={`clearfilter btn btnsecond ${
           (category ||
-            brand ||
             star ||
             // sub ||
-            color ||
             shipping ||
             text ||
             price[0] !== 0 ||
@@ -406,13 +295,6 @@ export default function SearchFilter({
         </SubMenu> */}
         <SubMenu
           class="filtercont"
-          key="12"
-          title={<div class="filterheading">BRAND</div>}
-        >
-          <div style={{ maringTop: "-10px" }}>{showBrands()}</div>
-        </SubMenu>
-        <SubMenu
-          class="filtercont"
           key="13"
           title={<div class="filterheading">PRICE</div>}
         >
@@ -433,15 +315,6 @@ export default function SearchFilter({
           title={<div class="filterheading">PRODUCT RATING</div>}
         >
           <div style={{ maringTop: "-10px" }}>{showStars()}</div>
-        </SubMenu>
-        <SubMenu
-          class="filtercont"
-          key="16"
-          title={<div class="filterheading">COLOR FAMILY</div>}
-        >
-          <div style={{ maringTop: "-10px" }} className="pr-5">
-            {showColors()}
-          </div>
         </SubMenu>
         <SubMenu
           class="filtercont"

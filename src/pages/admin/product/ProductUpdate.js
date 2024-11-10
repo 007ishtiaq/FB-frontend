@@ -9,7 +9,6 @@ import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 import AdminsideNavcopy from "../../../components/nav/AdminsideNavcopy";
-import { getBrands } from "../../../functions/brands";
 import { getColors } from "../../../functions/color";
 
 const initialState = {
@@ -25,7 +24,6 @@ const initialState = {
   weight: "",
   images: [],
   color: "",
-  brand: "",
   onSale: "",
 };
 
@@ -37,7 +35,6 @@ const ProductUpdate = ({ match, history }) => {
   const [sub2Options, setSub2Options] = useState([]);
   const [attributes, setAttributes] = useState([]);
   const [desattributes, setDesattributes] = useState([]);
-  const [brands, setBrands] = useState([]);
   const [colors, setColors] = useState([]);
   const [arrayOfSubs2, setArrayOfSubs2] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -50,9 +47,6 @@ const ProductUpdate = ({ match, history }) => {
 
   useEffect(() => {
     loadProduct();
-    getBrands().then((b) => {
-      setBrands(b.data.map((item) => item.name));
-    });
     getColors().then((c) => {
       setColors(c.data.map((item) => item.name));
     });
@@ -233,7 +227,6 @@ const ProductUpdate = ({ match, history }) => {
               handleChange={handleChange}
               setValues={setValues}
               values={values}
-              brands={brands}
               colors={colors}
               handleCategoryChange={handleCategoryChange}
               handleSubChange={handleSubChange}

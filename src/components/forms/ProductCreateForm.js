@@ -31,9 +31,7 @@ const ProductCreateForm = ({
     weight,
     images,
     colors,
-    brands,
     color,
-    brand,
     onSale,
     saleTime,
   } = values;
@@ -175,18 +173,6 @@ const ProductCreateForm = ({
           {colors.map((c) => (
             <option key={c} value={c}>
               {c}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label>Brand (Required) [Should be the Same for similer/color]</label>
-        <select name="brand" className="form-control" onChange={handleChange}>
-          <option>Please select</option>
-          {brands.map((b) => (
-            <option key={b} value={b}>
-              {b}
             </option>
           ))}
         </select>

@@ -438,10 +438,10 @@ input[type="range"]::-moz-range-thumb {
   background-color: #f1f1f1;
 }
 .clearfilter.filteractive {
-  background-color: #ffbebe;
+  background-color: #ffefcd;
 }
 .clearfilter.filteractive:hover {
-  background-color: #ff9898;
+  background-color: #ffdf9a;
 }
 .clearsvgcont {
   width: 2rem;

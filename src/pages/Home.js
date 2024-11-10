@@ -4,7 +4,6 @@ import Sliderdiv from "../components/SliderDiv/Sliderdiv";
 import ProductsGroup from "../components/productsSlidable/productGroup/ProductsGroup";
 import CommonProductsCont from "../components/CommonProductsCont/CommonProductsCont";
 import CategoriesCard from "../components/categoriesCard/CategoriesCard";
-import BrandsCard from "../components/brandsCard/BrandsCard";
 import MegaBanner from "../components/megabanner/MegaBanner";
 import { Online } from "react-detect-offline";
 import { getRelatedBanners } from "../functions/banner";
@@ -46,7 +45,6 @@ const Home = () => {
         <MegaBanner loading={loading} banner={banners[0]} />
         <CommonProductsCont WidthIdea={"Fullwidth"} />
         <Catebanner />
-        <BrandsCard />
       </div>
     </>
   );

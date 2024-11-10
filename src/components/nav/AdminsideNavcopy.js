@@ -82,6 +82,23 @@ export default function AdminsideNavcopy({ currentActive }) {
         </Link>
       </ul>
       <Link
+        to="/AdminPanel?page=CategoryCreate"
+        class="manageacheading clsremove CategoryCreate"
+      >
+        Create Category
+      </Link>
+      <ul class="manageacul">
+        <Link to="/AdminPanel?page=SubCreate">
+          <li class="manageacli clsremove SubCreate">Sub Level 1</li>
+        </Link>
+        <Link to="/AdminPanel?page=Sub2Create">
+          <li class="manageacli clsremove Sub2Create">Sub Level 2</li>
+        </Link>
+        <Link to="/AdminPanel?page=ColorCreate">
+          <li class="manageacli clsremove ColorCreate">Create Colors</li>
+        </Link>
+      </ul>
+      <Link
         to="/AdminPanel?page=Transections"
         class="manageacheading clsremove Transections"
       >
@@ -112,26 +129,6 @@ export default function AdminsideNavcopy({ currentActive }) {
         </Link>
       </ul>
 
-      <Link
-        to="/AdminPanel?page=CategoryCreate"
-        class="manageacheading clsremove CategoryCreate"
-      >
-        Create Category
-      </Link>
-      <ul class="manageacul">
-        <Link to="/AdminPanel?page=SubCreate">
-          <li class="manageacli clsremove SubCreate">Sub Level 1</li>
-        </Link>
-        <Link to="/AdminPanel?page=Sub2Create">
-          <li class="manageacli clsremove Sub2Create">Sub Level 2</li>
-        </Link>
-        <Link to="/AdminPanel?page=BrandCreate">
-          <li class="manageacli clsremove BrandCreate">Create Brands</li>
-        </Link>
-        <Link to="/AdminPanel?page=ColorCreate">
-          <li class="manageacli clsremove ColorCreate">Create Colors</li>
-        </Link>
-      </ul>
       <Link
         to="/AdminPanel?page=BannerCreate"
         class="manageacheading clsremove BannerCreate"

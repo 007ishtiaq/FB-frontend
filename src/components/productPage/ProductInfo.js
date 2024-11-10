@@ -40,7 +40,6 @@ export default function ProductInfo({
     disprice,
     shippingcharges,
     price,
-    brand,
     color,
     category,
     attributes,
@@ -464,15 +463,11 @@ export default function ProductInfo({
           <div className="desc_ul">
             {title ? (
               <ul>
-                <li className="desc_li">
-                  <div className="li_head">Brand</div>
-                  <div className="li_sub">{brand}</div>
-                </li>
                 {category && (
                   <li className="desc_li">
                     <div className="li_head">Category</div>
                     <div className="li_sub">
-                      <Link to={`/category/?category=${category.slug}`}>
+                      <Link to={`/shop/?category=${category._id}`}>
                         {category.name}
                       </Link>
                     </div>

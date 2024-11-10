@@ -8,7 +8,6 @@ const ProductUpdateForm = ({
   handleChange,
   setValues,
   values,
-  brands,
   colors,
   handleCategoryChange,
   handleSubChange,
@@ -181,22 +180,6 @@ const ProductUpdateForm = ({
           {colors.map((c) => (
             <option key={c} value={c}>
               {c}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label>Brand (Required) [Should be the Same for similer/color]</label>
-        <select
-          value={brand}
-          name="brand"
-          className="form-control"
-          onChange={handleChange}
-        >
-          {brands.map((b) => (
-            <option key={b} value={b}>
-              {b}
             </option>
           ))}
         </select>
