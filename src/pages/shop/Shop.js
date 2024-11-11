@@ -16,6 +16,8 @@ import {
 import { ReactComponent as Crosssvg } from "../../images/admin/cross.svg";
 import CatenameSkull from "../../components/Skeletons/CatenameSkull";
 import Searchloader from "../../components/searchloader/Searchloader";
+import { getCategorySubs } from "../../functions/category";
+import { getSubsSub2 } from "../../functions/sub";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -31,6 +33,9 @@ const Shop = () => {
   const [price, setPrice] = useState([0, 0]); // price range search
   const [star, setStar] = useState("");
   const [shipping, setShipping] = useState("");
+  const [subs, setSubs] = useState([]);
+  const [sub, setSub] = useState("");
+  const [selectedSub2, setSelectedSub2] = useState(null);
 
   const { mobileSideNav } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
@@ -121,22 +126,63 @@ const Shop = () => {
   };
 
   // handle check for categories
+  // const handleCheck = async (e) => {
+  //   dispatch({
+  //     type: "SEARCH_QUERY",
+  //     payload: { text: "" },
+  //   });
+  //   dispatch({
+  //     type: "SET_SIDENAV_VISIBLE",
+  //     payload: false,
+  //   });
+  //   setCategory(e.target.value);
+  //   setFiltername(e.target.name);
+  //   setPrice([0, 0]);
+  //   setStar("");
+  //   setShipping("");
+  //   fetchProducts({ category: e.target.value });
+  // };
+
+  const handleSub = (sub2Item) => {
+    // console.log("sub2Item", sub2Item);
+    setSelectedSub2(sub2Item._id);
+    setSub(sub2Item);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    // setCategory("");
+    setStar("");
+    setShipping("");
+    fetchProducts({ sub: sub2Item });
+  };
+
+  // handle check for categories
   const handleCheck = async (e) => {
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
-    dispatch({
-      type: "SET_SIDENAV_VISIBLE",
-      payload: false,
-    });
-    // reset
-    setCategory(e.target.value);
-    setFiltername(e.target.name);
     setPrice([0, 0]);
     setStar("");
+    setSub("");
     setShipping("");
+    setCategory(e.target.value);
     fetchProducts({ category: e.target.value });
+
+    try {
+      const subRes = await getCategorySubs(e.target.value);
+      const subsWithSub2 = await Promise.all(
+        subRes.data.map(async (sub) => {
+          const sub2Res = await getSubsSub2(sub._id);
+          return { ...sub, sub2: sub2Res.data };
+        })
+      );
+      setSubs(subsWithSub2);
+    } catch (error) {
+      console.error("Error fetching subcategories:", error);
+    }
   };
 
   const handleStarClick = (num) => {
@@ -192,6 +238,7 @@ const Shop = () => {
       setEntry(false);
     }
     // reset
+    setSelectedSub2(null);
     setCategory("");
     setPrice([0, 0]);
     setStar("");
@@ -225,6 +272,9 @@ const Shop = () => {
               handleStarClick={handleStarClick}
               handleShippingchange={handleShippingchange}
               setFiltername={setFiltername}
+              subs={subs}
+              handleSub={handleSub}
+              selectedSub2={selectedSub2}
             />
           </div>
         ) : (
@@ -247,6 +297,9 @@ const Shop = () => {
               handleStarClick={handleStarClick}
               handleShippingchange={handleShippingchange}
               setFiltername={setFiltername}
+              subs={subs}
+              handleSub={handleSub}
+              selectedSub2={selectedSub2}
             />
           </SideDrawer>
         )}

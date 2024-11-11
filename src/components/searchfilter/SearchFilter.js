@@ -29,6 +29,9 @@ export default function SearchFilter({
   handleStarClick,
   handleShippingchange,
   setFiltername,
+  subs,
+  handleSub,
+  selectedSub2,
 }) {
   const [categories, setCategories] = useState([]); // to show the available list of categories
   const [highestPrice, setHighestPrice] = useState(0); // Highest Price for price filter
@@ -165,43 +168,27 @@ export default function SearchFilter({
   );
 
   // 6. show products by sub category
-  // const showSubs = (sub2, selectedSub2, handleSub) =>
-  //   sub2.map((sub2Item) => (
-  //     // <div
-  //     //   key={sub2Item._id}
-  //     //   onClick={() => handleSub(sub2Item._id)}
-  //     //   className="p-1 m-1 badge badge-secondary"
-  //     //   style={{ cursor: "pointer" }}
-  //     // >
-  //     //   {sub2Item.name}
-  //     // </div>
-  //     <div
-  //       key={sub2Item._id}
-  //       onClick={() => handleSub(sub2Item)}
-  //       className={`p-1 m-1 badge ${
-  //         selectedSub2 === sub2Item._id ? "badge-primary" : "badge-secondary"
-  //       }`}
-  //       style={{ cursor: "pointer" }}
-  //     >
-  //       {sub2Item.name}
-  //     </div>
-  //   ));
-
-  // const handleSub = (sub2Item) => {
-  //   setSelectedSub2(sub2Item._id);
-  //   setSub(sub2Item);
-  //   dispatch({
-  //     type: "SEARCH_QUERY",
-  //     payload: { text: "" },
-  //   });
-  //   setPrice([0, 0]);
-  //   // setCategory("");
-  //   setStar("");
-  //   setBrand("");
-  //   setColor("");
-  //   setShipping("");
-  //   fetchProducts({ sub: sub2Item });
-  // };
+  const showSubs = (sub2, selectedSub2, handleSub) =>
+    sub2.map((sub2Item) => (
+      // <div
+      //   key={sub2Item._id}
+      //   onClick={() => handleSub(sub2Item._id)}
+      //   className="p-1 m-1 badge badge-secondary"
+      //   style={{ cursor: "pointer" }}
+      // >
+      //   {sub2Item.name}
+      // </div>
+      <div
+        key={sub2Item._id}
+        onClick={() => handleSub(sub2Item)}
+        className={`p-1 m-1 badge ${
+          selectedSub2 === sub2Item._id ? "badge-primary" : "badge-secondary"
+        }`}
+        style={{ cursor: "pointer" }}
+      >
+        {sub2Item.name}
+      </div>
+    ));
 
   // 9. show products based on shipping yes/no  // working pending
   const showShipping = () => (
@@ -272,17 +259,6 @@ export default function SearchFilter({
         >
           <div style={{ maringTop: "10px" }}>{showCategories()}</div>
         </SubMenu>
-        {/* {subs.map((s, index) => (
-          <SubMenu
-            class="filtercont"
-            key={index + 25}
-            title={<div class="filterheading">{s.name}</div>}
-          >
-            <div style={{ marginTop: "-10px" }} className="pl-4 pr-4">
-              {showSubs(s.sub2, selectedSub2, handleSub)}
-            </div>
-          </SubMenu>
-        ))} */}
 
         {/* <SubMenu
           class="filtercont"
@@ -293,6 +269,17 @@ export default function SearchFilter({
             {showSubs(subs)}
           </div>
         </SubMenu> */}
+        {subs.map((s, index) => (
+          <SubMenu
+            class="filtercont"
+            key={index + 25}
+            title={<div class="filterheading">{s.name}</div>}
+          >
+            <div style={{ marginTop: "-10px" }} className="pl-4 pr-4">
+              {showSubs(s.sub2, selectedSub2, handleSub)}
+            </div>
+          </SubMenu>
+        ))}
         <SubMenu
           class="filtercont"
           key="13"
