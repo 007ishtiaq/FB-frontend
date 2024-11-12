@@ -125,24 +125,6 @@ const Shop = () => {
     });
   };
 
-  // handle check for categories
-  // const handleCheck = async (e) => {
-  //   dispatch({
-  //     type: "SEARCH_QUERY",
-  //     payload: { text: "" },
-  //   });
-  //   dispatch({
-  //     type: "SET_SIDENAV_VISIBLE",
-  //     payload: false,
-  //   });
-  //   setCategory(e.target.value);
-  //   setFiltername(e.target.name);
-  //   setPrice([0, 0]);
-  //   setStar("");
-  //   setShipping("");
-  //   fetchProducts({ category: e.target.value });
-  // };
-
   const handleSub = (sub2Item) => {
     // console.log("sub2Item", sub2Item);
     setSelectedSub2(sub2Item._id);
