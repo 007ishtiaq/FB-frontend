@@ -70,6 +70,8 @@ const Shop = () => {
         setPrice([0, 0]);
         setStar("");
         setShipping("");
+        setSubs([]);
+        setSelectedSub(null);
       } else if (categoryslug && entry) {
         setEntry(false);
         setCategory(categoryslug);
@@ -129,22 +131,7 @@ const Shop = () => {
     });
   };
 
-  const handleSub = (subItem) => {
-    // console.log("sub2Item", sub2Item);
-    setSelectedSub(subItem._id);
-    setSub(subItem);
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-    setPrice([0, 0]);
-    // setCategory("");
-    setStar("");
-    setShipping("");
-    fetchProducts({ sub: subItem });
-  };
-
-  // handle check for categories
+  // 1. load products based on categories
   const handleCheck = async (e) => {
     dispatch({
       type: "SEARCH_QUERY",
@@ -156,6 +143,7 @@ const Shop = () => {
     setShipping("");
     setCategory(e.target.value);
     fetchProducts({ category: e.target.value });
+    setSelectedSub(null);
 
     try {
       const subRes = await getCategorySubs(e.target.value);
@@ -165,6 +153,46 @@ const Shop = () => {
     }
   };
 
+  // 2. load products based on sub category
+  const handleSub = (subItem) => {
+    // console.log(subItem);
+    setCategory(subItem.parent);
+
+    setSelectedSub(subItem._id);
+    setFiltername(subItem.name);
+    setSub(subItem);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setStar("");
+    setShipping("");
+    fetchProducts({ sub: subItem });
+  };
+
+  // 3. load products based on price range
+  useEffect(() => {
+    if (price[0] > 1 || price[1] > 1) {
+      fetchProducts({ price });
+    }
+  }, [price]);
+
+  const handleSlider = (value) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setFiltername(`Price Range`);
+    // reset
+    setSelectedSub(null);
+    setCategory("");
+    setPrice(value);
+    setStar("");
+    setShipping("");
+  };
+
+  // 4. load products based on stars
   const handleStarClick = (num) => {
     // console.log(num);
     dispatch({
@@ -179,11 +207,13 @@ const Shop = () => {
     setCategory("");
     setPrice([0, 0]);
     setStar(num);
-    // setSub("");
+    setSubs([]);
+    setSelectedSub(null);
     setShipping("");
     fetchProducts({ stars: num });
   };
 
+  // 5. load products based on shipping
   const handleShippingchange = (e) => {
     // setSub("");
     dispatch({
@@ -197,6 +227,8 @@ const Shop = () => {
     setCategory("");
     setPrice([0, 0]);
     setStar("");
+    setSubs([]);
+    setSelectedSub(null);
     setShipping(e.target.value);
     setFiltername(
       e.target.value === "Yes" ? "With Free Shipping" : "With Shipping"
@@ -204,6 +236,7 @@ const Shop = () => {
     fetchProducts({ shipping: e.target.value });
   };
 
+  // All reset
   const Clearfilter = () => {
     if (text) {
       dispatch({
@@ -239,23 +272,17 @@ const Shop = () => {
               handleCheck={handleCheck}
               category={category}
               text={text}
-              // handleBrand={handleBrand}
               Clearfilter={Clearfilter}
-              setCategory={setCategory}
-              fetchProducts={fetchProducts}
               loadAllProducts={loadAllProducts}
               price={price}
-              setPrice={setPrice}
               star={star}
-              setStar={setStar}
               shipping={shipping}
-              setShipping={setShipping}
               handleStarClick={handleStarClick}
               handleShippingchange={handleShippingchange}
-              setFiltername={setFiltername}
               subs={subs}
               handleSub={handleSub}
               selectedSub={selectedSub}
+              handleSlider={handleSlider}
             />
           </div>
         ) : (
@@ -264,23 +291,17 @@ const Shop = () => {
               handleCheck={handleCheck}
               category={category}
               text={text}
-              // handleBrand={handleBrand}
               Clearfilter={Clearfilter}
-              setCategory={setCategory}
-              fetchProducts={fetchProducts}
               loadAllProducts={loadAllProducts}
               price={price}
-              setPrice={setPrice}
               star={star}
-              setStar={setStar}
               shipping={shipping}
-              setShipping={setShipping}
               handleStarClick={handleStarClick}
               handleShippingchange={handleShippingchange}
-              setFiltername={setFiltername}
               subs={subs}
               handleSub={handleSub}
               selectedSub={selectedSub}
+              handleSlider={handleSlider}
             />
           </SideDrawer>
         )}

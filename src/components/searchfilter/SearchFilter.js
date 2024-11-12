@@ -18,20 +18,15 @@ export default function SearchFilter({
   category,
   text,
   Clearfilter,
-  setCategory,
-  fetchProducts,
   price,
-  setPrice,
   star,
-  setStar,
   shipping,
-  setShipping,
   handleStarClick,
   handleShippingchange,
-  setFiltername,
   subs,
   handleSub,
   selectedSub,
+  handleSlider,
 }) {
   const [categories, setCategories] = useState([]); // to show the available list of categories
   const [highestPrice, setHighestPrice] = useState(0); // Highest Price for price filter
@@ -51,30 +46,6 @@ export default function SearchFilter({
       setHighestPrice(res.data);
     });
   }, []);
-
-  // 3. load products based on price range
-  useEffect(() => {
-    if (price[0] > 1 || price[1] > 1) {
-      fetchProducts({ price });
-    }
-  }, [price]);
-
-  const handleSlider = (value) => {
-    dispatch({
-      type: "SEARCH_QUERY",
-      payload: { text: "" },
-    });
-    setFiltername(`Price Range`);
-    // reset
-    setCategory("");
-    setPrice(value);
-    setStar("");
-    // setSub("");
-    setShipping("");
-    // setTimeout(() => {
-    //   setOk(!ok);
-    // }, 300);
-  };
 
   // 4. load products based on category
   // show categories in a list of checkbox
