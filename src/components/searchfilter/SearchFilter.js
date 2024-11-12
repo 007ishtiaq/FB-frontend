@@ -31,7 +31,7 @@ export default function SearchFilter({
   setFiltername,
   subs,
   handleSub,
-  selectedSub2,
+  selectedSub,
 }) {
   const [categories, setCategories] = useState([]); // to show the available list of categories
   const [highestPrice, setHighestPrice] = useState(0); // Highest Price for price filter
@@ -168,28 +168,18 @@ export default function SearchFilter({
   );
 
   // 6. show products by sub category
-  const showSubs = (sub2, selectedSub2, handleSub) =>
-    sub2.map((sub2Item) => (
-      // <div
-      //   key={sub2Item._id}
-      //   onClick={() => handleSub(sub2Item._id)}
-      //   className="p-1 m-1 badge badge-secondary"
-      //   style={{ cursor: "pointer" }}
-      // >
-      //   {sub2Item.name}
-      // </div>
-      <div
-        key={sub2Item._id}
-        onClick={() => handleSub(sub2Item)}
-        className={`p-1 m-1 badge ${
-          selectedSub2 === sub2Item._id ? "badge-primary" : "badge-secondary"
-        }`}
-        style={{ cursor: "pointer" }}
-      >
-        {sub2Item.name}
-      </div>
-    ));
-
+  const showSubs = (subItem, selectedSub, handleSub) => (
+    <div
+      key={subItem._id}
+      onClick={() => handleSub(subItem)}
+      className={`p-1 m-1 badge ${
+        selectedSub === subItem._id ? "badge-primary" : "badge-secondary"
+      }`}
+      style={{ cursor: "pointer" }}
+    >
+      {subItem.name}
+    </div>
+  );
   // 9. show products based on shipping yes/no  // working pending
   const showShipping = () => (
     <>
@@ -259,7 +249,6 @@ export default function SearchFilter({
         >
           <div style={{ maringTop: "10px" }}>{showCategories()}</div>
         </SubMenu>
-
         {/* <SubMenu
           class="filtercont"
           key="15"
@@ -269,17 +258,18 @@ export default function SearchFilter({
             {showSubs(subs)}
           </div>
         </SubMenu> */}
-        {subs.map((s, index) => (
-          <SubMenu
-            class="filtercont"
-            key={index + 25}
-            title={<div class="filterheading">{s.name}</div>}
-          >
+        <SubMenu
+          class="filtercont"
+          key={25}
+          title={<div class="filterheading">TAGS</div>}
+        >
+          {subs.map((subItem, index) => (
             <div style={{ marginTop: "-10px" }} className="pl-4 pr-4">
-              {showSubs(s.sub2, selectedSub2, handleSub)}
+              {showSubs(subItem, selectedSub, handleSub)}
             </div>
-          </SubMenu>
-        ))}
+          ))}
+        </SubMenu>
+
         <SubMenu
           class="filtercont"
           key="13"

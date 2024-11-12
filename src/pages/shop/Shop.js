@@ -35,7 +35,7 @@ const Shop = () => {
   const [shipping, setShipping] = useState("");
   const [subs, setSubs] = useState([]);
   const [sub, setSub] = useState("");
-  const [selectedSub2, setSelectedSub2] = useState(null);
+  const [selectedSub, setSelectedSub] = useState(null);
 
   const { mobileSideNav } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
@@ -96,7 +96,7 @@ const Shop = () => {
           setFiltername(res.data.products[0].category.name);
         }
       }
-      console.log(arg);
+      // console.log(arg);
 
       setProductsCount(res.data.totalProducts);
     });
@@ -125,10 +125,10 @@ const Shop = () => {
     });
   };
 
-  const handleSub = (sub2Item) => {
+  const handleSub = (subItem) => {
     // console.log("sub2Item", sub2Item);
-    setSelectedSub2(sub2Item._id);
-    setSub(sub2Item);
+    setSelectedSub(subItem._id);
+    setSub(subItem);
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
@@ -137,7 +137,7 @@ const Shop = () => {
     // setCategory("");
     setStar("");
     setShipping("");
-    fetchProducts({ sub: sub2Item });
+    fetchProducts({ sub: subItem });
   };
 
   // handle check for categories
@@ -155,13 +155,15 @@ const Shop = () => {
 
     try {
       const subRes = await getCategorySubs(e.target.value);
-      const subsWithSub2 = await Promise.all(
-        subRes.data.map(async (sub) => {
-          const sub2Res = await getSubsSub2(sub._id);
-          return { ...sub, sub2: sub2Res.data };
-        })
-      );
-      setSubs(subsWithSub2);
+      // const subsWithSub2 = await Promise.all(
+      //   subRes.data.map(async (sub) => {
+      //     const sub2Res = await getSubsSub2(sub._id);
+      //     return { ...sub, sub2: sub2Res.data };
+      //   })
+      // );
+      // console.log(subRes.data);
+
+      setSubs(subRes.data);
     } catch (error) {
       console.error("Error fetching subcategories:", error);
     }
@@ -220,7 +222,7 @@ const Shop = () => {
       setEntry(false);
     }
     // reset
-    setSelectedSub2(null);
+    setSelectedSub(null);
     setCategory("");
     setPrice([0, 0]);
     setStar("");
@@ -256,7 +258,7 @@ const Shop = () => {
               setFiltername={setFiltername}
               subs={subs}
               handleSub={handleSub}
-              selectedSub2={selectedSub2}
+              selectedSub={selectedSub}
             />
           </div>
         ) : (
@@ -281,7 +283,7 @@ const Shop = () => {
               setFiltername={setFiltername}
               subs={subs}
               handleSub={handleSub}
-              selectedSub2={selectedSub2}
+              selectedSub={selectedSub}
             />
           </SideDrawer>
         )}
@@ -316,7 +318,6 @@ const Shop = () => {
                 <span className="sortoptions">Popularity</span>
               </div>
             </div>
-
             <div className="contentcont">
               <div className="productsarea">
                 {loading ? (
