@@ -172,7 +172,7 @@ export default function SearchFilter({
     <div
       key={subItem._id}
       onClick={() => handleSub(subItem)}
-      className={`p-1 m-1 badge ${
+      className={`m-1 badge ${
         selectedSub === subItem._id ? "badge-primary" : "badge-secondary"
       }`}
       style={{ cursor: "pointer" }}
@@ -264,7 +264,10 @@ export default function SearchFilter({
           title={<div class="filterheading">TAGS</div>}
         >
           {subs.map((subItem, index) => (
-            <div style={{ marginTop: "-10px" }} className="pl-4 pr-4">
+            <div
+              style={{ marginTop: "0", display: "inline-block" }}
+              className="pl-1 pr-1"
+            >
               {showSubs(subItem, selectedSub, handleSub)}
             </div>
           ))}

@@ -17,7 +17,6 @@ import { ReactComponent as Crosssvg } from "../../images/admin/cross.svg";
 import CatenameSkull from "../../components/Skeletons/CatenameSkull";
 import Searchloader from "../../components/searchloader/Searchloader";
 import { getCategorySubs } from "../../functions/category";
-import { getSubsSub2 } from "../../functions/sub";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -63,24 +62,29 @@ const Shop = () => {
   }, []);
 
   useEffect(() => {
-    if (text) {
-      fetchProducts({ query: text });
-      //reset
-      setCategory("");
-      setPrice([0, 0]);
-      setStar("");
-      // setSub("");
-      setShipping("");
-    } else if (categoryslug && entry) {
-      setCategory(categoryslug);
-      fetchProducts({ category: categoryslug });
-      setEntry(false);
-      //reset
-      // setCategory("");
-    } else {
-      loadAllProducts();
-    }
-  }, [page, categoryslug, text]);
+    const fetchData = async () => {
+      if (text) {
+        await fetchProducts({ query: text }); // Wait for this to complete
+        // Reset filters
+        setCategory("");
+        setPrice([0, 0]);
+        setStar("");
+        setShipping("");
+      } else if (categoryslug && entry) {
+        setEntry(false);
+        setCategory(categoryslug);
+        await fetchProducts({ category: categoryslug }); // Wait for this to complete
+        console.log(categoryslug);
+
+        const subRes = await getCategorySubs(categoryslug); // Await the response
+        setSubs(subRes.data);
+      } else {
+        loadAllProducts();
+      }
+    };
+
+    fetchData(); // Call the async function inside useEffect
+  }, [page, categoryslug, text]); // Dependency array remains the same
 
   useEffect(() => {
     setPage(1);
@@ -155,14 +159,6 @@ const Shop = () => {
 
     try {
       const subRes = await getCategorySubs(e.target.value);
-      // const subsWithSub2 = await Promise.all(
-      //   subRes.data.map(async (sub) => {
-      //     const sub2Res = await getSubsSub2(sub._id);
-      //     return { ...sub, sub2: sub2Res.data };
-      //   })
-      // );
-      // console.log(subRes.data);
-
       setSubs(subRes.data);
     } catch (error) {
       console.error("Error fetching subcategories:", error);
@@ -222,6 +218,7 @@ const Shop = () => {
       setEntry(false);
     }
     // reset
+    setSubs([]);
     setSelectedSub(null);
     setCategory("");
     setPrice([0, 0]);

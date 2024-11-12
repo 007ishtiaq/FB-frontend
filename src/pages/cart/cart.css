@@ -353,6 +353,13 @@ button:hover:disabled {
   align-self: flex-end;
   padding-top: 0.4rem;
 }
+.termreadcont span,
+.termreadcont .ant-checkbox-input {
+  margin-bottom: 0;
+  font-size: 1.2rem;
+  user-select: none;
+}
+
 /*****************************************
 **************Responsiveness***********
 *************************************** */

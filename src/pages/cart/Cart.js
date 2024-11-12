@@ -24,6 +24,7 @@ import {
 import { toast } from "react-hot-toast";
 import { Tooltip } from "antd";
 import NoNetModal from "../../components/NoNetModal/NoNetModal";
+import { Checkbox } from "antd";
 
 const Cart = ({ history }) => {
   const [coupon, setCoupon] = useState("");
@@ -33,6 +34,7 @@ const Cart = ({ history }) => {
   const [couponCondition, setCouponCondition] = useState(null);
   const [noNetModal, setNoNetModal] = useState(false);
   const [retryFunction, setRetryFunction] = useState("");
+  const [termRead, setTermRead] = useState(true);
 
   const { cart, user } = useSelector((state) => ({ ...state }));
   const couponString = useSelector((state) => state.coupon);
@@ -128,6 +130,8 @@ const Cart = ({ history }) => {
       if (user && user.token) {
         emptyUserCart(user.token);
       }
+
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
   };
 
@@ -489,15 +493,24 @@ const Cart = ({ history }) => {
                   </span>
                 )}
               </div>
+
               {user ? (
                 <button
                   onClick={
                     couponString.applied ? applyDiscountCoupon : saveOrderToDb
                   }
                   className="checkoutbtn"
-                  disabled={!cart.length}
+                  disabled={!cart.length || !termRead}
                 >
-                  <Tooltip title={!cart.length ? "Cart is Empty" : ""}>
+                  <Tooltip
+                    title={
+                      !cart.length
+                        ? "Cart is Empty"
+                        : !termRead
+                        ? "Please accept the terms and conditions"
+                        : ""
+                    }
+                  >
                     Checkout
                   </Tooltip>
                 </button>
@@ -511,6 +524,16 @@ const Cart = ({ history }) => {
                   <button className="checkoutbtn">Login to Checkout</button>
                 </Link>
               )}
+              <div className="declarationcheck termreadcont">
+                <Checkbox
+                  className="pb-2 pt-2 pl-0 pr-0"
+                  onChange={(e) => setTermRead(e.target.checked)} // Toggle termRead based on checked state
+                  checked={termRead}
+                >
+                  I accept the terms and conditions and I have read the privacy
+                  policy.
+                </Checkbox>
+              </div>
             </div>
           </div>
 

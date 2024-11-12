@@ -25,6 +25,7 @@ import { Tooltip } from "antd";
 import NoNetModal from "../../components/NoNetModal/NoNetModal";
 import Resizer from "react-image-file-resizer";
 import { LoadingOutlined } from "@ant-design/icons";
+import { Checkbox } from "antd";
 
 const Checkout = ({ history }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -35,6 +36,7 @@ const Checkout = ({ history }) => {
   const [couponType, setCouponType] = useState(null);
   const [discountPersent, setDiscountPersent] = useState(null);
   const [noNetModal, setNoNetModal] = useState(false);
+  const [termRead, setTermRead] = useState(true);
 
   const [image, setImage] = useState("");
   const [imageuploaded, setImageuploaded] = useState(false);
@@ -322,6 +324,9 @@ const Checkout = ({ history }) => {
     }
     if (!values.Address) {
       return "Shipping address missing*";
+    }
+    if (!termRead) {
+      return "Please accept the terms and conditions";
     } else {
       return "";
     }
@@ -338,6 +343,9 @@ const Checkout = ({ history }) => {
     }
     if (!file) {
       return "Attachment is missing";
+    }
+    if (!termRead) {
+      return "Please accept the terms and conditions";
     } else {
       return "";
     }
@@ -455,7 +463,8 @@ const Checkout = ({ history }) => {
                   disabled={
                     !values.Contact ||
                     !values.Address ||
-                    total + shippingfee === 0
+                    total + shippingfee === 0 ||
+                    !termRead
                   }
                   onClick={createCashOrder}
                 >
@@ -470,7 +479,8 @@ const Checkout = ({ history }) => {
                     !values.Contact ||
                     !values.Address ||
                     !file ||
-                    total + shippingfee === 0
+                    total + shippingfee === 0 ||
+                    !termRead
                   }
                   onClick={createOrder}
                 >
@@ -485,6 +495,16 @@ const Checkout = ({ history }) => {
                   </Tooltip>
                 </button>
               )}
+              <div className="declarationcheck termreadcont">
+                <Checkbox
+                  className="pb-2 pt-2 pl-0 pr-0"
+                  onChange={(e) => setTermRead(e.target.checked)} // Toggle termRead based on checked state
+                  checked={termRead}
+                >
+                  I accept the terms and conditions and I have read the privacy
+                  policy.
+                </Checkbox>
+              </div>
             </div>
           </div>
 
