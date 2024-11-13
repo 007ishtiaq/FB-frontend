@@ -45,7 +45,8 @@ const Shop = () => {
     return new URLSearchParams(useLocation().search);
   }
   let query = useQuery();
-  let categoryslug = query.get("category");
+  let categoryid = query.get("category");
+  let subcategoryid = query.get("subcategory");
 
   useEffect(() => {
     const proarea = document.querySelector(".productsarea");
@@ -72,13 +73,19 @@ const Shop = () => {
         setShipping("");
         setSubs([]);
         setSelectedSub(null);
-      } else if (categoryslug && entry) {
+      } else if (subcategoryid && entry) {
         setEntry(false);
-        setCategory(categoryslug);
-        await fetchProducts({ category: categoryslug }); // Wait for this to complete
-        console.log(categoryslug);
-
-        const subRes = await getCategorySubs(categoryslug); // Await the response
+        setCategory(categoryid);
+        setSelectedSub(subcategoryid);
+        await fetchProducts({ sub: subcategoryid }); // Wait for this to complete
+        // setFiltername(subItem.name);
+        const subRes = await getCategorySubs(categoryid); // Await the response
+        setSubs(subRes.data);
+      } else if (categoryid && entry) {
+        setEntry(false);
+        setCategory(categoryid);
+        await fetchProducts({ category: categoryid }); // Wait for this to complete
+        const subRes = await getCategorySubs(categoryid); // Await the response
         setSubs(subRes.data);
       } else {
         loadAllProducts();
@@ -86,7 +93,7 @@ const Shop = () => {
     };
 
     fetchData(); // Call the async function inside useEffect
-  }, [page, categoryslug, text]); // Dependency array remains the same
+  }, [page, categoryid, text]); // Dependency array remains the same
 
   useEffect(() => {
     setPage(1);
@@ -157,7 +164,6 @@ const Shop = () => {
   const handleSub = (subItem) => {
     // console.log(subItem);
     setCategory(subItem.parent);
-
     setSelectedSub(subItem._id);
     setFiltername(subItem.name);
     setSub(subItem);

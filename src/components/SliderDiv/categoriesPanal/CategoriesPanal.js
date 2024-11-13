@@ -62,7 +62,10 @@ const CategoriesPanal = (props) => {
               subCategories.map((category) => {
                 return (
                   <div className={classes.subcategory} key={category._id}>
-                    <Link className="subcatelink" to={`/shop?${category.slug}`}>
+                    <Link
+                      className="subcatelink"
+                      to={`/shop/?category=${category.parent}&subcategory=${category._id}`}
+                    >
                       <img src={category.image && category.image.url} alt="" />
                       <p>{category.name}</p>
                     </Link>
