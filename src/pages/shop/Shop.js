@@ -78,7 +78,6 @@ const Shop = () => {
         setCategory(categoryid);
         setSelectedSub(subcategoryid);
         await fetchProducts({ sub: subcategoryid }); // Wait for this to complete
-        // setFiltername(subItem.name);
         const subRes = await getCategorySubs(categoryid); // Await the response
         setSubs(subRes.data);
       } else if (categoryid && entry) {
@@ -104,9 +103,13 @@ const Shop = () => {
     fetchProductsByFilter({ arg, page, perPage }).then((res) => {
       setProducts(res.data.products);
       setLoading(false);
+      console.log("res.data", res.data.products);
       if (res.data.products.length > 0) {
         if (arg.category) {
           setFiltername(res.data.products[0].category.name);
+        }
+        if (arg.sub) {
+          setFiltername(res.data.products[0].attributes[0].subs.name);
         }
       }
       // console.log(arg);
