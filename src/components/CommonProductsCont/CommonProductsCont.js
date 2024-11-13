@@ -1,16 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../ProductCards/ProductCardsAll.css";
-import watchimg from "../../images/productdiv_sample_images/watch.webp";
-import img2 from "../../images/productdiv_sample_images/3.jpg";
-import { getProductsByCount } from "../../functions/product";
+import { getProductsByPage } from "../../functions/product";
 import FlashsaleProductCard from "../ProductCards/FlashsaleProductCard";
 import ProductCardSkull from "../Skeletons/ProductCardSkull";
 import { toast } from "react-hot-toast";
+import { Pagination } from "antd";
+import { Link } from "react-router-dom";
 
 export default function CommonProductsCont({ WidthIdea }) {
   const [products, setProducts] = useState([]);
   const [contwidth, setContwidth] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1); // page number
+  const [perPage, setPerpage] = useState(28); // per page Size
+  const [productsCount, setProductsCount] = useState(0);
+
+  // Create a ref to the component
+  const componentRef = useRef(null);
 
   useEffect(() => {
     const proarea = document.querySelector(".productsarea");
@@ -18,34 +24,31 @@ export default function CommonProductsCont({ WidthIdea }) {
     setContwidth(contwidth);
 
     loadAllProducts();
-  }, []);
+  }, [page]);
 
-  const loadAllProducts = () => {
-    getProductsByCount(6)
-      .then((p) => {
-        setLoading(false);
-        setProducts(p.data);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 500) {
-          toast.error(error.response.data.error);
-        } else {
-          // Handle other errors
-          toast.error("Something went wrong");
-          // console.error("Error fetching Product:", error);
-        }
-      });
+  const loadAllProducts = async () => {
+    try {
+      const { data } = await getProductsByPage({ page, perPage });
+      setProducts(data.products);
+      setProductsCount(data.totalProducts);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div class="cardcontainer">
+    <div ref={componentRef} class="cardcontainer">
       <div class="insidecont">
         <div class="mainhead colorhead">
           <div class="colorheading">Featured Products</div>
-          <div class="colormoredark">SEE MORE</div>
+          <Link to={`/shop`}>
+            <div class="colormoredark">SEE MORE</div>
+          </Link>
         </div>
-        <div class="contentcont">
-          <div class="productsarea">
+        <div className="contentcont">
+          <div className="productsarea">
             {loading ? (
               <ProductCardSkull clone={6} contWidth={contwidth} />
             ) : (
@@ -59,37 +62,23 @@ export default function CommonProductsCont({ WidthIdea }) {
                 />
               ))
             )}
-            {/* <div class="itemcolum">
-              <a class="productanker" href="#">
-                <img class="imagepart" src={img2} alt="" />
-
-                <div class="textpart">
-                  <div class="Pricediv">
-                    <div class="dis p-side">
-                      $ <span>279</span>.06
-                    </div>
-                    <div class="d-persontage">-79%</div>
-                  </div>
-                  <div class="dis-side">$ 456.64</div>
-                  <div class="n-side">
-                    {" "}
-                    <span>
-                      {" "}
-                      Silicone Strap For Apple Watch Band 44mm 40mm 45mm 41mm
-                      49mm 42mm 38mm 44 45 mm bracelet iwatch series 7 se 3 4 5
-                      6 8 Ultra band{" "}
-                    </span>
-                  </div>
-                  <div class="Shipippingdiv">
-                    <div class="shipping-side"> Free shipping</div>
-                    <button class="addtocartbtn">Add to cart</button>
-                  </div>
-                  <div class="stock-count">
-                    22 items left<div class="meter"></div>
-                  </div>
-                </div>
-              </a>
-            </div> */}
+          </div>
+          <div className="productreviewbottom searchpagi">
+            <div className="previewpagination">
+              <Pagination
+                current={page}
+                total={productsCount}
+                pageSize={perPage}
+                onChange={(value) => {
+                  setPage(value);
+                  componentRef.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }}
+                showSizeChanger={false}
+              />
+            </div>
           </div>
         </div>
       </div>
