@@ -480,24 +480,11 @@ export default function ProductInfo({
                         <div className="li_head">Section</div>
                         <div className="li_sub">
                           <Link
-                            to={`/shop?${attribute.subs.name.replace(
-                              /\s+/g,
-                              ""
-                            )}`}
+                            to={`/shop/?category=${category._id}&subcategory=${attribute.subs._id}`}
                           >
                             {attribute.subs.name}
                           </Link>
                         </div>
-                        {/* <div className="li_sub">
-                          {attribute.subs2.map((s2) => (
-                            <Link
-                              key={s2._id}
-                              to={`/shop?${s2.name.replace(/\s+/g, "")}`}
-                            >
-                              <span className="featurename">{s2.name}</span>
-                            </Link>
-                          ))}
-                        </div> */}
                       </li>
                     )}
                   </React.Fragment>
