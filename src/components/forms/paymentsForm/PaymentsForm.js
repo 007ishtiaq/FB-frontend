@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ReactComponent as Banksvg } from "../../../images/cart/payments/banktransfer.svg";
-import { ReactComponent as CODsvg } from "../../../images/cart/payments/cod.svg";
-import { ReactComponent as Easypaisasvg } from "../../../images/cart/payments/easypaisa.svg";
-import { ReactComponent as Walletsvg } from "../../../images/cart/payments/wallet.svg";
+import { ReactComponent as Mastersvg } from "../../../images/cart/payments/master.svg";
+import { ReactComponent as Visasvg } from "../../../images/cart/payments/visa.svg";
 import { ReactComponent as Infosvg } from "../../../images/info.svg";
 import SlipImgUpload from "../SlipImgUpload";
 
@@ -10,13 +9,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function PaymentsForm({ file, setFile }) {
   const [bft, setBft] = useState(true);
-  const [wallet, setWallet] = useState(false);
-  const [easypesa, setEasypesa] = useState(false);
   const [cod, setCod] = useState(false);
   const [loading, setLoading] = useState(false);
   const [bftActive, setBftActive] = useState(false);
-  const [walletActive, setWalletActive] = useState(false);
-  const [easypesaActive, setEasypesaActive] = useState(false);
   const [codActive, setCodActive] = useState(false);
 
   const fileInputRef = useRef(null);
@@ -36,12 +31,10 @@ export default function PaymentsForm({ file, setFile }) {
 
   useEffect(() => {
     handleActiveClass();
-  }, [bft, wallet, easypesa, cod]);
+  }, [bft, cod]);
 
   const bftChecked = () => {
     setBft(true);
-    setWallet(false);
-    setEasypesa(false);
     setCod(false);
     setFile(null);
     dispatch({
@@ -55,54 +48,6 @@ export default function PaymentsForm({ file, setFile }) {
     dispatch({
       type: "Easypesa",
       payload: false,
-    });
-    dispatch({
-      type: "COD",
-      payload: false,
-    });
-  };
-  const walletChecked = () => {
-    setBft(false);
-    setWallet(true);
-    setEasypesa(false);
-    setCod(false);
-    setFile(null);
-
-    dispatch({
-      type: "BFT",
-      payload: false,
-    });
-    dispatch({
-      type: "Wallet",
-      payload: true,
-    });
-    dispatch({
-      type: "Easypesa",
-      payload: false,
-    });
-    dispatch({
-      type: "COD",
-      payload: false,
-    });
-  };
-  const easypesaChecked = () => {
-    setBft(false);
-    setWallet(false);
-    setEasypesa(true);
-    setCod(false);
-    setFile(null);
-
-    dispatch({
-      type: "BFT",
-      payload: false,
-    });
-    dispatch({
-      type: "Wallet",
-      payload: false,
-    });
-    dispatch({
-      type: "Easypesa",
-      payload: true,
     });
     dispatch({
       type: "COD",
@@ -111,8 +56,6 @@ export default function PaymentsForm({ file, setFile }) {
   };
   const codChecked = () => {
     setBft(false);
-    setWallet(false);
-    setEasypesa(false);
     setCod(true);
     setFile(null);
 
@@ -142,20 +85,6 @@ export default function PaymentsForm({ file, setFile }) {
       }, 100);
     } else {
       setBftActive(false);
-    }
-    if (wallet === true) {
-      activeClassTimeout = setTimeout(() => {
-        setWalletActive(true);
-      }, 100);
-    } else {
-      setWalletActive(false);
-    }
-    if (easypesa === true) {
-      activeClassTimeout = setTimeout(() => {
-        setEasypesaActive(true);
-      }, 100);
-    } else {
-      setEasypesaActive(false);
     }
     if (cod === true) {
       activeClassTimeout = setTimeout(() => {
@@ -193,42 +122,6 @@ export default function PaymentsForm({ file, setFile }) {
 
           <label class="custom-radio">
             <input
-              id="jazzcash"
-              type="radio"
-              name="radio"
-              checked={wallet}
-              onChange={walletChecked}
-            />
-            <span class="radio-btn">
-              <div class="hobbies-icon">
-                <h3>JazzCash Wallet</h3>
-                <div className="logosvgopt paymentsvgs">
-                  <Walletsvg></Walletsvg>
-                </div>
-              </div>
-            </span>
-          </label>
-
-          <label class="custom-radio">
-            <input
-              id="easypaisa"
-              type="radio"
-              name="radio"
-              checked={easypesa}
-              onChange={easypesaChecked}
-            />
-            <span class="radio-btn">
-              <div class="hobbies-icon">
-                <h3>Easypesa Wallet</h3>
-                <div className="logosvgopt paymentsvgs">
-                  <Easypaisasvg></Easypaisasvg>
-                </div>
-              </div>
-            </span>
-          </label>
-
-          <label class="custom-radio">
-            <input
               id="cod"
               type="radio"
               name="radio"
@@ -237,9 +130,10 @@ export default function PaymentsForm({ file, setFile }) {
             />
             <span class="radio-btn">
               <div class="hobbies-icon">
-                <h3>Cash On Delivery</h3>
+                <h3>Credit/Debit Card</h3>
                 <div className="logosvgopt paymentsvgs">
-                  <CODsvg></CODsvg>
+                  <Visasvg></Visasvg>
+                  <Mastersvg></Mastersvg>
                 </div>
               </div>
             </span>
@@ -252,21 +146,27 @@ export default function PaymentsForm({ file, setFile }) {
               <div class="pmtheading">Steps</div>
               <p className="pmtsubtag">
                 {" "}
-                Make the payment to below given account number from your bank
-                application & Please attach payment receipt to below mentioned
-                attachment area.{" "}
+                Please make the payment using the account details provided below
+                through your banking application. Once the transfer is complete,
+                kindly upload the payment receipt in the attachment area below.{" "}
               </p>
-              <div class="acdetails">
-                <div class="colheads">
-                  <div class="acheading">Bank name:</div>
-                  <div class="acheading"> Account holder name: </div>
-                  <div class="acheading">Account number:</div>
-                </div>
 
-                <div class="colmain">
-                  <div class="acdetails"> United Bank Limited </div>
-                  <div class="acdetails"> Ishtiaq Ahmad </div>
-                  <div class="acdetails"> 1755252821046 </div>
+              <div className="account-details">
+                <div className="row">
+                  <div className="label">Bank Name:</div>
+                  <div className="value">Bangor Savings Bank</div>
+                </div>
+                <div className="row">
+                  <div className="label">Account Type:</div>
+                  <div className="value">Checking</div>
+                </div>
+                <div className="row">
+                  <div className="label">Account Number:</div>
+                  <div className="value">650517176437</div>
+                </div>
+                <div className="row">
+                  <div className="label">Routing Number:</div>
+                  <div className="value">011275484</div>
                 </div>
               </div>
 
@@ -276,90 +176,6 @@ export default function PaymentsForm({ file, setFile }) {
                   Please attach payment receipt:{" "}
                 </div>
 
-                <SlipImgUpload
-                  file={file}
-                  setFile={setFile}
-                  fileInputRef={fileInputRef}
-                />
-              </div>
-            </div>
-          )}
-          {wallet && (
-            <div
-              id="jazzcashcont"
-              class="oltransfer"
-              className={walletActive && "active"}
-            >
-              <div class="pmtheading">Steps</div>
-              <p className="pmtsubtag">
-                {" "}
-                Make the payment to below given account number from your bank
-                application & Please attach payment receipt to below mentioned
-                attachment area.{" "}
-              </p>
-              <div class="acdetails">
-                <div class="colheads">
-                  <div class="acheading">Bank name:</div>
-                  <div class="acheading"> Account holder name: </div>
-                  <div class="acheading">Account number:</div>
-                </div>
-
-                <div class="colmain">
-                  <div class="acdetails"> JazzCash account</div>
-                  <div class="acdetails"> Ishtiaq Ahmad </div>
-                  <div class="acdetails"> 1755252821046 </div>
-                </div>
-              </div>
-
-              <div class="attachmentcont">
-                <div class="attachmenthead">
-                  {" "}
-                  Please attach payment receipt:{" "}
-                </div>
-
-                {loading && "Loading ..."}
-                <SlipImgUpload
-                  file={file}
-                  setFile={setFile}
-                  fileInputRef={fileInputRef}
-                />
-              </div>
-            </div>
-          )}
-          {easypesa && (
-            <div
-              id="easypesacont"
-              class="oltransfer"
-              className={easypesaActive && "active"}
-            >
-              <div class="pmtheading">Steps</div>
-              <p className="pmtsubtag">
-                {" "}
-                Make the payment to below given account number from your bank
-                application & Please attach payment receipt to below mentioned
-                attachment area.{" "}
-              </p>
-              <div class="acdetails">
-                <div class="colheads">
-                  <div class="acheading">Bank name:</div>
-                  <div class="acheading"> Account holder name: </div>
-                  <div class="acheading">Account number:</div>
-                </div>
-
-                <div class="colmain">
-                  <div class="acdetails"> Easypesa account </div>
-                  <div class="acdetails"> Ishtiaq Ahmad </div>
-                  <div class="acdetails"> 1755252821046 </div>
-                </div>
-              </div>
-
-              <div class="attachmentcont">
-                <div class="attachmenthead">
-                  {" "}
-                  Please attach payment receipt:{" "}
-                </div>
-
-                {loading && "Loading ..."}
                 <SlipImgUpload
                   file={file}
                   setFile={setFile}
@@ -377,8 +193,8 @@ export default function PaymentsForm({ file, setFile }) {
             >
               <p className="pmtsubtag">
                 {" "}
-                You can pay in cash to our courier when you receive the goods at
-                your doorstep.{" "}
+                We're currently unable to process credit and debit card
+                payments. Please consider using alternative payment methods.{" "}
               </p>
               <div class="codnotification">
                 <div class="squreinfo">
@@ -386,9 +202,9 @@ export default function PaymentsForm({ file, setFile }) {
                 </div>
                 <div class="infodivp">
                   {" "}
-                  Cash Payment Fee of Rs. 10 applies only to Cash on Delivery
-                  payment method. There is no extra fee if you use other payment
-                  method then cash on delivery.{" "}
+                  Due to unforeseen circumstances, we’re unable to accept credit
+                  and debit card payments at this time. Thank you for your
+                  patience as we work to restore this service.{" "}
                 </div>
               </div>
             </div>

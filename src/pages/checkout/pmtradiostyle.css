@@ -4,7 +4,7 @@
   width: 95%;
   margin: 1rem auto;
   text-align: center;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 .custom-radio {
   margin: 0 0.5rem;
@@ -23,12 +23,16 @@
   background: transparent;
 }
 .logosvgopt {
-  width: 2rem;
+  display: flex;
   margin: 0 1.5rem 0 0.5rem;
 }
 .codlogosvgopt {
   width: 3rem;
   margin: 0 1.5rem 0 0.5rem;
+}
+.logosvgopt svg {
+  width: 2.5rem;
+  margin-left: 0.5rem;
 }
 
 .hobbies-icon {
@@ -51,6 +55,33 @@
 
 .custom-radio input:checked + .radio-btn {
   border: 0.3rem solid #ff7900;
+}
+/* ---------btf deatils styling------- */
+.account-details {
+  display: flex;
+  flex-direction: column;
+  max-width: 360px;
+  padding: 0px 1.5rem 1rem 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.label {
+  font-weight: 600;
+  width: 45%;
+  text-align: left;
+}
+
+.value {
+  width: 50%;
+  font-size: 1.5;
+  text-align: right;
+  color: #202020;
 }
 
 /*****************************************
