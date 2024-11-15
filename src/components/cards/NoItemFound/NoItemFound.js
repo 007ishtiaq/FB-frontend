@@ -11,7 +11,9 @@ export default function NoItemFound() {
         <NoOrdersFoundsvg />
       </div>
       <p className="empttxtup">No Products Found!</p>
-      <p className="empttxtsub">Explore more and shortlist some items</p>
+      <p className="empttxtsub">
+        Try different keywords to find the results you're looking for!
+      </p>
       <div className="cartbtnscont">
         <Link to="/">
           <button>

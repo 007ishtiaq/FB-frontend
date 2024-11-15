@@ -66,6 +66,7 @@ const Shop = () => {
     const fetchData = async () => {
       if (text) {
         await fetchProducts({ query: text }); // Wait for this to complete
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
         // Reset filters
         setCategory("");
         setPrice([0, 0]);
@@ -100,22 +101,31 @@ const Shop = () => {
 
   const fetchProducts = (arg) => {
     setLoading(true);
-    fetchProductsByFilter({ arg, page, perPage }).then((res) => {
-      setProducts(res.data.products);
-      setLoading(false);
-      console.log("res.data", res.data.products);
-      if (res.data.products.length > 0) {
-        if (arg.category) {
-          setFiltername(res.data.products[0].category.name);
-        }
-        if (arg.sub) {
-          setFiltername(res.data.products[0].attributes[0].subs.name);
-        }
-      }
-      // console.log(arg);
 
-      setProductsCount(res.data.totalProducts);
-    });
+    fetchProductsByFilter({ arg, page, perPage })
+      .then((res) => {
+        setProducts(res.data.products);
+        setLoading(false);
+
+        if (res.data.products.length > 0) {
+          if (arg.category) {
+            setFiltername(res.data.products[0].category.name);
+          }
+          if (arg.sub) {
+            setFiltername(res.data.products[0].attributes[0].subs.name);
+          }
+        }
+        setProductsCount(res.data.totalProducts);
+      })
+      .catch((err) => {
+        console.error("Error fetching products:", err);
+        setLoading(false);
+
+        // Optionally, you can display an error message or clear the current products
+        setProducts([]);
+        setFiltername("");
+        setProductsCount(0);
+      });
   };
 
   const loadAllProducts = async () => {
