@@ -460,12 +460,7 @@ const Checkout = ({ history }) => {
               {COD ? (
                 <button
                   className="checkoutbtn"
-                  disabled={
-                    !values.Contact ||
-                    !values.Address ||
-                    total + shippingfee === 0 ||
-                    !termRead
-                  }
+                  disabled={true}
                   onClick={createCashOrder}
                 >
                   <Tooltip title={tooltiphandlerCOD()}>

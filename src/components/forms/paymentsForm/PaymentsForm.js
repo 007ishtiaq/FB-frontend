@@ -113,7 +113,7 @@ export default function PaymentsForm({ file, setFile }) {
             <span class="radio-btn">
               <div class="hobbies-icon">
                 <h3>Bank Transfer</h3>
-                <div className="logosvgopt paymentsvgs">
+                <div className="logosvgopt paymentsvgs banksvg">
                   <Banksvg></Banksvg>
                 </div>
               </div>
@@ -131,7 +131,7 @@ export default function PaymentsForm({ file, setFile }) {
             <span class="radio-btn">
               <div class="hobbies-icon">
                 <h3>Credit/Debit Card</h3>
-                <div className="logosvgopt paymentsvgs">
+                <div className="logosvgopt paymentsvgs cardsvg">
                   <Visasvg></Visasvg>
                   <Mastersvg></Mastersvg>
                 </div>

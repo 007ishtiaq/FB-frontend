@@ -48,5 +48,14 @@
 
 .dragndropCont {
   position: relative;
-  min-height: 193px;
+  min-height: 194px;
+}
+/*****************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 790px) {
+  .dragndropCont {
+    min-height: 156px;
+  }
 }
