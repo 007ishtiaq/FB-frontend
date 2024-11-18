@@ -51,7 +51,6 @@ export default function OrderDetail({ match, history }) {
 
   const initialState = {
     ItemName: "",
-    Brand: "",
     Color: "",
     Shipping: 0,
     Price: "",
@@ -131,7 +130,6 @@ export default function OrderDetail({ match, history }) {
     setForm({
       ...form,
       ItemName: Item.product.title,
-      Brand: Item.product.brand,
       Color: Item.color,
       Shipping: Item.product.shippingcharges,
       Price: Item.price,
@@ -601,7 +599,6 @@ export default function OrderDetail({ match, history }) {
                       <tr>
                         <th class="ordli">Action</th>
                         <th class="ordli">Item</th>
-                        <th class="ordli">Brand</th>
                         <th class="ordli">Color</th>
                         <th class="ordli">Price</th>
                         <th class="ordli">shipping</th>
@@ -690,7 +687,6 @@ export default function OrderDetail({ match, history }) {
                               </ItemActioninfoModel>
                             )}
                           </td>
-                          <td class="ordli">{p.product.brand}</td>
                           <td class="ordli">{p.color}</td>
                           <td class="ordli">$ {p.price.toFixed(2)}</td>
                           <td class="ordli">

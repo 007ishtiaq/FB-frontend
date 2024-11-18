@@ -17,6 +17,10 @@ const ProductCreateForm = ({
   addDesAttribute,
   desattributes,
   handleDesAttributeChange,
+  variants,
+  setVariants,
+  addVariants,
+  handleVariantChange,
 }) => {
   const {
     art,
@@ -177,6 +181,44 @@ const ProductCreateForm = ({
           ))}
         </select>
       </div>
+
+      {variants.map((desattr, index) => {
+        // Get the current key and value from the object
+        const currentKey = Object.keys(desattr)[0] || "";
+        const currentValue = Object.values(desattr)[0] || "";
+
+        return (
+          <div key={index} className="form-group">
+            <label>Variant Name</label>
+            <input
+              type="text"
+              className="form-control"
+              value={currentKey}
+              onChange={(e) =>
+                handleVariantChange(index, e.target.value, currentValue)
+              }
+            />
+
+            <label>Variant Image</label>
+            <input
+              type="text"
+              className="form-control"
+              value={currentValue}
+              onChange={(e) =>
+                handleVariantChange(index, currentKey, e.target.value)
+              }
+            />
+          </div>
+        );
+      })}
+
+      <button
+        type="button"
+        className="btn btn-outline-secondary"
+        onClick={addVariants}
+      >
+        Add Variant
+      </button>
 
       <div className="form-group">
         <label>Category (Required)</label>

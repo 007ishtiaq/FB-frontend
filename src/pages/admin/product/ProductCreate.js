@@ -33,6 +33,7 @@ const ProductCreate = () => {
   const [sub2Options, setSub2Options] = useState([]);
   const [attributes, setAttributes] = useState([{ subs: "", subs2: [] }]);
   const [desattributes, setDesattributes] = useState([{}]);
+  const [variants, setVariants] = useState([{}]);
   const [loading, setLoading] = useState(false);
 
   // redux
@@ -117,12 +118,22 @@ const ProductCreate = () => {
     setDesattributes(updatedDesattributes);
   };
 
+  const addVariants = () => {
+    setVariants([...variants, {}]);
+  };
+
+  const handleVariantChange = (index, key, value) => {
+    const updatedVariants = [...variants];
+    updatedVariants[index] = { [key]: value };
+    setVariants(updatedVariants);
+  };
+
   return (
     <div className="col-md-10">
       {loading ? (
         <LoadingOutlined className="text-danger h1" />
       ) : (
-        <h4>Product create</h4>
+        <h4>Product create {JSON.stringify(variants)} </h4>
       )}
       <hr />
 
@@ -149,6 +160,10 @@ const ProductCreate = () => {
         desattributes={desattributes}
         setDesattributes={setDesattributes}
         handleDesAttributeChange={handleDesAttributeChange}
+        variants={variants}
+        setVariants={setVariants}
+        addVariants={addVariants}
+        handleVariantChange={handleVariantChange}
       />
     </div>
   );

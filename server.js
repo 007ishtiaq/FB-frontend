@@ -12,7 +12,7 @@ app.get("*", function (req, res) {
 });
 
 // Start the server
-const port = 3001;
+const port = 3000;
 app.listen(port, () => {
   console.log(`Client server is running on port ${port}`);
 });
