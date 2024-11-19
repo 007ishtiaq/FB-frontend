@@ -1,5 +1,6 @@
 import React from "react";
 import { Select } from "antd";
+import CategoryImgupload from "./CategoryImgupload";
 
 const { Option } = Select;
 
@@ -21,6 +22,9 @@ const ProductCreateForm = ({
   setVariants,
   addVariants,
   handleVariantChange,
+  loading,
+  setLoading,
+  handleImageRemove,
 }) => {
   const {
     art,
@@ -182,10 +186,9 @@ const ProductCreateForm = ({
         </select>
       </div>
 
-      {variants.map((desattr, index) => {
-        // Get the current key and value from the object
-        const currentKey = Object.keys(desattr)[0] || "";
-        const currentValue = Object.values(desattr)[0] || "";
+      {variants.map((variant, index) => {
+        const variantName = variant.name || "";
+        const variantImage = variant.image || "";
 
         return (
           <div key={index} className="form-group">
@@ -193,20 +196,18 @@ const ProductCreateForm = ({
             <input
               type="text"
               className="form-control"
-              value={currentKey}
+              value={variantName}
               onChange={(e) =>
-                handleVariantChange(index, e.target.value, currentValue)
+                handleVariantChange(index, "name", e.target.value)
               }
             />
 
             <label>Variant Image</label>
-            <input
-              type="text"
-              className="form-control"
-              value={currentValue}
-              onChange={(e) =>
-                handleVariantChange(index, currentKey, e.target.value)
-              }
+            <CategoryImgupload
+              image={variant.image}
+              setImage={(image) => handleVariantChange(index, "image", image)}
+              setLoading={setLoading}
+              handleImageRemove={handleImageRemove}
             />
           </div>
         );

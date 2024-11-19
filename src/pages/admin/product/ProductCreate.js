@@ -8,6 +8,7 @@ import { getSubsSub2 } from "../../../functions/sub";
 import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 import { getColors } from "../../../functions/color";
+import axios from "axios";
 
 const initialState = {
   art: "",
@@ -33,7 +34,7 @@ const ProductCreate = () => {
   const [sub2Options, setSub2Options] = useState([]);
   const [attributes, setAttributes] = useState([{ subs: "", subs2: [] }]);
   const [desattributes, setDesattributes] = useState([{}]);
-  const [variants, setVariants] = useState([{}]);
+  const [variants, setVariants] = useState([{ name: "", image: "" }]);
   const [loading, setLoading] = useState(false);
 
   // redux
@@ -119,13 +120,42 @@ const ProductCreate = () => {
   };
 
   const addVariants = () => {
-    setVariants([...variants, {}]);
+    setVariants([...variants, { name: "", image: "" }]);
   };
 
   const handleVariantChange = (index, key, value) => {
     const updatedVariants = [...variants];
-    updatedVariants[index] = { [key]: value };
+    updatedVariants[index][key] = value;
     setVariants(updatedVariants);
+  };
+
+  const handleImageRemove = (public_id) => {
+    setLoading(true);
+    axios
+      .post(
+        `${process.env.REACT_APP_API}/removeimage`,
+        { public_id },
+        {
+          headers: {
+            authtoken: user ? user.token : "",
+          },
+        }
+      )
+      .then((res) => {
+        const updatedVariants = variants.map((variant) => {
+          if (variant.image?.public_id === public_id) {
+            // Clear the image field for the matching variant
+            return { ...variant, image: "" };
+          }
+          return variant; // Keep other variants unchanged
+        });
+        setVariants(updatedVariants);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
   };
 
   return (
@@ -133,7 +163,7 @@ const ProductCreate = () => {
       {loading ? (
         <LoadingOutlined className="text-danger h1" />
       ) : (
-        <h4>Product create {JSON.stringify(variants)} </h4>
+        <h4>Product create {JSON.stringify(variants)}</h4>
       )}
       <hr />
 
@@ -164,6 +194,9 @@ const ProductCreate = () => {
         setVariants={setVariants}
         addVariants={addVariants}
         handleVariantChange={handleVariantChange}
+        loading={loading}
+        setLoading={setLoading}
+        handleImageRemove={handleImageRemove}
       />
     </div>
   );
