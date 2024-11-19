@@ -366,13 +366,28 @@ hr {
 .similer > p {
   padding: 1rem 0;
 }
-.similer img:hover {
-  border: 1px solid #ededed;
-}
+/* .similer img:hover {
+  padding: 0.2rem;
+  border: 2px solid #ffcc9d;
+} */
 .similerImg {
   max-width: 7rem;
   margin: 0.4rem;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  transition: border 0.3s ease;
 }
+
+.similerImg:hover {
+  padding: 0.2rem;
+  border: 2px solid #ffcc9d;
+}
+
+.similerImg.active {
+  border: 2px solid var(--org-active); /* Example active style */
+  padding: 0.2rem;
+}
+
 .prodtimer {
   display: flex;
 }

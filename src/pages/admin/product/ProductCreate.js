@@ -59,7 +59,7 @@ const ProductCreate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = { ...values, attributes, desattributes };
+    const payload = { ...values, attributes, desattributes, variants };
     createProduct(payload, user.token)
       .then((res) => {
         window.alert(`"${res.data.title}" is created`);

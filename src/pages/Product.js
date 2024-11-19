@@ -17,7 +17,7 @@ import ProductReviews from "../components/productPage/ProductReviews";
 
 const Product = ({ match, history }) => {
   const [product, setProduct] = useState({});
-  const [similarProduct, setSimilarProduct] = useState([]);
+  // const [similarProduct, setSimilarProduct] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [avgRating, setAvgRating] = useState(0);
   const [reviewsCount, setReviewsCount] = useState(0);
@@ -58,7 +58,7 @@ const Product = ({ match, history }) => {
           setProduct(res.data);
 
           // load Similar + color
-          getSimilar(res.data.slug).then((res) => setSimilarProduct(res.data));
+          // getSimilar(res.data.slug).then((res) => setSimilarProduct(res.data));
 
           // load related
           // getRelated(res.data._id).then((res) => setRelated(res.data));
@@ -105,11 +105,19 @@ const Product = ({ match, history }) => {
     setProductIdforreview(name);
   };
 
+  const handleColorChange = (color) => {
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      color: color,
+    }));
+  };
+
   return (
     <>
       <ProductInfo
         product={product}
-        similarProduct={similarProduct}
+        // similarProduct={similarProduct}
+        handleColorChange={handleColorChange}
         avgRating={avgRating}
         reviewsCount={reviewsCount}
       />

@@ -192,6 +192,39 @@ const ProductCreateForm = ({
 
         return (
           <div key={index} className="form-group">
+            <label>Color Variant Name</label>
+            <select
+              name="colorname"
+              className="form-control"
+              value={variant.name} // Bind current variant's name
+              onChange={(e) =>
+                handleVariantChange(index, "name", e.target.value)
+              } // Update name on selection
+            >
+              <option value="">Please select</option>
+              {colors.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+
+            <label>Color Variant Image</label>
+            <CategoryImgupload
+              image={variant.image}
+              setImage={(image) => handleVariantChange(index, "image", image)}
+              setLoading={setLoading}
+              handleImageRemove={handleImageRemove}
+            />
+          </div>
+        );
+      })}
+      {/* {variants.map((variant, index) => {
+        const variantName = variant.name || "";
+        const variantImage = variant.image || "";
+
+        return (
+          <div key={index} className="form-group">
             <label>Variant Name</label>
             <input
               type="text"
@@ -211,7 +244,7 @@ const ProductCreateForm = ({
             />
           </div>
         );
-      })}
+      })} */}
 
       <button
         type="button"

@@ -27,7 +27,8 @@ import Countdown from "../countdown/Countdown";
 
 export default function ProductInfo({
   product,
-  similarProduct,
+  // similarProduct,
+  handleColorChange,
   avgRating,
   reviewsCount,
 }) {
@@ -41,6 +42,7 @@ export default function ProductInfo({
     shippingcharges,
     price,
     color,
+    variants,
     category,
     attributes,
     quantity,
@@ -439,7 +441,27 @@ export default function ProductInfo({
           ) : (
             <Skeleton width={200} count={4} />
           )}
-          {similarProduct.length > 0 && (
+          {variants && variants.length > 0 && (
+            <div className="similer">
+              <p>Color: {color}</p>
+              <ProductsSlider
+                containerwidth={481}
+                elementwidth={100}
+                step={200}
+              >
+                {variants.map((v, i) => (
+                  <Img
+                    className={`similerImg ${v.name === color ? "active" : ""}`}
+                    key={i}
+                    onClick={() => handleColorChange(v.name)}
+                    src={v.image.url}
+                    alt={v.name}
+                  />
+                ))}
+              </ProductsSlider>
+            </div>
+          )}
+          {/* {similarProduct.length > 0 && (
             <div className="similer">
               <p>Available Colors</p>
               <ProductsSlider
@@ -458,7 +480,7 @@ export default function ProductInfo({
                 ))}
               </ProductsSlider>
             </div>
-          )}
+          )} */}
           <hr />
           <div className="desc_ul">
             {title ? (
@@ -490,10 +512,6 @@ export default function ProductInfo({
                   </React.Fragment>
                 ))}
 
-                <li className="desc_li">
-                  <div className="li_head">Color</div>
-                  <div className="li_sub">{color}</div>
-                </li>
                 {shippingcharges === 0 && (
                   <li className="desc_li">
                     <div className="li_head">Shipping</div>
