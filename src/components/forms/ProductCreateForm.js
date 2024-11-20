@@ -19,12 +19,14 @@ const ProductCreateForm = ({
   desattributes,
   handleDesAttributeChange,
   variants,
-  setVariants,
   addVariants,
   handleVariantChange,
   loading,
   setLoading,
   handleImageRemove,
+  sizes,
+  addSize,
+  handleSize,
 }) => {
   const {
     art,
@@ -187,9 +189,6 @@ const ProductCreateForm = ({
       </div>
 
       {variants.map((variant, index) => {
-        const variantName = variant.name || "";
-        const variantImage = variant.image || "";
-
         return (
           <div key={index} className="form-group">
             <label>Color Variant Name</label>
@@ -219,32 +218,6 @@ const ProductCreateForm = ({
           </div>
         );
       })}
-      {/* {variants.map((variant, index) => {
-        const variantName = variant.name || "";
-        const variantImage = variant.image || "";
-
-        return (
-          <div key={index} className="form-group">
-            <label>Variant Name</label>
-            <input
-              type="text"
-              className="form-control"
-              value={variantName}
-              onChange={(e) =>
-                handleVariantChange(index, "name", e.target.value)
-              }
-            />
-
-            <label>Variant Image</label>
-            <CategoryImgupload
-              image={variant.image}
-              setImage={(image) => handleVariantChange(index, "image", image)}
-              setLoading={setLoading}
-              handleImageRemove={handleImageRemove}
-            />
-          </div>
-        );
-      })} */}
 
       <button
         type="button"
@@ -252,6 +225,39 @@ const ProductCreateForm = ({
         onClick={addVariants}
       >
         Add Variant
+      </button>
+
+      {sizes.map((size, index) => {
+        const currentKey = Object.keys(size)[0] || "";
+        const currentValue = Object.values(size)[0] || "";
+
+        return (
+          <div key={index} className="form-group">
+            <label>Size variant</label>
+            <input
+              type="text"
+              className="form-control"
+              value={currentKey}
+              onChange={(e) => handleSize(index, e.target.value, currentValue)}
+            />
+
+            <label>Size Price</label>
+            <input
+              type="text"
+              className="form-control"
+              value={currentValue}
+              onChange={(e) => handleSize(index, currentKey, e.target.value)}
+            />
+          </div>
+        );
+      })}
+
+      <button
+        type="button"
+        className="btn btn-outline-secondary"
+        onClick={addSize}
+      >
+        Add Size Variant
       </button>
 
       <div className="form-group">

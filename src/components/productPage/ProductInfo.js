@@ -43,6 +43,7 @@ export default function ProductInfo({
     price,
     color,
     variants,
+    sizes,
     category,
     attributes,
     quantity,
@@ -54,6 +55,7 @@ export default function ProductInfo({
   const [isLiked, setisLiked] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [saleTime, setSaleTime] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
 
   // redux
   const { user, wishlist } = useSelector((state) => ({ ...state }));
@@ -63,6 +65,11 @@ export default function ProductInfo({
 
   useEffect(() => {
     checkprodFlash();
+    // On component mount or when `title` changes, set the initial selected size
+    if (sizes && sizes.length > 0) {
+      const initialSize = Object.keys(sizes[0])[0]; // Get the first key in the sizes array
+      setSelectedSize(initialSize);
+    }
   }, [title]);
 
   const checkprodFlash = () => {
@@ -245,6 +252,14 @@ export default function ProductInfo({
       });
     }
     setModalVisible(false);
+  };
+
+  const handleSizeClick = (sizeKey, sizeValue) => {
+    setSelectedSize(sizeKey); // Update the selected size
+    // setProduct((prev) => ({
+    //   ...prev,
+    //   price: sizeValue,
+    // }));
   };
 
   return (
@@ -443,7 +458,9 @@ export default function ProductInfo({
           )}
           {variants && variants.length > 0 && (
             <div className="similer">
-              <p>Color: {color}</p>
+              <p>
+                <strong>Color:</strong> {color}
+              </p>
               <ProductsSlider
                 containerwidth={481}
                 elementwidth={100}
@@ -459,6 +476,31 @@ export default function ProductInfo({
                   />
                 ))}
               </ProductsSlider>
+            </div>
+          )}
+          {sizes && sizes.length > 0 && (
+            <div className="similer">
+              <p>
+                <strong>Size:</strong> {selectedSize}
+              </p>
+              <div className="size-options">
+                {sizes.map((sizeObj, index) => {
+                  const sizeKey = Object.keys(sizeObj)[0];
+                  const sizeValue = sizeObj[sizeKey];
+
+                  return (
+                    <span
+                      key={index}
+                      className={`size-option ${
+                        selectedSize === sizeKey ? "active" : ""
+                      }`}
+                      onClick={() => handleSizeClick(sizeKey, sizeValue)}
+                    >
+                      {sizeKey}
+                    </span>
+                  );
+                })}
+              </div>
             </div>
           )}
           {/* {similarProduct.length > 0 && (

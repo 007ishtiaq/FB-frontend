@@ -34,6 +34,7 @@ const ProductCreate = () => {
   const [sub2Options, setSub2Options] = useState([]);
   const [attributes, setAttributes] = useState([{ subs: "", subs2: [] }]);
   const [desattributes, setDesattributes] = useState([{}]);
+  const [sizes, setSizes] = useState([{}]);
   const [variants, setVariants] = useState([{ name: "", image: "" }]);
   const [loading, setLoading] = useState(false);
 
@@ -59,7 +60,7 @@ const ProductCreate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = { ...values, attributes, desattributes, variants };
+    const payload = { ...values, attributes, desattributes, variants, sizes };
     createProduct(payload, user.token)
       .then((res) => {
         window.alert(`"${res.data.title}" is created`);
@@ -158,12 +159,22 @@ const ProductCreate = () => {
       });
   };
 
+  const addSize = () => {
+    setSizes([...sizes, {}]);
+  };
+
+  const handleSize = (index, key, value) => {
+    const updatedSizes = [...sizes];
+    updatedSizes[index] = { [key]: value };
+    setSizes(updatedSizes);
+  };
+
   return (
     <div className="col-md-10">
       {loading ? (
         <LoadingOutlined className="text-danger h1" />
       ) : (
-        <h4>Product create {JSON.stringify(variants)}</h4>
+        <h4>Product create {JSON.stringify(sizes)}</h4>
       )}
       <hr />
 
@@ -191,12 +202,14 @@ const ProductCreate = () => {
         setDesattributes={setDesattributes}
         handleDesAttributeChange={handleDesAttributeChange}
         variants={variants}
-        setVariants={setVariants}
         addVariants={addVariants}
         handleVariantChange={handleVariantChange}
         loading={loading}
         setLoading={setLoading}
         handleImageRemove={handleImageRemove}
+        sizes={sizes}
+        addSize={addSize}
+        handleSize={handleSize}
       />
     </div>
   );

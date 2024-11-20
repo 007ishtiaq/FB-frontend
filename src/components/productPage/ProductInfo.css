@@ -366,10 +366,6 @@ hr {
 .similer > p {
   padding: 1rem 0;
 }
-/* .similer img:hover {
-  padding: 0.2rem;
-  border: 2px solid #ffcc9d;
-} */
 .similerImg {
   max-width: 7rem;
   margin: 0.4rem;
@@ -386,6 +382,27 @@ hr {
 .similerImg.active {
   border: 2px solid var(--org-active); /* Example active style */
   padding: 0.2rem;
+}
+
+/* --------size div styling------- */
+.size-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.size-option {
+  padding: 0.1rem 0.8rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.size-option.active {
+  background-color: var(--org-active);
+  color: #fff;
+  border-color: var(--org-active);
 }
 
 .prodtimer {
