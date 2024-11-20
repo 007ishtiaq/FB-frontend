@@ -29,6 +29,7 @@ export default function ProductInfo({
   product,
   // similarProduct,
   handleColorChange,
+  handleSizeClick,
   avgRating,
   reviewsCount,
 }) {
@@ -43,6 +44,7 @@ export default function ProductInfo({
     price,
     color,
     variants,
+    size,
     sizes,
     category,
     attributes,
@@ -55,7 +57,6 @@ export default function ProductInfo({
   const [isLiked, setisLiked] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [saleTime, setSaleTime] = useState("");
-  const [selectedSize, setSelectedSize] = useState("");
 
   // redux
   const { user, wishlist } = useSelector((state) => ({ ...state }));
@@ -65,11 +66,6 @@ export default function ProductInfo({
 
   useEffect(() => {
     checkprodFlash();
-    // On component mount or when `title` changes, set the initial selected size
-    if (sizes && sizes.length > 0) {
-      const initialSize = Object.keys(sizes[0])[0]; // Get the first key in the sizes array
-      setSelectedSize(initialSize);
-    }
   }, [title]);
 
   const checkprodFlash = () => {
@@ -130,33 +126,37 @@ export default function ProductInfo({
       return;
     }
 
-    // create cart array
+    // Create cart array
     let cart = [];
     if (typeof window !== "undefined") {
-      // if cart is in local storage GET it
+      // If cart is in local storage, get it
       if (localStorage.getItem("cart")) {
         cart = JSON.parse(localStorage.getItem("cart"));
       }
 
-      if (cart.length) {
-        let foundItem = cart.find((item) => {
-          return item._id === product._id;
+      // Check if the product with the same ID, color, and size already exists in the cart
+      let foundItem = cart.find(
+        (item) =>
+          item._id === product._id &&
+          item.color === product.color &&
+          item.size === product.size
+      );
+
+      if (foundItem) {
+        // Update quantity if the same product with the same color and size exists
+        cart = cart.map((prod) => {
+          if (
+            prod._id === product._id &&
+            prod.color === product.color &&
+            prod.size === product.size
+          ) {
+            return { ...prod, count: qty }; // Increment the count of the existing product
+          }
+          return prod;
         });
-        if (foundItem) {
-          cart.map((prod, i) => {
-            if (prod._id == product._id) {
-              cart[i].count = qty;
-              toast.success("Added to Cart");
-            }
-          });
-        } else {
-          cart.push({
-            ...product,
-            count: qty,
-          });
-          toast.success("Added to Cart");
-        }
+        toast.success("Added to Cart");
       } else {
+        // Add the product to the cart as a new entry
         cart.push({
           ...product,
           count: qty,
@@ -164,13 +164,13 @@ export default function ProductInfo({
         toast.success("Added to Cart");
       }
 
-      // remove duplicates
+      // Remove duplicates (in case of any issues with adding the same product multiple times)
       let unique = _.uniqWith(cart, _.isEqual);
-      // save to local storage
-      // console.log('unique', unique)
+
+      // Save to local storage
       localStorage.setItem("cart", JSON.stringify(unique));
 
-      // add to reeux state
+      // Add to redux state
       dispatch({
         type: "ADD_TO_CART",
         payload: unique,
@@ -252,14 +252,6 @@ export default function ProductInfo({
       });
     }
     setModalVisible(false);
-  };
-
-  const handleSizeClick = (sizeKey, sizeValue) => {
-    setSelectedSize(sizeKey); // Update the selected size
-    // setProduct((prev) => ({
-    //   ...prev,
-    //   price: sizeValue,
-    // }));
   };
 
   return (
@@ -466,43 +458,58 @@ export default function ProductInfo({
                 elementwidth={100}
                 step={200}
               >
-                {variants.map((v, i) => (
-                  <Img
-                    className={`similerImg ${v.name === color ? "active" : ""}`}
-                    key={i}
-                    onClick={() => handleColorChange(v.name)}
-                    src={v.image.url}
-                    alt={v.name}
-                  />
-                ))}
+                {variants.map(
+                  (v, i) =>
+                    v.image?.url && ( // Safeguard to check if `image` and `image.url` exist
+                      <Img
+                        className={`similerImg ${
+                          v.name === color ? "active" : ""
+                        }`}
+                        key={i}
+                        onClick={() => handleColorChange(v.name)}
+                        src={v.image.url}
+                        alt={v.name}
+                      />
+                    )
+                )}
               </ProductsSlider>
             </div>
           )}
-          {sizes && sizes.length > 0 && (
-            <div className="similer">
-              <p>
-                <strong>Size:</strong> {selectedSize}
-              </p>
-              <div className="size-options">
-                {sizes.map((sizeObj, index) => {
-                  const sizeKey = Object.keys(sizeObj)[0];
-                  const sizeValue = sizeObj[sizeKey];
+          {sizes &&
+            sizes.length > 0 &&
+            sizes[0].size &&
+            sizes[0].prices.length > 0 && (
+              <div className="similer">
+                <p>
+                  <strong>Size:</strong> {size || "Select a size"}
+                </p>
+                <div className="size-options">
+                  {sizes.map((sizeObj, index) => {
+                    const sizeKey = sizeObj.size;
+                    const sizePrices = sizeObj.prices;
 
-                  return (
-                    <span
-                      key={index}
-                      className={`size-option ${
-                        selectedSize === sizeKey ? "active" : ""
-                      }`}
-                      onClick={() => handleSizeClick(sizeKey, sizeValue)}
-                    >
-                      {sizeKey}
-                    </span>
-                  );
-                })}
+                    return (
+                      <span
+                        key={index}
+                        className={`size-option ${
+                          size === sizeKey ? "active" : ""
+                        }`}
+                        onClick={() =>
+                          handleSizeClick(
+                            sizeKey,
+                            sizePrices[0].value,
+                            sizePrices[1].value
+                          )
+                        }
+                      >
+                        {sizeKey}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+
           {/* {similarProduct.length > 0 && (
             <div className="similer">
               <p>Available Colors</p>

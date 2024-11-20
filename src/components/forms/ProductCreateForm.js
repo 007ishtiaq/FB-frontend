@@ -227,30 +227,40 @@ const ProductCreateForm = ({
         Add Variant
       </button>
 
-      {sizes.map((size, index) => {
-        const currentKey = Object.keys(size)[0] || "";
-        const currentValue = Object.values(size)[0] || "";
+      {sizes.map((sizeObj, index) => (
+        <div key={index} className="form-group">
+          {/* Size Input */}
+          <label>Size</label>
+          <input
+            type="text"
+            className="form-control"
+            value={sizeObj.size}
+            onChange={(e) => handleSize(index, "size", e.target.value)} // Handle size change
+          />
 
-        return (
-          <div key={index} className="form-group">
-            <label>Size variant</label>
-            <input
-              type="text"
-              className="form-control"
-              value={currentKey}
-              onChange={(e) => handleSize(index, e.target.value, currentValue)}
-            />
+          {/* Price Input */}
+          <label>Price</label>
+          <input
+            type="text"
+            className="form-control"
+            value={sizeObj.prices[0].value}
+            onChange={
+              (e) => handleSize(index, "price", e.target.value) // Handle price change
+            }
+          />
 
-            <label>Size Price</label>
-            <input
-              type="text"
-              className="form-control"
-              value={currentValue}
-              onChange={(e) => handleSize(index, currentKey, e.target.value)}
-            />
-          </div>
-        );
-      })}
+          {/* Discounted Price Input */}
+          <label>Discounted Price</label>
+          <input
+            type="text"
+            className="form-control"
+            value={sizeObj.prices[1].value}
+            onChange={
+              (e) => handleSize(index, "disprice", e.target.value) // Handle discount price change
+            }
+          />
+        </div>
+      ))}
 
       <button
         type="button"

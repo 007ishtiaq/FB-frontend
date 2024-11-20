@@ -17,6 +17,7 @@ export default function ProductCardOnCart({
     shippingcharges,
     price,
     color,
+    size,
     quantity,
     count,
   } = product;
@@ -26,27 +27,38 @@ export default function ProductCardOnCart({
   let dispatch = useDispatch();
 
   const handleQuantityChangedec = async (e) => {
-    setQty(qty < 2 ? 1 : qty - 1);
+    setQty(qty < 2 ? 1 : qty - 1); // Decrease quantity, but not below 1
     let cart = [];
 
     if (typeof window !== "undefined") {
+      // Retrieve cart from local storage
       if (localStorage.getItem("cart")) {
         cart = JSON.parse(localStorage.getItem("cart"));
       }
 
-      await cart.map((prod, i) => {
-        if (prod._id == product._id) {
-          cart[i].count = qty < 2 ? 1 : qty - 1;
+      // Update quantity in cart based on product ID, color, and size
+      cart = cart.map((prod) => {
+        if (
+          prod._id === product._id &&
+          prod.color === product.color &&
+          prod.size === product.size
+        ) {
+          // Update the quantity of the specific item (based on size/color selection)
+          return { ...prod, count: qty < 2 ? 1 : qty - 1 };
         }
+        return prod; // Keep the other items as they are
       });
 
+      // Save updated cart to local storage
       localStorage.setItem("cart", JSON.stringify(cart));
+
+      // Update Redux state with the new cart
       dispatch({
         type: "ADD_TO_CART",
         payload: cart,
       });
 
-      // remove the coupon of value of card get below to coupon condition
+      // Recalculate the total cost of the cart
       let totalofCart = cart.reduce((currentValue, nextValue) => {
         if (nextValue.disprice >= 0) {
           return currentValue + nextValue.count * nextValue.disprice;
@@ -55,27 +67,40 @@ export default function ProductCardOnCart({
         }
       }, 0);
 
+      // Remove the discount coupon if the total is below the coupon condition
       if (totalofCart < couponCondition) {
         removeDiscountCoupon();
       }
     }
   };
+
   const handleQuantityChangeinc = async (e) => {
-    setQty(qty > quantity - 1 ? quantity : qty + 1);
+    setQty(qty > quantity - 1 ? quantity : qty + 1); // Update quantity based on available stock
     let cart = [];
 
     if (typeof window !== "undefined") {
+      // Retrieve cart from local storage
       if (localStorage.getItem("cart")) {
         cart = JSON.parse(localStorage.getItem("cart"));
       }
 
-      await cart.map((prod, i) => {
-        if (prod._id == product._id) {
-          cart[i].count = qty > quantity - 1 ? quantity : qty + 1;
+      // Update quantity in cart based on product ID, color, and size
+      cart = cart.map((prod) => {
+        if (
+          prod._id === product._id &&
+          prod.color === product.color &&
+          prod.size === product.size
+        ) {
+          // Update the quantity if the product with the same ID, color, and size exists
+          return { ...prod, count: qty > quantity - 1 ? quantity : qty + 1 };
         }
+        return prod; // Keep the other items as they are
       });
 
+      // Save updated cart to local storage
       localStorage.setItem("cart", JSON.stringify(cart));
+
+      // Update Redux state with the new cart
       dispatch({
         type: "ADD_TO_CART",
         payload: cart,
@@ -85,31 +110,37 @@ export default function ProductCardOnCart({
 
   const handleRemove = () => {
     const userConfirmed = window.confirm(
-      "Are you sure you want to remove Item?"
+      "Are you sure you want to remove this item?"
     );
 
     if (userConfirmed) {
-      // console.log(p._id, "to remove");
       let cart = [];
 
       if (typeof window !== "undefined") {
+        // Retrieve cart from local storage
         if (localStorage.getItem("cart")) {
           cart = JSON.parse(localStorage.getItem("cart"));
         }
-        // [1,2,3,4,5]
-        cart.map((prod, i) => {
-          if (prod._id === product._id) {
-            cart.splice(i, 1);
-          }
+
+        // Remove the item from the cart by matching product ID, color, and size
+        cart = cart.filter((prod) => {
+          return !(
+            prod._id === product._id &&
+            prod.color === product.color &&
+            prod.size === product.size
+          );
         });
 
+        // Save the updated cart to local storage
         localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Update Redux state with the new cart
         dispatch({
           type: "ADD_TO_CART",
           payload: cart,
         });
 
-        // remove the coupon of value of card get below to coupon condition
+        // Recalculate the total cost of the cart
         let totalofCart = cart.reduce((currentValue, nextValue) => {
           if (nextValue.disprice >= 0) {
             return currentValue + nextValue.count * nextValue.disprice;
@@ -118,10 +149,13 @@ export default function ProductCardOnCart({
           }
         }, 0);
 
+        // Remove the discount coupon if the total is below the coupon condition
         if (totalofCart < couponCondition) {
           removeDiscountCoupon();
         }
-        if (!cart.length) {
+
+        // If the cart is empty, also remove the discount coupon
+        if (cart.length === 0) {
           removeDiscountCoupon();
         }
       }
@@ -144,6 +178,10 @@ export default function ProductCardOnCart({
           <div class="subvariant">
             <span class="varianthead">Color: </span>
             <span class="variantsub">{color}</span>
+          </div>
+          <div class="subvariant">
+            <span class="varianthead">Size: </span>
+            <span class="variantsub">{size}</span>
           </div>
           <div class="subvariant">
             <span class="varianthead">Shipping: </span>

@@ -34,7 +34,15 @@ const ProductCreate = () => {
   const [sub2Options, setSub2Options] = useState([]);
   const [attributes, setAttributes] = useState([{ subs: "", subs2: [] }]);
   const [desattributes, setDesattributes] = useState([{}]);
-  const [sizes, setSizes] = useState([{}]);
+  const [sizes, setSizes] = useState([
+    {
+      size: "",
+      prices: [
+        { type: "price", value: "" },
+        { type: "disprice", value: "" },
+      ],
+    },
+  ]);
   const [variants, setVariants] = useState([{ name: "", image: "" }]);
   const [loading, setLoading] = useState(false);
 
@@ -160,12 +168,34 @@ const ProductCreate = () => {
   };
 
   const addSize = () => {
-    setSizes([...sizes, {}]);
+    setSizes([
+      ...sizes,
+      {
+        size: "",
+        prices: [
+          { type: "price", value: "" },
+          { type: "disprice", value: "" },
+        ],
+      },
+    ]);
   };
 
   const handleSize = (index, key, value) => {
     const updatedSizes = [...sizes];
-    updatedSizes[index] = { [key]: value };
+
+    if (key === "size") {
+      // Update size value
+      updatedSizes[index].size = value;
+    } else if (key === "price" || key === "disprice") {
+      // Update price value
+      const priceIndex = updatedSizes[index].prices.findIndex(
+        (price) => price.type === key
+      );
+      if (priceIndex !== -1) {
+        updatedSizes[index].prices[priceIndex].value = value;
+      }
+    }
+
     setSizes(updatedSizes);
   };
 

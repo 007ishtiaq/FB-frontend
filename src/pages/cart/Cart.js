@@ -9,11 +9,8 @@ import { ReactComponent as Deletesvg } from "../../images/cart/delete.svg";
 import { ReactComponent as Returnsvg } from "../../images/cart/return.svg";
 import { ReactComponent as Verifiedsvg } from "../../images/cart/verified.svg";
 import { ReactComponent as Banksvg } from "../../images/cart/payments/banktransfer.svg";
-import { ReactComponent as CODsvg } from "../../images/cart/payments/cod.svg";
-import { ReactComponent as Easypaisasvg } from "../../images/cart/payments/easypaisa.svg";
 import { ReactComponent as Mastersvg } from "../../images/cart/payments/master.svg";
 import { ReactComponent as Visasvg } from "../../images/cart/payments/visa.svg";
-import { ReactComponent as Walletsvg } from "../../images/cart/payments/wallet.svg";
 import "./cart.css";
 import {
   applyCoupon,
@@ -544,9 +541,6 @@ const Cart = ({ history }) => {
                 <Visasvg></Visasvg>
                 <Mastersvg></Mastersvg>
                 <Banksvg></Banksvg>
-                <Walletsvg></Walletsvg>
-                <Easypaisasvg></Easypaisasvg>
-                <CODsvg></CODsvg>
               </span>
             </div>
 
