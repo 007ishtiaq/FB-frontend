@@ -93,7 +93,7 @@ const CreateCouponPage = () => {
 
         <div className="form-group">
           <label className="text-muted">
-            Coupon Condition (Flat , Min cart value) [empty for flat or ~]
+            Coupon Condition (Flat , Min cart value) [empty for flat or 0 to ~]
           </label>
           <input
             type="text"
@@ -104,7 +104,9 @@ const CreateCouponPage = () => {
         </div>
 
         <div className="form-group">
-          <label className="text-muted">Coupon Value (%, Rs, 0) [0 or ~]</label>
+          <label className="text-muted">
+            Coupon Value (%, Rs, 0) [0 or 1 to ~]
+          </label>
           <input
             type="text"
             className="form-control"
