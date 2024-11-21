@@ -1,5 +1,6 @@
 import React from "react";
 import { Select } from "antd";
+import CategoryImgupload from "./CategoryImgupload";
 
 const { Option } = Select;
 
@@ -14,15 +15,23 @@ const ProductUpdateForm = ({
   handleSub2Change,
   categories,
   subOptions,
-  sub2Options,
-  arrayOfSubs2,
-  setArrayOfSubs2,
+  // sub2Options,
+  // arrayOfSubs2,
+  // setArrayOfSubs2,
   selectedCategory,
   attributes,
   desattributes,
   addAttribute,
   addDesAttribute,
   handleDesAttributeChange,
+  variants,
+  addVariants,
+  handleVariantChange,
+  setLoading,
+  handleImageRemove,
+  sizes,
+  addSize,
+  handleSize,
 }) => {
   // destructure
   const {
@@ -37,6 +46,7 @@ const ProductUpdateForm = ({
     weight,
     images,
     color,
+    size,
     brand,
     onSale,
     saleTime,
@@ -170,7 +180,7 @@ const ProductUpdateForm = ({
       </div>
 
       <div className="form-group">
-        <label>Color (Required)</label>
+        <label>Selected Color (Required)</label>
         <select
           value={color}
           name="color"
@@ -184,6 +194,99 @@ const ProductUpdateForm = ({
           ))}
         </select>
       </div>
+
+      {variants.map((variant, index) => {
+        return (
+          <div key={index} className="form-group">
+            <label>Color Variant Name</label>
+            <select
+              name="colorname"
+              className="form-control"
+              value={variant.name} // Bind current variant's name
+              onChange={(e) =>
+                handleVariantChange(index, "name", e.target.value)
+              } // Update name on selection
+            >
+              <option value="">Please select</option>
+              {colors.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+
+            <label>Color Variant Image</label>
+            <CategoryImgupload
+              image={variant.image}
+              setImage={(image) => handleVariantChange(index, "image", image)}
+              setLoading={setLoading}
+              handleImageRemove={handleImageRemove}
+            />
+          </div>
+        );
+      })}
+
+      <button
+        type="button"
+        className="btn btn-outline-secondary"
+        onClick={addVariants}
+      >
+        Add Variant
+      </button>
+
+      <div className="form-group">
+        <label>Selected Size (Required)</label>
+        <input
+          type="text"
+          name="size"
+          className="form-control"
+          value={size}
+          onChange={handleChange}
+        />
+      </div>
+
+      {sizes.map((sizeObj, index) => (
+        <div key={index} className="form-group">
+          {/* Size Input */}
+          <label>Size</label>
+          <input
+            type="text"
+            className="form-control"
+            value={sizeObj.size}
+            onChange={(e) => handleSize(index, "size", e.target.value)} // Handle size change
+          />
+
+          {/* Price Input */}
+          <label>Price</label>
+          <input
+            type="text"
+            className="form-control"
+            value={sizeObj.prices[0].value}
+            onChange={
+              (e) => handleSize(index, "price", e.target.value) // Handle price change
+            }
+          />
+
+          {/* Discounted Price Input */}
+          <label>Discounted Price</label>
+          <input
+            type="text"
+            className="form-control"
+            value={sizeObj.prices[1].value}
+            onChange={
+              (e) => handleSize(index, "disprice", e.target.value) // Handle discount price change
+            }
+          />
+        </div>
+      ))}
+
+      <button
+        type="button"
+        className="btn btn-outline-secondary"
+        onClick={addSize}
+      >
+        Add Size Variant
+      </button>
 
       <div className="form-group">
         <label>Category (Required)</label>

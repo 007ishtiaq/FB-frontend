@@ -18,12 +18,11 @@ const ProductCreateForm = ({
   addDesAttribute,
   desattributes,
   handleDesAttributeChange,
+  setLoading,
+  handleImageRemove,
   variants,
   addVariants,
   handleVariantChange,
-  loading,
-  setLoading,
-  handleImageRemove,
   sizes,
   addSize,
   handleSize,
@@ -42,6 +41,7 @@ const ProductCreateForm = ({
     images,
     colors,
     color,
+    size,
     onSale,
     saleTime,
   } = values;
@@ -177,7 +177,7 @@ const ProductCreateForm = ({
       </div>
 
       <div className="form-group">
-        <label>Color (Required)</label>
+        <label>Selected Color (Required)</label>
         <select name="color" className="form-control" onChange={handleChange}>
           <option>Please select</option>
           {colors.map((c) => (
@@ -226,6 +226,17 @@ const ProductCreateForm = ({
       >
         Add Variant
       </button>
+
+      <div className="form-group">
+        <label>Selected Size (Required)</label>
+        <input
+          type="text"
+          name="size"
+          className="form-control"
+          value={size}
+          onChange={handleChange}
+        />
+      </div>
 
       {sizes.map((sizeObj, index) => (
         <div key={index} className="form-group">

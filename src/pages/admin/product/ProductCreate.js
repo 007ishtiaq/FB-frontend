@@ -24,6 +24,7 @@ const initialState = {
   images: [],
   colors: [],
   color: "White",
+  size: "",
   onSale: "No",
   saleTime: "",
 };
@@ -204,7 +205,7 @@ const ProductCreate = () => {
       {loading ? (
         <LoadingOutlined className="text-danger h1" />
       ) : (
-        <h4>Product create {JSON.stringify(sizes)}</h4>
+        <h4>Product create</h4>
       )}
       <hr />
 
@@ -231,12 +232,11 @@ const ProductCreate = () => {
         desattributes={desattributes}
         setDesattributes={setDesattributes}
         handleDesAttributeChange={handleDesAttributeChange}
+        setLoading={setLoading}
+        handleImageRemove={handleImageRemove}
         variants={variants}
         addVariants={addVariants}
         handleVariantChange={handleVariantChange}
-        loading={loading}
-        setLoading={setLoading}
-        handleImageRemove={handleImageRemove}
         sizes={sizes}
         addSize={addSize}
         handleSize={handleSize}

@@ -57,15 +57,6 @@ const Product = ({ match, history }) => {
       await getProduct(slug)
         .then((res) => {
           setProduct(res.data);
-          // On component mount or when `title` changes, set the initial selected size
-          if (res.data.sizes && res.data.sizes.length > 0) {
-            const initialSize = res.data.sizes[0].size; // Get the size value from the first object
-            // Set the size, price, and discounted price in the product state
-            setProduct((prev) => ({
-              ...prev,
-              size: initialSize,
-            }));
-          }
 
           // load Similar + color
           // getSimilar(res.data.slug).then((res) => setSimilarProduct(res.data));

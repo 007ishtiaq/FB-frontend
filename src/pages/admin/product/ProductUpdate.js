@@ -10,6 +10,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 import AdminsideNavcopy from "../../../components/nav/AdminsideNavcopy";
 import { getColors } from "../../../functions/color";
+import axios from "axios";
 
 const initialState = {
   art: "",
@@ -24,6 +25,7 @@ const initialState = {
   weight: "",
   images: [],
   color: "",
+  size: "",
   onSale: "",
 };
 
@@ -39,6 +41,8 @@ const ProductUpdate = ({ match, history }) => {
   const [arrayOfSubs2, setArrayOfSubs2] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   // const [selectedSubCategory, setSelectedSubCategory] = useState("");
+  const [sizes, setSizes] = useState([]);
+  const [variants, setVariants] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
@@ -59,6 +63,8 @@ const ProductUpdate = ({ match, history }) => {
       setValues({ ...values, ...p.data });
       setAttributes(p.data.attributes);
       setDesattributes(p.data.desattributes);
+      setVariants(p.data.variants);
+      setSizes(p.data.sizes);
       // 2 load single product category subs
       getCategorySubs(p.data.category._id).then((res) => {
         setSubOptions(res.data); // on first load, show default subs
@@ -102,7 +108,7 @@ const ProductUpdate = ({ match, history }) => {
     values.category = selectedCategory ? selectedCategory : values.category;
     // values.subs = selectedSubCategory ? selectedSubCategory : values.subs;
     // values.subs2 = arrayOfSubs2;
-    const payload = { ...values, attributes, desattributes };
+    const payload = { ...values, attributes, desattributes, variants, sizes };
     updateProduct(slug, payload, user.token)
       .then((res) => {
         setLoading(false);
@@ -201,6 +207,77 @@ const ProductUpdate = ({ match, history }) => {
     setDesattributes(updatedDesattributes);
   };
 
+  const addVariants = () => {
+    setVariants([...variants, { name: "", image: "" }]);
+  };
+
+  const handleVariantChange = (index, key, value) => {
+    const updatedVariants = [...variants];
+    updatedVariants[index][key] = value;
+    setVariants(updatedVariants);
+  };
+
+  const handleImageRemove = (public_id) => {
+    setLoading(true);
+    axios
+      .post(
+        `${process.env.REACT_APP_API}/removeimage`,
+        { public_id },
+        {
+          headers: {
+            authtoken: user ? user.token : "",
+          },
+        }
+      )
+      .then((res) => {
+        const updatedVariants = variants.map((variant) => {
+          if (variant.image?.public_id === public_id) {
+            // Clear the image field for the matching variant
+            return { ...variant, image: "" };
+          }
+          return variant; // Keep other variants unchanged
+        });
+        setVariants(updatedVariants);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+
+  const addSize = () => {
+    setSizes([
+      ...sizes,
+      {
+        size: "",
+        prices: [
+          { type: "price", value: "" },
+          { type: "disprice", value: "" },
+        ],
+      },
+    ]);
+  };
+
+  const handleSize = (index, key, value) => {
+    const updatedSizes = [...sizes];
+
+    if (key === "size") {
+      // Update size value
+      updatedSizes[index].size = value;
+    } else if (key === "price" || key === "disprice") {
+      // Update price value
+      const priceIndex = updatedSizes[index].prices.findIndex(
+        (price) => price.type === key
+      );
+      if (priceIndex !== -1) {
+        updatedSizes[index].prices[priceIndex].value = value;
+      }
+    }
+
+    setSizes(updatedSizes);
+  };
+
   return (
     <div class="manageacmaincont">
       <div class="manageaccont">
@@ -242,6 +319,14 @@ const ProductUpdate = ({ match, history }) => {
               desattributes={desattributes}
               selectedCategory={selectedCategory}
               handleDesAttributeChange={handleDesAttributeChange}
+              setLoading={setLoading}
+              handleImageRemove={handleImageRemove}
+              variants={variants}
+              addVariants={addVariants}
+              handleVariantChange={handleVariantChange}
+              sizes={sizes}
+              addSize={addSize}
+              handleSize={handleSize}
             />
             <hr />
           </div>
