@@ -58,6 +58,14 @@
   width: 25%;
   text-align: center;
 }
+.extradetail {
+  display: flex;
+  gap: 1rem;
+}
+.extradetail span {
+  font-weight: 600;
+}
+
 /* .statustitle1 {
   min-width: 14.8rem;
 } */
@@ -75,6 +83,9 @@
 }
 .orderactioncont.singleactionbtn.makewidth0 {
   width: 0;
+}
+.userprodtitle {
+  font-weight: 600;
 }
 .orderstate {
   padding: 0.2rem 0.7rem;
@@ -136,6 +147,7 @@
 .singleitembinder {
   display: flex;
   width: 14rem;
+  align-items: center;
 }
 .singleitembindertwo {
   display: flex;
@@ -203,6 +215,7 @@
   }
   .btnprimary.singlecanbtn {
     padding: 0.5rem 0.3rem;
+    font-size: 1.2rem;
   }
   .orderactioncont.singleactionbtn {
     width: 10rem;

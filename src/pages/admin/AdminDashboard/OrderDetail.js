@@ -52,6 +52,7 @@ export default function OrderDetail({ match, history }) {
   const initialState = {
     ItemName: "",
     Color: "",
+    Size: "",
     Shipping: 0,
     Price: "",
     Quantity: "",
@@ -131,6 +132,7 @@ export default function OrderDetail({ match, history }) {
       ...form,
       ItemName: Item.product.title,
       Color: Item.color,
+      Size: Item.size,
       Shipping: Item.product.shippingcharges,
       Price: Item.price,
       Quantity: Item.count,
@@ -600,6 +602,7 @@ export default function OrderDetail({ match, history }) {
                         <th class="ordli">Action</th>
                         <th class="ordli">Item</th>
                         <th class="ordli">Color</th>
+                        <th class="ordli">Size</th>
                         <th class="ordli">Price</th>
                         <th class="ordli">shipping</th>
                         <th class="ordli">Quantity</th>
@@ -688,6 +691,7 @@ export default function OrderDetail({ match, history }) {
                             )}
                           </td>
                           <td class="ordli">{p.color}</td>
+                          <td class="ordli">{p.size}</td>
                           <td class="ordli">$ {p.price.toFixed(2)}</td>
                           <td class="ordli">
                             $ {p.product.shippingcharges.toFixed(2)}

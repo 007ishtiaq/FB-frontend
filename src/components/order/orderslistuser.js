@@ -68,7 +68,25 @@ export default function Orderslistuser({ orders }) {
                             <div class="imgcont">
                               <img src={pro.product.images[0].url} alt="" />
                             </div>
-                            <p class="titlepera">{pro.product.title}</p>
+                            <div class={`titlepera`}>
+                              <p className="userprodtitle">
+                                {pro.product.title}
+                              </p>
+                              <div className="extradetail">
+                                {pro.color && (
+                                  <p className="">
+                                    <span>Color: </span>
+                                    {pro.color}
+                                  </p>
+                                )}
+                                {pro.size && (
+                                  <p className="">
+                                    <span>Size: </span>
+                                    {pro.size}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
                             <div class="qtybought">Qty: {pro.count}</div>
                             <div
                               className={`orderstate ${orderStatusColor(

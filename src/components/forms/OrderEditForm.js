@@ -3,7 +3,7 @@ import "./OrderEditForm.css";
 import { toast } from "react-hot-toast";
 
 export default function OrderEditForm({ form, setForm, removeItem }) {
-  const { ItemName, Brand, Color, Shipping, Price, Quantity, totalqty } = form;
+  const { ItemName, Color, Size, Shipping, Price, Quantity, totalqty } = form;
   const [qtyavailable, setQtyavailable] = useState(0);
 
   useEffect(() => {
@@ -37,8 +37,8 @@ export default function OrderEditForm({ form, setForm, removeItem }) {
               <tr>
                 <th class="ordli">Action</th>
                 <th class="ordli">Item</th>
-                <th class="ordli">Brand</th>
                 <th class="ordli">Color</th>
+                <th class="ordli">Size</th>
                 <th class="ordli">Shipping fee</th>
                 <th class="ordli">Price</th>
                 <th class="ordli">Quantity</th>
@@ -51,8 +51,8 @@ export default function OrderEditForm({ form, setForm, removeItem }) {
                   <div onClick={removeItem}>X</div>
                 </td>
                 <td class="ordli">{ItemName}</td>
-                <td class="ordli">{Brand}</td>
                 <td class="ordli">{Color}</td>
+                <td class="ordli">{Size}</td>
 
                 <td class="ordli editli">
                   ${" "}

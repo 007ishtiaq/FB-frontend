@@ -268,15 +268,31 @@ export default function OrderDetails({ match }) {
                                   onClick={() => handleModelToggle(pro._id)}
                                 />
                               </div>
-                              <p
-                                class={`titlepera singleprotitle ${
+                              <div
+                                class={`titlebinder titlepera singleprotitle ${
                                   (order.orderStatus === "Cancelled") |
                                     (order.orderStatus === "Returned") &&
                                   "makeitfull"
                                 } `}
                               >
-                                {pro.product.title}
-                              </p>
+                                <p className="userprodtitle">
+                                  {pro.product.title}
+                                </p>
+                                <div className="extradetail">
+                                  {pro.color && (
+                                    <p className="">
+                                      <span>Color: </span>
+                                      {pro.color}
+                                    </p>
+                                  )}
+                                  {pro.size && (
+                                    <p className="">
+                                      <span>Size: </span>
+                                      {pro.size}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
                               <div className="singleitembindertwo">
                                 <div className="singleitembinder">
                                   <div class="qtybought">Qty: {pro.count}</div>

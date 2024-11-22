@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import "../SingleOrder.css";
 import "../MyOrders.css";
 import "../MyWishlist.css";
 import { Online } from "react-detect-offline";

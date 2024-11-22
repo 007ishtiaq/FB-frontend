@@ -151,62 +151,24 @@ export default function ItemReturn({ match, history }) {
                   <div className="otherdetailscont">
                     <div className="desc_ul">
                       <ul>
-                        <li className="desc_li">
-                          <div className="li_head">Brand</div>
-                          <div className="li_sub">
-                            {prod && prod.product.brand}
-                          </div>
-                        </li>
-                        {prod && prod.product.category && (
+                        {prod && prod.product && prod.product.art && (
                           <li className="desc_li">
-                            <div className="li_head">Section</div>
-                            <div className="li_sub">
-                              <Link
-                                to={`/category/${
-                                  prod && prod.product.category.slug
-                                }`}
-                              >
-                                {prod && prod.product.category.name}
-                              </Link>
-                            </div>
+                            <div className="li_head">Article No: </div>
+                            <div className="li_sub">{prod.product.art}</div>
                           </li>
                         )}
-                        {prod && prod.product.subs && (
+                        {prod && prod.color && (
                           <li className="desc_li">
-                            <div className="li_head">Category</div>
-                            <div className="li_sub">
-                              <Link
-                                to={`/sub/${prod && prod.product.subs.slug}`}
-                              >
-                                {prod && prod.product.subs.name}
-                              </Link>
-                            </div>
+                            <div className="li_head">Color</div>
+                            <div className="li_sub">{prod.color}</div>
                           </li>
                         )}
-
-                        {prod &&
-                          prod.product.subs2 &&
-                          prod &&
-                          prod.product.subs2.length > 0 && (
-                            <li className="desc_li">
-                              <div className="li_head">Tags</div>
-                              <div className="li_sub">
-                                {prod &&
-                                  prod.product.subs2.map((s2) => (
-                                    <Link key={s2._id} to={`/sub2/${s2.slug}`}>
-                                      {s2.name}
-                                    </Link>
-                                  ))}
-                              </div>
-                            </li>
-                          )}
-
-                        <li className="desc_li">
-                          <div className="li_head">Color</div>
-                          <div className="li_sub">
-                            {prod.color && prod.color}
-                          </div>
-                        </li>
+                        {prod && prod.size && (
+                          <li className="desc_li">
+                            <div className="li_head">Size</div>
+                            <div className="li_sub">{prod.size}</div>
+                          </li>
+                        )}
                       </ul>
                     </div>
                   </div>
