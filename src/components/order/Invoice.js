@@ -56,7 +56,9 @@ const Invoice = ({ order, email }) => (
         <TableBody>
           <DataTableCell
             getContent={(x) =>
-              `[Article: ${x.product.art}] ${x.product.title} - Color: ${x.color}`
+              `[Article: ${x.product.art}] ${x.product.title} - Color: ${
+                x.color
+              }${x.size ? ` - Size: ${x.size}` : ""}`
             }
             style={styles.tableCell1}
           />

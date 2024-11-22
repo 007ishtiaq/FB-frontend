@@ -197,7 +197,7 @@ export default function ManageAcMain() {
         <Online onChange={loadUserProfile} />
         <div class="mainbodybelow">
           <div class="previewordershead">
-            <p>Recent Orders</p>
+            <p>3 Recent Orders</p>
             <Link to="/ManageMyAc?page=userOrders">
               <button className="mybtn btnsecond">All Orders</button>
             </Link>
