@@ -195,12 +195,9 @@ export default function MyWishlist() {
                         ? pro.disprice.toFixed(2)
                         : pro.price.toFixed(2)}
                     </div>
-                    <div
-                      class="wishlistcartbtn"
-                      onClick={() => handleAddToCart(pro)}
-                    >
-                      Add to Cart
-                    </div>
+                    <Link to={`/product/${pro.slug}`}>
+                      <div class="wishlistcartbtn">Quick View</div>
+                    </Link>
                   </div>
                 </li>
               ))}

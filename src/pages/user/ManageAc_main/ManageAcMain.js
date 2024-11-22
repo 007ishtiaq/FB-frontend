@@ -254,7 +254,7 @@ export default function ManageAcMain() {
                     )}
                   </li>
                   <li class="orderssubli">
-                    Rs {order.paymentIntent.amount.toFixed(2)}
+                    $ {order.paymentIntent.amount.toFixed(2)}
                   </li>
                   <li class="orderssubli">
                     <Link to={`/order/${order._id}`}>
