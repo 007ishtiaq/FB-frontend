@@ -179,10 +179,13 @@ export default function ProductCardOnCart({
             <span class="varianthead">Color: </span>
             <span class="variantsub">{color}</span>
           </div>
-          <div class="subvariant">
-            <span class="varianthead">Size: </span>
-            <span class="variantsub">{size}</span>
-          </div>
+          {size && (
+            <div class="subvariant">
+              <span class="varianthead">Size: </span>
+              <span class="variantsub">{size}</span>
+            </div>
+          )}
+
           <div class="subvariant">
             <span class="varianthead">Shipping: </span>
             <span class="variantsub">

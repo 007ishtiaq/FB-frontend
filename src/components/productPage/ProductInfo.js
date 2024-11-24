@@ -150,7 +150,7 @@ export default function ProductInfo({
             prod.color === product.color &&
             prod.size === product.size
           ) {
-            return { ...prod, count: qty }; // Increment the count of the existing product
+            return { ...prod, price: price, disprice: disprice, count: qty };
           }
           return prod;
         });
