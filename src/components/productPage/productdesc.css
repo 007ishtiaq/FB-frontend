@@ -27,12 +27,12 @@
   font-size: var(--fontsize-eemedium);
 }
 .desccontentleft {
-  width: 50%;
+  width: 40%;
 }
 
 .desccontentright {
   padding: 0 2rem;
-  width: 45%;
+  width: 58%;
 }
 strong {
   font-weight: 600;
@@ -60,6 +60,43 @@ strong {
 }
 thead th {
   font-weight: 600;
+}
+/* --------------products deccription pera styling--------------- */
+.prodhtml {
+  color: #6b6b6b;
+  font-size: 1.4rem;
+}
+.prodhtml h1 {
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+.prodhtml h2 {
+  margin: 0.7rem 0;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.prodhtml strong {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c2c2c;
+}
+.prodhtml li {
+  color: #6b6b6b; /* Text color */
+  font-size: 1.4rem; /* Font size */
+  line-height: 1.6; /* Spacing between lines */
+  padding-left: 20px; /* Space between bullet and text */
+  position: relative; /* For custom bullet styling */
+  list-style: none;
+}
+
+.prodhtml li::before {
+  content: ">"; /* Custom bullet symbol */
+  color: var(--org-active); /* Bullet color */
+  font-size: 2rem; /* Bullet size */
+  position: absolute;
+  left: 0;
+  top: -1px;
+  line-height: 1.2; /* Align bullet vertically */
 }
 /* --------------products deccription table styling--------------- */
 .tabledesattri {
@@ -152,7 +189,7 @@ thead th {
     padding: 0 1.5rem;
   }
 }
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .desccontent {
     padding: 0 8rem;
   }
@@ -166,7 +203,7 @@ thead th {
   .desccontent {
     padding: 0 2rem;
   }
-}
+} */
 @media (max-width: 500px) {
   .desccontent {
     flex-direction: column;

@@ -146,8 +146,11 @@ hr {
   justify-content: space-between;
 }
 .li_head {
-  font-weight: 600;
-  padding: 0.1rem 2.2rem 0.1rem 0;
+  font-weight: 500;
+  padding: 0.3rem 2.2rem 0.3rem 1rem;
+}
+.li_sub {
+  padding: 0.3rem 0.1rem 0.3rem 1rem;
 }
 .li_sub a {
   color: #ff9b19;
@@ -599,7 +602,7 @@ hr {
     flex-direction: column;
   }
   .mycarosel {
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
   }
   .mycarosel .carousel .thumbs-wrapper {
@@ -622,7 +625,7 @@ hr {
 }
 @media (max-width: 450px) {
   .mycarosel {
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
   }
   .btnsvg {
@@ -637,7 +640,7 @@ hr {
 }
 @media (max-width: 400px) {
   .mycarosel {
-    width: 70%;
+    width: 90%;
     margin: 0 auto;
   }
 }
