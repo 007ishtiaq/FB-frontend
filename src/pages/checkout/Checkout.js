@@ -37,6 +37,8 @@ const Checkout = ({ history }) => {
   const [discountPersent, setDiscountPersent] = useState(null);
   const [noNetModal, setNoNetModal] = useState(false);
   const [termRead, setTermRead] = useState(true);
+  const [isSubscribed, setIsSubscribed] = useState(true);
+  const [newsletter, setNewsletter] = useState(false);
 
   const [image, setImage] = useState("");
   const [imageuploaded, setImageuploaded] = useState(false);
@@ -74,6 +76,7 @@ const Checkout = ({ history }) => {
       setDiscountPersent(res.data.dispercent);
       setCouponType(res.data.discountType);
       setTotalAfterDiscount(res.data.totalAfterDiscount);
+      setIsSubscribed(res.data.isSubscribed);
 
       if (res.data.cartTotal === 0 && res.data.shippingfee === 0) {
         history.push("/404");
@@ -272,7 +275,8 @@ const Checkout = ({ history }) => {
           Wallet,
           Easypesa,
           couponTrueOrFalse,
-          values
+          values,
+          newsletter
         );
 
         if (orderResponse.data.error) {
@@ -500,6 +504,17 @@ const Checkout = ({ history }) => {
                   policy.
                 </Checkbox>
               </div>
+              {!isSubscribed && (
+                <div className="termreadcont">
+                  <Checkbox
+                    className="pb-2 pt-2 pl-0 pr-0"
+                    onChange={(e) => setNewsletter(e.target.checked)} // Toggle termRead based on checked state
+                    checked={newsletter}
+                  >
+                    Keep me up to date on news and exclusive offers.
+                  </Checkbox>
+                </div>
+              )}
             </div>
           </div>
 

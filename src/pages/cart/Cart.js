@@ -32,6 +32,7 @@ const Cart = ({ history }) => {
   const [noNetModal, setNoNetModal] = useState(false);
   const [retryFunction, setRetryFunction] = useState("");
   const [termRead, setTermRead] = useState(true);
+  const [newsletter, setNewsletter] = useState(false);
 
   const { cart, user } = useSelector((state) => ({ ...state }));
   const couponString = useSelector((state) => state.coupon);
@@ -136,7 +137,7 @@ const Cart = ({ history }) => {
     // console.log("cart", JSON.stringify(cart, null, 4));
     if (navigator.onLine) {
       if (user && user.token) {
-        userCart(cart, user.token)
+        userCart(cart, newsletter, user.token)
           .then((res) => {
             trackEvent("CheckoutButtonPressed", { page: "cart-button" });
 
@@ -529,6 +530,15 @@ const Cart = ({ history }) => {
                 >
                   I accept the terms and conditions and I have read the privacy
                   policy.
+                </Checkbox>
+              </div>
+              <div className="termreadcont">
+                <Checkbox
+                  className="pb-2 pt-2 pl-0 pr-0"
+                  onChange={(e) => setNewsletter(e.target.checked)} // Toggle termRead based on checked state
+                  checked={newsletter}
+                >
+                  Keep me up to date on news and exclusive offers.
                 </Checkbox>
               </div>
             </div>

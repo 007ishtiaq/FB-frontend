@@ -359,7 +359,10 @@ button:hover:disabled {
   font-size: 1.2rem;
   user-select: none;
 }
-
+.declarationcheck.termreadcont,
+.declarationcheck.termreadcont label {
+  margin-bottom: 0 !important;
+}
 /*****************************************
 **************Responsiveness***********
 *************************************** */

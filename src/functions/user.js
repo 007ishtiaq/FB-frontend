@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const userCart = async (cart, authtoken) =>
+export const userCart = async (cart, newsletter, authtoken) =>
   await axios.post(
     `${process.env.REACT_APP_API}/user/cart`,
-    { cart },
+    { cart, newsletter },
     {
       headers: {
         authtoken,
@@ -206,11 +206,20 @@ export const createOrderForUser = async (
   Wallet,
   Easypesa,
   couponTrueOrFalse,
-  values
+  values,
+  newsletter
 ) =>
   await axios.post(
     `${process.env.REACT_APP_API}/user/order`,
-    { couponApplied: couponTrueOrFalse, image, BFT, Wallet, Easypesa, values },
+    {
+      couponApplied: couponTrueOrFalse,
+      image,
+      BFT,
+      Wallet,
+      Easypesa,
+      values,
+      newsletter,
+    },
     {
       headers: {
         authtoken,
