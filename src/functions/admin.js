@@ -219,3 +219,14 @@ export const deleteReviewImages = async (publicIds, authtoken) =>
       },
     }
   );
+
+export const getCartsData = async (authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/cartsdatalist`,
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );

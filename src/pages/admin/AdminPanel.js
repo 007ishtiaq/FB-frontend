@@ -24,6 +24,7 @@ import ContactForms from "./activities/ContactForms";
 import SubmittedComments from "./activities/SubmittedComments";
 import SubmittedQuestions from "./activities/SubmittedQuestions";
 import OptinEmails from "./activities/OptinEmails";
+import CartTracking from "./activities/CartTracking";
 import Transectiontable from "./transectiontable/Transectiontable";
 
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
@@ -62,6 +63,7 @@ export default function AdminPanel() {
           {query.get("page") === "SubmittedComments" && <SubmittedComments />}
           {query.get("page") === "SubmittedQuestions" && <SubmittedQuestions />}
           {query.get("page") === "OptinEmails" && <OptinEmails />}
+          {query.get("page") === "CartTracking" && <CartTracking />}
           {query.get("page") === "Transections" && <Transectiontable />}
         </div>
       </div>

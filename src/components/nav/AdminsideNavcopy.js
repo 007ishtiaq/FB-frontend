@@ -127,6 +127,9 @@ export default function AdminsideNavcopy({ currentActive }) {
         <Link to="/AdminPanel?page=OptinEmails">
           <li class="manageacli clsremove OptinEmails">Opt-In Emails</li>
         </Link>
+        <Link to="/AdminPanel?page=CartTracking">
+          <li class="manageacli clsremove CartTracking">Checkout Tracking</li>
+        </Link>
       </ul>
 
       <Link
