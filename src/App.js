@@ -12,6 +12,7 @@ import "./loader.css";
 import ScrollToTop from "./components/Scroll/ScrollToTop";
 import GoToTop from "./components/Scroll/GoToTop";
 import Pixel from "./components/pixel/Pixel";
+import CookieBanner from "./components/cookieBanner/CookieBanner";
 
 // using lazy
 const Login = lazy(() => import("./pages/auth/Login"));
@@ -214,6 +215,7 @@ const App = () => {
           />
           <Pixel />
           <ScrollToTop />
+          <CookieBanner />
           <Header />
           <Toaster />
           <GoToTop />
