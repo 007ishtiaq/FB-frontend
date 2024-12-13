@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
 import AdminProductCard from "../../../components/cards/AdminProductCard";
-import { removeProduct } from "../../../functions/product";
+import {
+  removeProduct,
+  getProdJson,
+  uploadproductsjson,
+} from "../../../functions/product";
 import { deleteReviewImages } from "../../../functions/admin";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
@@ -21,6 +25,7 @@ const AllProducts = () => {
   const [page, setPage] = useState(1); // page number
   const [perPage, setPerpage] = useState(2); // per page Size
   const [productsCount, setProductsCount] = useState(0);
+  const [jsonfile, setJsonfile] = useState(null);
 
   // redux
   const { user } = useSelector((state) => ({ ...state }));
@@ -96,6 +101,72 @@ const AllProducts = () => {
     fetchProducts({ query: text });
   };
 
+  const DownloadProdJson = async () => {
+    try {
+      getProdJson(user.token)
+        .then((res) => {
+          toast.success(`Json Downloaded`);
+          const data = res.data;
+          // Convert JSON data to a downloadable file
+          const blob = new Blob([JSON.stringify(data, null, 2)], {
+            type: "application/json",
+          });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "MMFB-Products-data.json";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .catch((error) => {
+          console.error("Error fetching schema data:", error);
+        });
+    } catch (error) {
+      console.error("Error fetching schema data:", error);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    setJsonfile(e.target.files[0]);
+  };
+
+  const readFileAsync = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsText(file);
+    });
+  };
+
+  const handleUpload = async () => {
+    if (!jsonfile) {
+      alert("Please select a file!");
+      return;
+    }
+    try {
+      const fileContent = await readFileAsync(jsonfile); // Read file asynchronously
+      const jsonData = JSON.parse(fileContent); // Parse JSON
+      console.log("Parsed JSON Data:", jsonData);
+
+      // Validate data
+      if (!jsonData || (Array.isArray(jsonData) && jsonData.length === 0)) {
+        alert("The JSON file is empty or invalid.");
+        return;
+      }
+
+      const response = await uploadproductsjson(jsonData, user.token); // Upload data
+      alert(response.data.message);
+    } catch (error) {
+      if (error.name === "SyntaxError") {
+        alert("The JSON file contains invalid syntax.");
+      } else {
+        alert("An error occurred while uploading the file.");
+      }
+      console.error("Error while uploading JSON file:", error);
+    }
+  };
+
   return (
     <div className="col">
       <div className="adminAllhead">
@@ -115,6 +186,13 @@ const AllProducts = () => {
           />
           {/* <button type="submit">submit</button> */}
         </form>
+        <button className="mybtn btnsecond" onClick={DownloadProdJson}>
+          Download Json
+        </button>
+        <div>
+          <input type="file" accept=".json" onChange={handleFileChange} />
+          <button onClick={handleUpload}>Upload JSON</button>
+        </div>
       </div>
 
       <div className="row">

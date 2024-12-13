@@ -23,6 +23,25 @@ export const removeProduct = async (slug, authtoken) =>
     },
   });
 
+export const getProdJson = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getproductsjson`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+export const uploadproductsjson = async (jsonData, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/uploadproductsjson`,
+    jsonData,
+    {
+      headers: {
+        authtoken,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
 export const getProduct = async (slug) =>
   await axios.get(`${process.env.REACT_APP_API}/product/${slug}`);
 
