@@ -186,12 +186,19 @@ const AllProducts = () => {
           />
           {/* <button type="submit">submit</button> */}
         </form>
-        <button className="mybtn btnsecond" onClick={DownloadProdJson}>
+        <button className="mybtn btnsecond jsonbtns" onClick={DownloadProdJson}>
           Download Json
         </button>
-        <div>
-          <input type="file" accept=".json" onChange={handleFileChange} />
-          <button onClick={handleUpload}>Upload JSON</button>
+        <div className="uploadjson">
+          <input
+            type="file"
+            accept=".json"
+            className="jsonuploadinput"
+            onChange={handleFileChange}
+          />
+          <button className="mybtn btnsecond jsonbtns" onClick={handleUpload}>
+            Upload JSON
+          </button>
         </div>
       </div>
 

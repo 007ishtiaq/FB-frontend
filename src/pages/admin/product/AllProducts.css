@@ -1,9 +1,22 @@
 .adminAllhead {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.adminAllhead form {
+  margin-bottom: 0;
 }
 .searchadmin {
   margin-left: 2rem;
   border: 1px solid rgb(197, 197, 197);
   border-radius: 0.4rem;
+}
+.uploadjson {
+  display: flex;
+}
+.mybtn.jsonbtns {
+  padding: 0.3rem 1rem;
+}
+.jsonuploadinput {
+  width: 21rem;
 }
