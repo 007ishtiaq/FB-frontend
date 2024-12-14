@@ -141,7 +141,7 @@ const AllProducts = () => {
 
   const handleUpload = async () => {
     if (!jsonfile) {
-      alert("Please select a file!");
+      toast.error("Please select a file!");
       return;
     }
     try {
@@ -151,12 +151,13 @@ const AllProducts = () => {
 
       // Validate data
       if (!jsonData || (Array.isArray(jsonData) && jsonData.length === 0)) {
-        alert("The JSON file is empty or invalid.");
+        toast.error("The JSON file is empty or invalid.");
         return;
       }
 
       const response = await uploadproductsjson(jsonData, user.token); // Upload data
-      alert(response.data.message);
+      toast.success(response.data.message);
+      loadAllProducts();
     } catch (error) {
       if (error.name === "SyntaxError") {
         alert("The JSON file contains invalid syntax.");
