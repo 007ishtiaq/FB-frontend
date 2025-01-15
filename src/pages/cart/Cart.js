@@ -177,7 +177,7 @@ const Cart = ({ history }) => {
       }
 
       // First, save the order to the database
-      await userCart(cart, user.token)
+      await userCart(cart, newsletter, user.token)
         .then((res) => {
           if (res.data.ok) {
             // Validate the coupon
@@ -229,7 +229,7 @@ const Cart = ({ history }) => {
     }
     if (navigator.onLine) {
       if (user && user.token) {
-        await userCart(cart, user.token)
+        await userCart(cart, newsletter, user.token)
           .then((res) => {})
           .catch((err) => console.log("cart save err", err));
         await applyCoupon(user.token, coupon).then((res) => {
