@@ -104,7 +104,22 @@ const StripeCheckout = () => {
             <div className="stripe"></div>
             <div className="box">
               <span>CVV</span>
-              <div className="cvv-box">{cardData.cvv || "***"}</div>
+              <div className="cvv-box">
+              <CardCvcElement
+            options={{
+              style: {
+                base: {
+                  fontSize: "16px",
+                  color: "#32325d",
+                  "::placeholder": { color: "#aab7c4" },
+                },
+                invalid: { color: "#fa755a" },
+              },
+            }}
+            onFocus={() => setIsFlipped(true)}
+            onBlur={() => setIsFlipped(false)}
+            onChange={(e) => handleCardDataChange(e, "cvv")}
+          /></div>
               <div className="logosvgopt paymentsvgs cardsvg">
                 <Visasvg />
               </div>
