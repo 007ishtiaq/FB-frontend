@@ -86,83 +86,84 @@ const StripeCheckout = () => {
   };
 
   return (
-    <div className="container">
-      <div className="card-container">
-        <div className="card">
-          <div className="front">
-            <div className="logosvgopt paymentsvgs cardsvg">
-              <Visasvg />
-              <Chipsvg />
-            </div>
-            <div className="inputBox">
-              <span>Card Number</span>
-              <CardNumberElement
-                options={{ style: inputStyle }}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="card-number-box">#### #### #### ####</div>
-            <div className="flexbox">
-              <div className="box">
-                {/* <span>Card Holder</span>
-                <div className="card-holder-name">
-                  {cardHolder || "Full Name"}
-                </div> */}
-                <div className="inputBox">
-                  <span>Card Holder</span>
-                  <input
-                    type="text"
-                    value={cardHolder}
-                    onChange={(e) => setCardHolder(e.target.value)}
-                    className="card-holder-input"
-                    placeholder="Full Name"
-                    required
-                  />
-                </div>
+    <form onSubmit={handleSubmit}>
+      <div className="container">
+        <div className="card-container">
+          <div className="card">
+            <div className="front">
+              <div className="logosvgopt cardfrontsvg">
+                <Chipsvg />
+                <Visasvg className="cardfrontsvgvisa" />
               </div>
-              <div className="box">
-                {/* <span>Expires</span> */}
-                {/* <div className="expiration">MM/YY</div> */}
+
+              <div className="card-number-box">
                 <div className="inputBox">
-                  <span>Expiration Date</span>
-                  <CardExpiryElement
+                  <span>Card Number</span>
+                  <CardNumberElement
                     options={{ style: inputStyle }}
                     onChange={handleChange}
                   />
                 </div>
               </div>
+              <div className="flexbox">
+                <div className="box">
+                  {/* <span>Card Holder</span>
+                <div className="card-holder-name">
+                  {cardHolder || "Full Name"}
+                </div> */}
+                  <div className="inputBox">
+                    <span>Card Holder</span>
+                    <input
+                      type="text"
+                      value={cardHolder}
+                      onChange={(e) => setCardHolder(e.target.value)}
+                      className="card-holder-input"
+                      placeholder="Full Name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="box">
+                  {/* <span>Expires</span> */}
+                  {/* <div className="expiration">MM/YY</div> */}
+                  <div className="inputBox">
+                    <span>Expiration Date</span>
+                    <CardExpiryElement
+                      options={{ style: inputStyle }}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flipped">
+              <div className="back">
+                <div className="stripe"></div>
+                <div className="box">
+                  <span>CVV</span>
+                  <div className="cvv-box">
+                    <CardCvcElement
+                      options={{
+                        style: {
+                          base: {
+                            fontSize: "16px",
+                            color: "#32325d",
+                            "::placeholder": { color: "#aab7c4" },
+                          },
+                          invalid: { color: "#fa755a" },
+                        },
+                      }}
+                    />
+                  </div>
+                  <div className="logosvgopt paymentsvgs cardsvg">
+                    <Visasvg />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="card flipped">
-          <div className="back">
-            <div className="stripe"></div>
-            <div className="box">
-              <span>CVV</span>
-              <div className="cvv-box">
-                <CardCvcElement
-                  options={{
-                    style: {
-                      base: {
-                        fontSize: "16px",
-                        color: "#32325d",
-                        "::placeholder": { color: "#aab7c4" },
-                      },
-                      invalid: { color: "#fa755a" },
-                    },
-                  }}
-                />
-              </div>
-              <div className="logosvgopt paymentsvgs cardsvg">
-                <Visasvg />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <form onSubmit={handleSubmit}>
         {/* <div className="inputBox">
           <span>Card Holder</span>
           <input
@@ -205,8 +206,8 @@ const StripeCheckout = () => {
             Payment Successful! See your order history.
           </p>
         )} */}
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

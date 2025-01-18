@@ -64,23 +64,25 @@
 
 .container .card-container {
   position: relative;
-  height: 250px;
-  width: 400px;
+  /* height: 250px;
+  width: 400px; */
 }
 
 .container .card-container .front {
   position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
+  width: 400px;
+  height: 250px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-75%, 0%);
   background: linear-gradient(45deg, #ff2f2f, #ff6a00);
   border-radius: 5px;
   backface-visibility: hidden;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  transform: perspective(1000px) rotateY(0deg);
+  /* transform: perspective(1000px) rotateY(0deg); */
   transition: transform 0.4s ease-out;
+  z-index: 1000;
 }
 
 .container .card-container .front .image {
@@ -115,18 +117,19 @@
 
 .container .card-container .back {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  height: 100%;
-  width: 100%;
+  top: 65px;
+  left: -140px;
+  width: 400px;
+  height: 250px;
   background: linear-gradient(45deg, #ff2f2f, #ff6a00);
   border-radius: 5px;
   padding: 20px 0;
-  text-align: right;
-  backface-visibility: hidden;
+  /* text-align: right; */
+  /* backface-visibility: hidden; */
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
   transform: perspective(1000px) rotateY(180deg);
   transition: transform 0.4s ease-out;
+  z-index: 999;
 }
 
 .container .card-container .back .stripe {
@@ -171,11 +174,12 @@
 }
 
 .card {
-  width: 400px;
-  height: 250px;
+  /* width: 400px;
+  height: 250px; */
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s;
+  padding: 2rem 0;
 }
 
 .card.flipped {
@@ -185,11 +189,41 @@
 .card .front,
 .card .back {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
+  width: 400px;
+  height: 250px;
+  /* backface-visibility: hidden; */
 }
 
 .card .back {
   transform: rotateY(180deg);
+}
+.cardfrontsvg {
+  display: flex;
+  justify-content: space-between;
+  align-items: self-start;
+}
+.cardfrontsvg svg {
+  width: 3.5rem;
+  height: auto;
+}
+.cardfrontsvg .cardfrontsvgvisa {
+  width: 7rem;
+  height: auto;
+}
+.ElementsApp .InputElement {
+  color: white !important;
+  font-size: 2rem;
+}
+.ElementsApp .InputElement.is-invalid {
+  color: white !important;
+  font-size: 2rem;
+}
+.StripeElement .StripeElement--empty {
+  color: white !important;
+  font-size: 2rem;
+}
+.ElementsApp,
+.ElementsApp .InputElement {
+  font-size: 16px;
+  color: white !important;
 }
