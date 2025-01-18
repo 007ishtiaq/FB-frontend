@@ -97,8 +97,8 @@
 }
 
 .container .card-container .front .card-number-box {
-  padding: 30px 0;
-  font-size: 22px;
+  padding: 21px 0;
+  font-size: 2rem;
   color: #fff;
 }
 
@@ -124,10 +124,10 @@
   background: linear-gradient(45deg, #ff2f2f, #ff6a00);
   border-radius: 5px;
   padding: 20px 0;
-  /* text-align: right; */
+  text-align: right;
   /* backface-visibility: hidden; */
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
-  transform: perspective(1000px) rotateY(180deg);
+  transform: perspective(1000px) rotateY(0deg);
   transition: transform 0.4s ease-out;
   z-index: 999;
 }
@@ -146,6 +146,7 @@
 .container .card-container .back .box span {
   color: #fff;
   font-size: 15px;
+  margin-right: 32px;
 }
 
 .container .card-container .back .box .cvv-box {
@@ -210,20 +211,56 @@
   width: 7rem;
   height: auto;
 }
-.ElementsApp .InputElement {
-  color: white !important;
-  font-size: 2rem;
+
+/* my styling  */
+
+/* .inputBox input[type="text"]:hover {
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+}*/
+.inputBox input::placeholder {
+  font-size: 16px !important;
 }
-.ElementsApp .InputElement.is-invalid {
-  color: white !important;
-  font-size: 2rem;
-}
-.StripeElement .StripeElement--empty {
-  color: white !important;
-  font-size: 2rem;
-}
-.ElementsApp,
-.ElementsApp .InputElement {
+
+.card-holder-input {
+  background: transparent;
+  border: 1px solid #ff844d !important;
+  outline: none !important;
   font-size: 16px;
-  color: white !important;
+  color: #ffffff;
+  width: 100%;
+  max-width: 250px;
+  padding: 3px !important;
+}
+
+.card-holder-input::placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+
+/* new card styling */
+.inputWrapper {
+  border: 1px solid #ff844d;
+  padding: 5px;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.inputWrapper:hover,
+.inputWrapper:active {
+  border-color: #ff7800;
+  box-shadow: 0 0 7px rgba(255, 165, 0, 0.5);
+}
+
+/* Focus and Active state */
+.inputWrapper:focus-within {
+  border-color: #ff7800;
+  box-shadow: 0 0 7px rgba(255, 165, 0, 0.5);
+}
+
+.cvvWrapper {
+  width: 6rem;
+  position: absolute;
+  right: 28px;
+  color: black;
 }

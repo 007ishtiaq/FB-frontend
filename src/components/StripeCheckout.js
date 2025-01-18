@@ -25,16 +25,41 @@ const StripeCheckout = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [cardHolder, setCardHolder] = useState("");
 
+  // const inputStyle = {
+  //   base: {
+  //     fontSize: "16px",
+  //     color: "#fff",
+  //     "::placeholder": {
+  //       color: "#aab7c4",
+  //     },
+  //   },
+  //   invalid: {
+  //     color: "#fff",
+  //   },
+  // };
+
   const inputStyle = {
     base: {
       fontSize: "16px",
-      color: "#32325d",
+      color: "#fff",
       "::placeholder": {
         color: "#aab7c4",
       },
+      border: "1px solid #ccc",
+      padding: "10px",
+      borderRadius: "4px",
     },
     invalid: {
-      color: "#fa755a",
+      color: "#fff", // Red border for invalid input
+      border: "1px solid #fa755a",
+    },
+    focus: {
+      color: "#000",
+      border: "1px solid #ff7800", // Blue border on focus
+    },
+    hover: {
+      border: "1px solid #ff7800", // Darker border on hover
+      boxshadow: "0 0 7px rgba(255, 165, 0, 0.5)",
     },
   };
 
@@ -99,10 +124,14 @@ const StripeCheckout = () => {
               <div className="card-number-box">
                 <div className="inputBox">
                   <span>Card Number</span>
-                  <CardNumberElement
-                    options={{ style: inputStyle }}
-                    onChange={handleChange}
-                  />
+                  <div className="inputWrapper">
+                    <CardNumberElement
+                      options={{
+                        style: inputStyle,
+                      }}
+                      onChange={handleChange}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="flexbox">
@@ -127,11 +156,15 @@ const StripeCheckout = () => {
                   {/* <span>Expires</span> */}
                   {/* <div className="expiration">MM/YY</div> */}
                   <div className="inputBox">
-                    <span>Expiration Date</span>
-                    <CardExpiryElement
-                      options={{ style: inputStyle }}
-                      onChange={handleChange}
-                    />
+                    <span>Expiration</span>
+                    <div className="inputWrapper">
+                      <CardExpiryElement
+                        options={{
+                          style: inputStyle,
+                        }}
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -142,18 +175,13 @@ const StripeCheckout = () => {
                 <div className="box">
                   <span>CVV</span>
                   <div className="cvv-box">
-                    <CardCvcElement
-                      options={{
-                        style: {
-                          base: {
-                            fontSize: "16px",
-                            color: "#32325d",
-                            "::placeholder": { color: "#aab7c4" },
-                          },
-                          invalid: { color: "#fa755a" },
-                        },
-                      }}
-                    />
+                    <div className="inputWrapper cvvWrapper">
+                      <CardCvcElement
+                      // options={{
+                      //   style: inputStyle,
+                      // }}
+                      />
+                    </div>
                   </div>
                   <div className="logosvgopt paymentsvgs cardsvg">
                     <Visasvg />
