@@ -4,19 +4,24 @@ import { ReactComponent as Mastersvg } from "../../../images/cart/payments/maste
 import { ReactComponent as Visasvg } from "../../../images/cart/payments/visa.svg";
 import { ReactComponent as Infosvg } from "../../../images/info.svg";
 import SlipImgUpload from "../SlipImgUpload";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 // import StripePaymentForm from "./StripePaymentForm";
 import { useSelector, useDispatch } from "react-redux";
 import StripeCheckout from "../../../components/StripeCheckout";
 import "./stripe.css";
 
-// load stripe outside of components render to avoid recreating stripe object on every render
-const promise = loadStripe(
-  "pk_test_51QbiZQERnLY156A6eOomWyKfGX9lIV87liZpRQg9uoz85eMA6hoDkYSiI2qIUv0dWxj1A735XqgESWNywFz3NDi5005boTiFLj"
-);
-
-export default function PaymentsForm({ file, setFile }) {
+export default function PaymentsForm({
+  file,
+  setFile,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+  setClientSecret,
+  handleCardChange,
+  cardHolder,
+  setCardHolder,
+  error,
+  succeeded,
+}) {
   const [bft, setBft] = useState(true);
   const [cod, setCod] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -195,36 +200,42 @@ export default function PaymentsForm({ file, setFile }) {
           )}
 
           {cod && (
-            <Elements stripe={promise}>
+            <div
+              id="codcont"
+              class="codpmtcont"
+              className={codActive && "active"}
+            >
               <div className="col-md-8 offset-md-2">
-                <StripeCheckout />
+                <StripeCheckout
+                  CardNumberElement={CardNumberElement}
+                  CardExpiryElement={CardExpiryElement}
+                  CardCvcElement={CardCvcElement}
+                  setClientSecret={setClientSecret}
+                  handleCardChange={handleCardChange}
+                  cardHolder={cardHolder}
+                  setCardHolder={setCardHolder}
+                  error={error}
+                  succeeded={succeeded}
+                />
               </div>
-            </Elements>
-            // <Elements stripe={stripePromise}>
-            //   <StripePaymentForm />
-            // </Elements>
-            // <div
-            //   id="codcont"
-            //   class="codpmtcont"
-            //   className={codActive && "active"}
-            // >
-            //   <p className="pmtsubtag">
-            //     {" "}
-            //     We're currently unable to process credit and debit card
-            //     payments. Please consider using alternative payment methods.{" "}
-            //   </p>
-            //   <div class="codnotification">
-            //     <div class="squreinfo">
-            //       <Infosvg />
-            //     </div>
-            //     <div class="infodivp">
-            //       {" "}
-            //       Due to unforeseen circumstances, we’re unable to accept credit
-            //       and debit card payments at this time. Thank you for your
-            //       patience as we work to restore this service.{" "}
-            //     </div>
-            //   </div>
-            // </div>
+
+              {/* <p className="pmtsubtag">
+                {" "}
+                We're currently unable to process credit and debit card
+                payments. Please consider using alternative payment methods.{" "}
+              </p>
+              <div class="codnotification">
+                <div class="squreinfo">
+                  <Infosvg />
+                </div>
+                <div class="infodivp">
+                  {" "}
+                  Due to unforeseen circumstances, we’re unable to accept credit
+                  and debit card payments at this time. Thank you for your
+                  patience as we work to restore this service.{" "}
+                </div>
+              </div> */}
+            </div>
           )}
         </div>
       </div>

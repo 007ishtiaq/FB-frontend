@@ -35,7 +35,7 @@
 
 .codpmtcont p {
   font-size: 1.5rem;
-  margin-top: 4rem;
+  /* margin-top: 4rem; */
 }
 .codnotification {
   display: flex;
@@ -202,7 +202,7 @@
   transform: translate3d(0%, 0%, 0);
 }
 #codcont {
-  margin: 14rem 0;
+  /* margin: 14rem 0; */
   -webkit-transform: translate3d(4%, 0%, 0);
   transform: translate3d(4%, 0%, 0);
   opacity: 0;

@@ -13,6 +13,13 @@ import ScrollToTop from "./components/Scroll/ScrollToTop";
 import GoToTop from "./components/Scroll/GoToTop";
 import Pixel from "./components/pixel/Pixel";
 import CookieBanner from "./components/cookieBanner/CookieBanner";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+// load stripe outside of components render to avoid recreating stripe object on every render
+const promise = loadStripe(
+  "pk_test_51QbiZQERnLY156A6eOomWyKfGX9lIV87liZpRQg9uoz85eMA6hoDkYSiI2qIUv0dWxj1A735XqgESWNywFz3NDi5005boTiFLj"
+);
 
 // using lazy
 const Login = lazy(() => import("./pages/auth/Login"));
@@ -260,7 +267,9 @@ const App = () => {
             />
             <Route exact path="/forgot/password" component={ForgotPassword} />
             {/* User protected Routes */}
-            <UserRoute exact path="/checkout" component={Checkout} />
+            <Elements stripe={promise}>
+              <UserRoute exact path="/checkout" component={Checkout} />
+            </Elements>
             <UserRoute
               exact
               path="/OrderPlaced/:orderId"

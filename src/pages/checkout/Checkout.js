@@ -26,6 +26,13 @@ import NoNetModal from "../../components/NoNetModal/NoNetModal";
 import Resizer from "react-image-file-resizer";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Checkbox } from "antd";
+import {
+  useStripe,
+  useElements,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+} from "@stripe/react-stripe-js";
 
 const Checkout = ({ history }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -40,11 +47,22 @@ const Checkout = ({ history }) => {
   const [isSubscribed, setIsSubscribed] = useState(true);
   const [newsletter, setNewsletter] = useState(false);
 
+  // for stripe
+  const [succeeded, setSucceeded] = useState(false);
+  const [error, setError] = useState(null);
+  const [processing, setProcessing] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [clientSecret, setClientSecret] = useState("");
+  const [cardHolder, setCardHolder] = useState("");
+
   const [image, setImage] = useState("");
   const [imageuploaded, setImageuploaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [uri, setUri] = useState("");
   const [file, setFile] = useState(null);
+
+  const stripe = useStripe();
+  const elements = useElements();
 
   const dispatch = useDispatch();
   const { user, BFT, Wallet, Easypesa, COD } = useSelector((state) => ({
@@ -148,68 +166,107 @@ const Checkout = ({ history }) => {
     setModalVisible(false);
   };
 
-  const createCashOrder = () => {
+  const payStripeCreateCashOrder = async (e) => {
     if (navigator.onLine) {
-      createCashOrderForUser(user.token, COD, couponTrueOrFalse, values)
-        .then((res) => {
-          trackEvent("Purchase", {
-            value: 50.0, // The total purchase amount
-            currency: "USD", // Currency in ISO 4217 format
-          });
-          // console.log("USER CASH ORDER CREATED RES ", res);
-          if (res.data.error) {
-            toast.error(`${res.data.error}`);
-          }
-          // empty cart form redux, local Storage, reset coupon, reset COD, redirect
-          if (res.data.orderId) {
-            // empty local storage
-            if (typeof window !== "undefined") localStorage.removeItem("cart");
-            // empty redux cart
-            dispatch({
-              type: "ADD_TO_CART",
-              payload: [],
-            });
-            // empty redux coupon
-            dispatch({
-              type: "COUPON_APPLIED",
-              payload: { applied: false, coupon: {} },
-            });
-            // empty local storage coupon
-            if (typeof window !== "undefined") {
-              localStorage.setItem("coupon", JSON.stringify(""));
-            }
-            // empty redux COD
-            dispatch({
-              type: "COD",
-              payload: false,
-            });
-            // empty redux BFT
-            dispatch({
-              type: "BFT",
-              payload: true,
-            });
-            // empty redux Wallet
-            dispatch({
-              type: "Wallet",
-              payload: false,
-            });
-            // empty redux Easypesa
-            dispatch({
-              type: "Easypesa",
-              payload: false,
-            });
-            // empty cart from backend
-            emptyUserCart(user.token);
-            // redirect
-            setTimeout(() => {
-              history.push(`/OrderPlaced/${res.data.orderId}`);
-            }, 800);
-          }
-        })
-        .catch((err) => console.log("cart save err", err));
+      e.preventDefault();
+      setProcessing(true);
+
+      if (!stripe || !elements) {
+        setError("Stripe has not loaded yet. Please try again.");
+        setProcessing(false);
+        return;
+      }
+
+      const cardElement = elements.getElement(CardNumberElement);
+
+      try {
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: cardHolder,
+            },
+          },
+        });
+
+        if (payload.error) {
+          setError(`Payment failed: ${payload.error.message}`);
+          setProcessing(false);
+        } else {
+          setError(null);
+          setProcessing(false);
+          setSucceeded(true);
+        }
+      } catch (err) {
+        setError("Payment processing failed. Please try again.");
+        setProcessing(false);
+      }
+
+      // createCashOrderForUser(user.token, COD, couponTrueOrFalse, values)
+      //   .then((res) => {
+      //     trackEvent("Purchase", {
+      //       value: 50.0, // The total purchase amount
+      //       currency: "USD", // Currency in ISO 4217 format
+      //     });
+      //     // console.log("USER CASH ORDER CREATED RES ", res);
+      //     if (res.data.error) {
+      //       toast.error(`${res.data.error}`);
+      //     }
+      //     // empty cart form redux, local Storage, reset coupon, reset COD, redirect
+      //     if (res.data.orderId) {
+      //       // empty local storage
+      //       if (typeof window !== "undefined") localStorage.removeItem("cart");
+      //       // empty redux cart
+      //       dispatch({
+      //         type: "ADD_TO_CART",
+      //         payload: [],
+      //       });
+      //       // empty redux coupon
+      //       dispatch({
+      //         type: "COUPON_APPLIED",
+      //         payload: { applied: false, coupon: {} },
+      //       });
+      //       // empty local storage coupon
+      //       if (typeof window !== "undefined") {
+      //         localStorage.setItem("coupon", JSON.stringify(""));
+      //       }
+      //       // empty redux COD
+      //       dispatch({
+      //         type: "COD",
+      //         payload: false,
+      //       });
+      //       // empty redux BFT
+      //       dispatch({
+      //         type: "BFT",
+      //         payload: true,
+      //       });
+      //       // empty redux Wallet
+      //       dispatch({
+      //         type: "Wallet",
+      //         payload: false,
+      //       });
+      //       // empty redux Easypesa
+      //       dispatch({
+      //         type: "Easypesa",
+      //         payload: false,
+      //       });
+      //       // empty cart from backend
+      //       emptyUserCart(user.token);
+      //       // redirect
+      //       setTimeout(() => {
+      //         history.push(`/OrderPlaced/${res.data.orderId}`);
+      //       }, 800);
+      //     }
+      //   })
+      //   .catch((err) => console.log("cart save err", err));
     } else {
       setNoNetModal(true);
     }
+  };
+
+  const handleCardChange = (event) => {
+    setDisabled(event.empty);
+    setError(event.error ? event.error.message : "");
   };
 
   const createOrder = async () => {
@@ -420,8 +477,21 @@ const Checkout = ({ history }) => {
               )}
             </div>
           </div>
-
-          <PaymentsForm file={file} setFile={setFile} />
+          <div>
+            <PaymentsForm
+              file={file}
+              setFile={setFile}
+              CardNumberElement={CardNumberElement}
+              CardExpiryElement={CardExpiryElement}
+              CardCvcElement={CardCvcElement}
+              setClientSecret={setClientSecret}
+              handleCardChange={handleCardChange}
+              cardHolder={cardHolder}
+              setCardHolder={setCardHolder}
+              error={error}
+              succeeded={succeeded}
+            />
+          </div>
         </div>
 
         <div class="cartright checkoutright">
@@ -464,11 +534,11 @@ const Checkout = ({ history }) => {
               {COD ? (
                 <button
                   className="checkoutbtn"
-                  disabled={true}
-                  onClick={createCashOrder}
+                  disabled={processing || disabled || succeeded}
+                  onClick={payStripeCreateCashOrder}
                 >
                   <Tooltip title={tooltiphandlerCOD()}>
-                    {loading ? "Loading svg" : "Place Order"}
+                    {loading ? "Loading svg here" : "Proceed to Pay"}
                   </Tooltip>
                 </button>
               ) : (
