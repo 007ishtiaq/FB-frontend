@@ -188,11 +188,12 @@ export const createCashOrderForUser = async (
   authtoken,
   COD,
   couponTrueOrFalse,
-  values
+  values,
+  paymentId
 ) =>
   await axios.post(
     `${process.env.REACT_APP_API}/user/cash-order`,
-    { couponApplied: couponTrueOrFalse, COD, values },
+    { couponApplied: couponTrueOrFalse, COD, values, paymentId },
     {
       headers: {
         authtoken,

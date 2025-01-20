@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./StripeCheckout.css";
 import { ReactComponent as Chipsvg } from "./cardimgs/chip.svg";
 import { ReactComponent as Visasvg } from "./cardimgs/visa.svg";
+import { ReactComponent as Infosvg } from "../images/info.svg";
+import { ReactComponent as Passwordlock } from "../images/manageacUser/passwordlock.svg";
 import { useSelector } from "react-redux";
 import { createPaymentIntent } from "../functions/stripe";
 
@@ -15,6 +17,7 @@ const StripeCheckout = ({
   setCardHolder,
   error,
   succeeded,
+  setNoNetModal,
 }) => {
   const { user, coupon } = useSelector((state) => ({ ...state }));
 
@@ -57,9 +60,13 @@ const StripeCheckout = ({
   };
 
   useEffect(() => {
-    createPaymentIntent(user.token, coupon).then((res) => {
-      setClientSecret(res.data.clientSecret);
-    });
+    if (navigator.onLine) {
+      createPaymentIntent(user.token, coupon).then((res) => {
+        setClientSecret(res.data.clientSecret);
+      });
+    } else {
+      setNoNetModal(true);
+    }
   }, [user, coupon]);
 
   return (
@@ -175,8 +182,11 @@ const StripeCheckout = ({
           {processing ? "Processing..." : "Pay"}
         </button>  */}
       {error && (
-        <div className="card-error" role="alert">
-          {error}
+        <div class="card-error codnotification" role="alert">
+          <div class="squreinfo">
+            <Infosvg />
+          </div>
+          <div class="infodivp">{error}</div>
         </div>
       )}
       {succeeded && (
@@ -184,6 +194,18 @@ const StripeCheckout = ({
           Payment Successful! See your order history.
         </p>
       )}
+      <div class="card-error codnotification" role="alert">
+        {/* <div class="squreinfo">
+          <Infosvg />
+        </div> */}
+        <div className="locksvg">
+          <Passwordlock />
+        </div>
+        <div class="infodivp">
+          Your card information is securely processed by Stripe and is not
+          stored on our site.
+        </div>
+      </div>
     </div>
   );
 };

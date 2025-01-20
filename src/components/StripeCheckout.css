@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   flex-flow: column;
-  padding-bottom: 60px;
+  padding-bottom: 30px;
 }
 
 .container form {
@@ -64,6 +64,7 @@
 
 .container .card-container {
   position: relative;
+  min-height: 350px;
   /* height: 250px;
   width: 400px; */
 }
@@ -210,6 +211,23 @@
 .cardfrontsvg .cardfrontsvgvisa {
   width: 7rem;
   height: auto;
+}
+
+/* ----passs lovk svg */
+.locksvg {
+  width: 8.5rem;
+  border: 1px solid #e1e1e1;
+  border-radius: 50%;
+  padding: 1.5rem;
+  height: auto;
+  display: block;
+  margin-bottom: 2rem;
+}
+.locksvg svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--org-primary);
+  display: block;
 }
 
 /* my styling  */

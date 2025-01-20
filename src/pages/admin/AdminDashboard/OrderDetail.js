@@ -495,6 +495,13 @@ export default function OrderDetail({ match, history }) {
                           </>
                         )}
                       </li>
+                      {order.StripePaymentId && (
+                        <li>
+                          <span>Stripe Payment Id:</span>{" "}
+                          {order.StripePaymentId}
+                        </li>
+                      )}
+
                       <li className="actionli">
                         <span>Payment status:</span>
                         {order.isPaid ? (

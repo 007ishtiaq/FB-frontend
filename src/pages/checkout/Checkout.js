@@ -54,6 +54,7 @@ const Checkout = ({ history }) => {
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState("");
   const [cardHolder, setCardHolder] = useState("");
+  const [isCardValid, setIsCardValid] = useState(false);
 
   const [image, setImage] = useState("");
   const [imageuploaded, setImageuploaded] = useState(false);
@@ -170,10 +171,12 @@ const Checkout = ({ history }) => {
     if (navigator.onLine) {
       e.preventDefault();
       setProcessing(true);
+      setLoading(true);
 
       if (!stripe || !elements) {
         setError("Stripe has not loaded yet. Please try again.");
         setProcessing(false);
+        setLoading(false);
         return;
       }
 
@@ -192,73 +195,84 @@ const Checkout = ({ history }) => {
         if (payload.error) {
           setError(`Payment failed: ${payload.error.message}`);
           setProcessing(false);
+          setLoading(false);
         } else {
           setError(null);
           setProcessing(false);
+          setLoading(false);
           setSucceeded(true);
+          toast.success("Payment Charged Successfully!");
+          console.log("Payment Intent ID:", payload.paymentIntent.id);
+          createCashOrderForUser(
+            user.token,
+            COD,
+            couponTrueOrFalse,
+            values,
+            payload.paymentIntent.id
+          )
+            .then((res) => {
+              trackEvent("Purchase", {
+                value: 50.0, // The total purchase amount
+                currency: "USD", // Currency in ISO 4217 format
+              });
+              // console.log("USER CASH ORDER CREATED RES ", res);
+              if (res.data.error) {
+                toast.error(`${res.data.error}`);
+              }
+              // empty cart form redux, local Storage, reset coupon, reset COD, redirect
+              if (res.data.orderId) {
+                // empty local storage
+                if (typeof window !== "undefined")
+                  localStorage.removeItem("cart");
+                // empty redux cart
+                dispatch({
+                  type: "ADD_TO_CART",
+                  payload: [],
+                });
+                // empty redux coupon
+                dispatch({
+                  type: "COUPON_APPLIED",
+                  payload: { applied: false, coupon: {} },
+                });
+                // empty local storage coupon
+                if (typeof window !== "undefined") {
+                  localStorage.setItem("coupon", JSON.stringify(""));
+                }
+                // empty redux COD
+                dispatch({
+                  type: "COD",
+                  payload: false,
+                });
+                // empty redux BFT
+                dispatch({
+                  type: "BFT",
+                  payload: true,
+                });
+                // empty redux Wallet
+                dispatch({
+                  type: "Wallet",
+                  payload: false,
+                });
+                // empty redux Easypesa
+                dispatch({
+                  type: "Easypesa",
+                  payload: false,
+                });
+                // empty cart from backend
+                emptyUserCart(user.token);
+                // redirect
+                setTimeout(() => {
+                  history.push(`/OrderPlaced/${res.data.orderId}`);
+                }, 800);
+              }
+            })
+            .catch((err) => console.log("cart save err", err));
         }
       } catch (err) {
         setError("Payment processing failed. Please try again.");
         setProcessing(false);
+        setLoading(false);
       }
-
-      // createCashOrderForUser(user.token, COD, couponTrueOrFalse, values)
-      //   .then((res) => {
-      //     trackEvent("Purchase", {
-      //       value: 50.0, // The total purchase amount
-      //       currency: "USD", // Currency in ISO 4217 format
-      //     });
-      //     // console.log("USER CASH ORDER CREATED RES ", res);
-      //     if (res.data.error) {
-      //       toast.error(`${res.data.error}`);
-      //     }
-      //     // empty cart form redux, local Storage, reset coupon, reset COD, redirect
-      //     if (res.data.orderId) {
-      //       // empty local storage
-      //       if (typeof window !== "undefined") localStorage.removeItem("cart");
-      //       // empty redux cart
-      //       dispatch({
-      //         type: "ADD_TO_CART",
-      //         payload: [],
-      //       });
-      //       // empty redux coupon
-      //       dispatch({
-      //         type: "COUPON_APPLIED",
-      //         payload: { applied: false, coupon: {} },
-      //       });
-      //       // empty local storage coupon
-      //       if (typeof window !== "undefined") {
-      //         localStorage.setItem("coupon", JSON.stringify(""));
-      //       }
-      //       // empty redux COD
-      //       dispatch({
-      //         type: "COD",
-      //         payload: false,
-      //       });
-      //       // empty redux BFT
-      //       dispatch({
-      //         type: "BFT",
-      //         payload: true,
-      //       });
-      //       // empty redux Wallet
-      //       dispatch({
-      //         type: "Wallet",
-      //         payload: false,
-      //       });
-      //       // empty redux Easypesa
-      //       dispatch({
-      //         type: "Easypesa",
-      //         payload: false,
-      //       });
-      //       // empty cart from backend
-      //       emptyUserCart(user.token);
-      //       // redirect
-      //       setTimeout(() => {
-      //         history.push(`/OrderPlaced/${res.data.orderId}`);
-      //       }, 800);
-      //     }
-      //   })
-      //   .catch((err) => console.log("cart save err", err));
     } else {
       setNoNetModal(true);
     }
@@ -266,6 +280,7 @@ const Checkout = ({ history }) => {
 
   const handleCardChange = (event) => {
     setDisabled(event.empty);
+    setIsCardValid(event.complete);
     setError(event.error ? event.error.message : "");
   };
 
@@ -386,6 +401,12 @@ const Checkout = ({ history }) => {
     if (!values.Address) {
       return "Shipping address missing*";
     }
+    if (!isCardValid) {
+      return "Card information is incomplete or invalid*";
+    }
+    if (!cardHolder) {
+      return "Card Holder name missing*";
+    }
     if (!termRead) {
       return "Please accept the terms and conditions";
     } else {
@@ -490,6 +511,7 @@ const Checkout = ({ history }) => {
               setCardHolder={setCardHolder}
               error={error}
               succeeded={succeeded}
+              setNoNetModal={setNoNetModal}
             />
           </div>
         </div>
@@ -534,11 +556,26 @@ const Checkout = ({ history }) => {
               {COD ? (
                 <button
                   className="checkoutbtn"
-                  disabled={processing || disabled || succeeded}
+                  disabled={
+                    processing ||
+                    disabled ||
+                    succeeded ||
+                    // isCardValid ||
+                    // !values.Contact ||
+                    // !values.Address ||
+                    // total + shippingfee === 0 ||
+                    !termRead
+                  }
                   onClick={payStripeCreateCashOrder}
                 >
                   <Tooltip title={tooltiphandlerCOD()}>
-                    {loading ? "Loading svg here" : "Proceed to Pay"}
+                    {loading ? (
+                      <div className="btnloadcont">
+                        <LoadingOutlined />
+                      </div>
+                    ) : (
+                      "Proceed to Pay"
+                    )}
                   </Tooltip>
                 </button>
               ) : (

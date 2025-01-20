@@ -226,128 +226,145 @@ const App = () => {
           <Header />
           <Toaster />
           <GoToTop />
-          <Switch>
-            {/* common unprotected Routes */}
-            <Route exact path="/" component={Home} />
-            <Route exact path="/product/:slug" component={Product} />
-            <Route exact path="/shop" component={Shop} />
-            <Route exact path="/shop?category=:slug" component={Shop} />
-            <Route exact path="/cart" component={Cart} />
-            <Route exact path="/category" component={CategoryHome} />
-            <Route
-              exact
-              path="/category?category=:slug"
-              component={CategoryHome}
-            />
-            <Route exact path="/Flashsale" component={FlashHome} />
-            <Route exact path="/sub/:slug" component={SubHome} />
-            <Route exact path="/HelpCenter" component={HelpCenter} />
-            <Route exact path="/HelpCenter?page=:page" component={HelpCenter} />
-            <Route exact path="/aboutus" component={AboutUs} />
-            <Route exact path="/ContactUs" component={ContactUs} />
-            <Route exact path="/PrivacyPolicy" component={PrivacyPolicy} />
-            <Route
-              exact
-              path="/ReturnandRefundPolicy"
-              component={ReturnandRefundPolicy}
-            />
-            <Route
-              exact
-              path="/TermsAndConditions"
-              component={TermsAndConditions}
-            />
-            <Route exact path="/CookiePolicy" component={CookiePolicy} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/otpVerification" component={OtpVerification} />
-            <Route
-              exact
-              path="/register/complete"
-              component={RegisterComplete}
-            />
-            <Route exact path="/forgot/password" component={ForgotPassword} />
-            {/* User protected Routes */}
-            <Elements stripe={promise}>
+          <Elements stripe={promise}>
+            <Switch>
+              {/* common unprotected Routes */}
+              <Route exact path="/" component={Home} />
+              <Route exact path="/product/:slug" component={Product} />
+              <Route exact path="/shop" component={Shop} />
+              <Route exact path="/shop?category=:slug" component={Shop} />
+              <Route exact path="/cart" component={Cart} />
+              <Route exact path="/category" component={CategoryHome} />
+              <Route
+                exact
+                path="/category?category=:slug"
+                component={CategoryHome}
+              />
+              <Route exact path="/Flashsale" component={FlashHome} />
+              <Route exact path="/sub/:slug" component={SubHome} />
+              <Route exact path="/HelpCenter" component={HelpCenter} />
+              <Route
+                exact
+                path="/HelpCenter?page=:page"
+                component={HelpCenter}
+              />
+              <Route exact path="/aboutus" component={AboutUs} />
+              <Route exact path="/ContactUs" component={ContactUs} />
+              <Route exact path="/PrivacyPolicy" component={PrivacyPolicy} />
+              <Route
+                exact
+                path="/ReturnandRefundPolicy"
+                component={ReturnandRefundPolicy}
+              />
+              <Route
+                exact
+                path="/TermsAndConditions"
+                component={TermsAndConditions}
+              />
+              <Route exact path="/CookiePolicy" component={CookiePolicy} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+              <Route
+                exact
+                path="/otpVerification"
+                component={OtpVerification}
+              />
+              <Route
+                exact
+                path="/register/complete"
+                component={RegisterComplete}
+              />
+              <Route exact path="/forgot/password" component={ForgotPassword} />
+              {/* User protected Routes */}
               <UserRoute exact path="/checkout" component={Checkout} />
-            </Elements>
-            <UserRoute
-              exact
-              path="/OrderPlaced/:orderId"
-              component={Thankyou}
-            />
-            <UserRoute exact path="/ManageMyAc" component={ManageMyAccount} />
-            <UserRoute
-              exact
-              path="/ManageMyAc?page=:page"
-              component={ManageMyAccount}
-            />
-            {/* <UserRoute exact path="/user/password" component={Password} /> */}
-            <UserRoute exact path="/order/:id" component={OrderDetails} />
-            <UserRoute
-              exact
-              path="/order/:id/itemCancel/:itemid"
-              component={ItemCancel}
-            />
-            <UserRoute
-              exact
-              path="/order/:id/itemReturn/:itemid"
-              component={ItemReturn}
-            />
-            <UserRoute
-              exact
-              path="/Request/:requestType/RequestNum/:requestNum"
-              component={RequestSubmitted}
-            />
-            {/* <UserRoute exact path="/user/userreviews" component={UserReviews} />
+
+              <UserRoute
+                exact
+                path="/OrderPlaced/:orderId"
+                component={Thankyou}
+              />
+              <UserRoute exact path="/ManageMyAc" component={ManageMyAccount} />
+              <UserRoute
+                exact
+                path="/ManageMyAc?page=:page"
+                component={ManageMyAccount}
+              />
+              {/* <UserRoute exact path="/user/password" component={Password} /> */}
+              <UserRoute exact path="/order/:id" component={OrderDetails} />
+              <UserRoute
+                exact
+                path="/order/:id/itemCancel/:itemid"
+                component={ItemCancel}
+              />
+              <UserRoute
+                exact
+                path="/order/:id/itemReturn/:itemid"
+                component={ItemReturn}
+              />
+              <UserRoute
+                exact
+                path="/Request/:requestType/RequestNum/:requestNum"
+                component={RequestSubmitted}
+              />
+              {/* <UserRoute exact path="/user/userreviews" component={UserReviews} />
           <UserRoute exact path="/user/userwishlist" component={UserWishlist} /> */}
-            {/* Admin protected Routes */}
-            <AdminRoute exact path="/AdminPanel" component={AdminPanel} />
-            <AdminRoute
-              exact
-              path="/AdminPanel?page=:page"
-              component={AdminPanel}
-            />
-            <AdminRoute exact path="/admin/order/:id" component={OrderDetail} />
-            <AdminRoute
-              exact
-              path="/admin/category/:slug"
-              component={CategoryUpdate}
-            />
-            <AdminRoute
-              exact
-              path="/admin/banner/:slug"
-              component={BannerUpdate}
-            />
-            <AdminRoute
-              exact
-              path="/admin/statictext/:slug"
-              component={StaticTextupdate}
-            />
-            <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
-            <AdminRoute exact path="/admin/sub2/:slug" component={Sub2Update} />
-            <AdminRoute
-              exact
-              path="/admin/product/:slug"
-              component={ProductUpdate}
-            />
-            <AdminRoute
-              exact
-              path="/admin/coupon"
-              component={CreateCouponPage}
-            />
-            <AdminRoute
-              exact
-              path="/admin/shipping"
-              component={CreateShippingPage}
-            />
-            <AdminRoute
-              exact
-              path="/admin/contact/:id"
-              component={ContactFormSingle}
-            />
-            <Route exact path="*" component={NotFound} />
-            <Route component={NotFound} />
-          </Switch>
+              {/* Admin protected Routes */}
+              <AdminRoute exact path="/AdminPanel" component={AdminPanel} />
+              <AdminRoute
+                exact
+                path="/AdminPanel?page=:page"
+                component={AdminPanel}
+              />
+              <AdminRoute
+                exact
+                path="/admin/order/:id"
+                component={OrderDetail}
+              />
+              <AdminRoute
+                exact
+                path="/admin/category/:slug"
+                component={CategoryUpdate}
+              />
+              <AdminRoute
+                exact
+                path="/admin/banner/:slug"
+                component={BannerUpdate}
+              />
+              <AdminRoute
+                exact
+                path="/admin/statictext/:slug"
+                component={StaticTextupdate}
+              />
+              <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
+              <AdminRoute
+                exact
+                path="/admin/sub2/:slug"
+                component={Sub2Update}
+              />
+              <AdminRoute
+                exact
+                path="/admin/product/:slug"
+                component={ProductUpdate}
+              />
+              <AdminRoute
+                exact
+                path="/admin/coupon"
+                component={CreateCouponPage}
+              />
+              <AdminRoute
+                exact
+                path="/admin/shipping"
+                component={CreateShippingPage}
+              />
+              <AdminRoute
+                exact
+                path="/admin/contact/:id"
+                component={ContactFormSingle}
+              />
+              <Route exact path="*" component={NotFound} />
+              <Route component={NotFound} />
+            </Switch>
+          </Elements>
           <Footer />
         </Router>
       </SkeletonTheme>

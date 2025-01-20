@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { ReactComponent as Banksvg } from "../../../images/cart/payments/banktransfer.svg";
 import { ReactComponent as Mastersvg } from "../../../images/cart/payments/master.svg";
 import { ReactComponent as Visasvg } from "../../../images/cart/payments/visa.svg";
-import { ReactComponent as Infosvg } from "../../../images/info.svg";
+// import { ReactComponent as Infosvg } from "../../../images/info.svg";
 import SlipImgUpload from "../SlipImgUpload";
 // import StripePaymentForm from "./StripePaymentForm";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,6 +21,7 @@ export default function PaymentsForm({
   setCardHolder,
   error,
   succeeded,
+  setNoNetModal,
 }) {
   const [bft, setBft] = useState(true);
   const [cod, setCod] = useState(false);
@@ -216,6 +217,7 @@ export default function PaymentsForm({
                   setCardHolder={setCardHolder}
                   error={error}
                   succeeded={succeeded}
+                  setNoNetModal={setNoNetModal}
                 />
               </div>
 
