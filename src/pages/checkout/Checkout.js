@@ -81,7 +81,7 @@ const Checkout = ({ history }) => {
     return () => {
       window.removeEventListener("online", handleOnlineStatus);
     };
-  }, []);
+  }, [navigator.onLine]);
 
   useEffect(() => {
     trackEvent("CheckoutPageView", { page: "checkout" });
@@ -434,7 +434,7 @@ const Checkout = ({ history }) => {
   };
 
   const handleRetry = () => {
-    //
+    window.location.reload();
   };
 
   return (

@@ -21,7 +21,7 @@ const StripeCheckout = ({
 }) => {
   const { user, coupon } = useSelector((state) => ({ ...state }));
   const [isOnline, setIsOnline] = useState(navigator.onLine); // Track internet status
-  const [stripeKey, setStripeKey] = useState(Date.now()); // Key for remounting Stripe fields
+  const [componentKey, setComponentKey] = useState(Date.now()); // Unique key for remounting
 
   const inputStyle = {
     base: {
@@ -51,7 +51,7 @@ const StripeCheckout = ({
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
-      setStripeKey(Date.now()); // Update key to remount Stripe fields
+      setComponentKey(Date.now()); // Change key to remount component
     };
 
     const handleOffline = () => {
@@ -77,7 +77,7 @@ const StripeCheckout = ({
   }, [isOnline, user, coupon, setClientSecret]);
 
   return (
-    <div className="container">
+    <div key={componentKey} className="container">
       <div className="card-container">
         <div className="card">
           <div className="front">
@@ -90,7 +90,6 @@ const StripeCheckout = ({
                 <span>Card Number</span>
                 <div className="inputWrapper">
                   <CardNumberElement
-                    key={`${stripeKey}-card-number`} // Unique key for Stripe field
                     options={{
                       style: inputStyle,
                     }}
@@ -118,7 +117,6 @@ const StripeCheckout = ({
                   <span>Expiration</span>
                   <div className="inputWrapper">
                     <CardExpiryElement
-                      key={`${stripeKey}-card-expiry`} // Unique key for Stripe field
                       options={{
                         style: inputStyle,
                       }}
@@ -137,7 +135,6 @@ const StripeCheckout = ({
                 <div className="cvv-box">
                   <div className="inputWrapper cvvWrapper">
                     <CardCvcElement
-                      key={`${stripeKey}-card-cvc`} // Unique key for Stripe field
                       options={{
                         style: inputStyle,
                       }}
