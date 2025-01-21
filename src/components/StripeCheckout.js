@@ -21,7 +21,7 @@ const StripeCheckout = ({
 }) => {
   const { user, coupon } = useSelector((state) => ({ ...state }));
   const [isOnline, setIsOnline] = useState(navigator.onLine); // Track internet status
-  const [stripeKey, setStripeKey] = useState(Date.now()); // Key for remounting Stripe fields
+  const [componentKey, setComponentKey] = useState(Date.now()); // Unique key for remounting
 
   const inputStyle = {
     base: {
@@ -51,7 +51,7 @@ const StripeCheckout = ({
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
-      setStripeKey(Date.now()); // Update key to remount Stripe fields
+      setComponentKey(Date.now()); // Change key to remount component
     };
 
     const handleOffline = () => {
@@ -77,7 +77,20 @@ const StripeCheckout = ({
   }, [isOnline, user, coupon, setClientSecret]);
 
   return (
-    <div className="container">
+    <div key={componentKey} className="container">
+      {error && (
+        <div className="card-error codnotification" role="alert">
+          <div className="squreinfo">
+            <Infosvg />
+          </div>
+          <div className="infodivp">{error}</div>
+        </div>
+      )}
+      {succeeded && (
+        <p className="result-message">
+          Payment Successful! See your order history.
+        </p>
+      )}
       <div className="card-container">
         <div className="card">
           <div className="front">
@@ -90,7 +103,6 @@ const StripeCheckout = ({
                 <span>Card Number</span>
                 <div className="inputWrapper">
                   <CardNumberElement
-                    key={`${stripeKey}-card-number`} // Unique key for Stripe field
                     options={{
                       style: inputStyle,
                     }}
@@ -118,7 +130,6 @@ const StripeCheckout = ({
                   <span>Expiration</span>
                   <div className="inputWrapper">
                     <CardExpiryElement
-                      key={`${stripeKey}-card-expiry`} // Unique key for Stripe field
                       options={{
                         style: inputStyle,
                       }}
@@ -136,16 +147,10 @@ const StripeCheckout = ({
                 <span>CVV</span>
                 <div className="cvv-box">
                   <div className="inputWrapper cvvWrapper">
-                    <CardCvcElement
-                      key={`${stripeKey}-card-cvc`} // Unique key for Stripe field
-                      options={{
-                        style: inputStyle,
-                      }}
-                      onChange={handleCardChange}
-                    />
+                    <CardCvcElement onChange={handleCardChange} />
                   </div>
                 </div>
-                <div className="logosvgopt paymentsvgs cardsvg">
+                <div className="cardvisasvg">
                   <Visasvg />
                 </div>
               </div>
@@ -153,19 +158,7 @@ const StripeCheckout = ({
           </div>
         </div>
       </div>
-      {error && (
-        <div className="card-error codnotification" role="alert">
-          <div className="squreinfo">
-            <Infosvg />
-          </div>
-          <div className="infodivp">{error}</div>
-        </div>
-      )}
-      {succeeded && (
-        <p className="result-message">
-          Payment Successful! See your order history.
-        </p>
-      )}
+
       <div className="card-error codnotification" role="alert">
         <div className="locksvg">
           <Passwordlock />

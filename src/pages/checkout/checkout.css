@@ -29,7 +29,6 @@
 .paymentdetailscont {
   width: 80%;
   margin: 2rem auto 0;
-  padding: 0px 1.5rem 1rem 1.5rem;
   min-height: 42rem;
 }
 
@@ -45,19 +44,22 @@
   background: #ffead6;
   border-radius: 0.4rem;
   padding: 1rem;
-  margin-top: 2rem;
+  margin: 1rem 0 2rem;
 }
 .squreinfo {
   width: 3.8rem;
   margin-right: 1rem;
 }
 .infodivp {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 .pmtheading {
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 1.2rem;
+}
+.oltransfer {
+  padding: 0px 1.5rem 1rem 1.5rem;
 }
 .oltransfer p {
   font-size: 1.5rem;

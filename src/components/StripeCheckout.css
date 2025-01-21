@@ -142,6 +142,8 @@
 
 .container .card-container .back .box {
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .container .card-container .back .box span {
@@ -221,7 +223,7 @@
   padding: 1.5rem;
   height: auto;
   display: block;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
 }
 .locksvg svg {
   width: 100%;
@@ -281,4 +283,79 @@
   position: absolute;
   right: 28px;
   color: black;
+}
+.cardvisasvg {
+  margin-top: 3rem;
+  width: 5rem;
+  height: auto;
+  align-self: flex-end;
+}
+
+.cardvisasvg svg {
+  width: 100%;
+  height: 100%;
+}
+
+/*****************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 400px) {
+  .Stripecontainer {
+    padding: 0;
+  }
+  .container {
+    padding: 0;
+  }
+  .codnotification {
+    gap: 1rem;
+    padding: 0.9rem;
+  }
+  .locksvg {
+    width: 6.5rem;
+    border: 1px solid #d1d1d1;
+    padding: 1rem;
+  }
+  .container .card-container {
+    width: 100%;
+  }
+  .container .card-container .front {
+    width: 314px;
+    height: 197px;
+    top: 0;
+    left: -5%;
+    transform: unset;
+  }
+  .card {
+    box-shadow: unset;
+  }
+  .container .card-container .back {
+    top: 128px;
+    left: 15px;
+    width: 314px;
+    height: 197px;
+  }
+  .container .card-container .front .card-number-box {
+    padding: 9px 0;
+  }
+  .container .card-container .front {
+    padding: 15px;
+  }
+  .container .card-container .back .box .cvv-box {
+    height: 40px;
+    padding: 6px;
+  }
+  .container .card-container .back .box {
+    padding: 0px 22px;
+  }
+  .container .card-container .back .box span {
+    margin-right: 22px;
+  }
+  .inputBox .card-holder-input {
+    width: 92%;
+  }
+  .cardvisasvg {
+    margin-top: 1rem;
+    align-self: flex-start;
+  }
 }
