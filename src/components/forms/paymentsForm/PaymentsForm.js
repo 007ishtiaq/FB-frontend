@@ -206,7 +206,7 @@ export default function PaymentsForm({
               class="codpmtcont"
               className={codActive && "active"}
             >
-              <div className="col-md-8 offset-md-2 Stripecontainer">
+              <div className="Stripecontainer">
                 <StripeCheckout
                   CardNumberElement={CardNumberElement}
                   CardExpiryElement={CardExpiryElement}

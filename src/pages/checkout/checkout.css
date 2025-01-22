@@ -45,11 +45,9 @@
   border-radius: 0.4rem;
   padding: 1rem;
   margin: 1rem 0 2rem;
+  gap: 1rem;
 }
-.squreinfo {
-  width: 3.8rem;
-  margin-right: 1rem;
-}
+
 .infodivp {
   font-size: 1.4rem;
 }

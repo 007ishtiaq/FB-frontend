@@ -201,8 +201,7 @@ const Checkout = ({ history }) => {
           setProcessing(false);
           setLoading(false);
           setSucceeded(true);
-          toast.success("Payment Charged Successfully!");
-          console.log("Payment Intent ID:", payload.paymentIntent.id);
+          // toast.success("Payment Charged Successfully!");
           createCashOrderForUser(
             user.token,
             COD,

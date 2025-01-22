@@ -78,19 +78,24 @@ const StripeCheckout = ({
 
   return (
     <div key={componentKey} className="container">
-      {error && (
-        <div className="card-error codnotification" role="alert">
-          <div className="squreinfo">
-            <Infosvg />
+      <div className="msgcontainer">
+        {error && (
+          <div className="card-error codnotification" role="alert">
+            <div className="squreinfo">
+              <Infosvg />
+            </div>
+            <div className="infodivp">{error}</div>
           </div>
-          <div className="infodivp">{error}</div>
-        </div>
-      )}
-      {succeeded && (
-        <p className="result-message">
-          Payment Successful! See your order history.
-        </p>
-      )}
+        )}
+        {succeeded && (
+          <div className="card-succsess codnotification" role="alert">
+            <div className="squreinfo">
+              <Infosvg />
+            </div>
+            <div className="infodivp">Payment Charged Successfully!</div>
+          </div>
+        )}
+      </div>
       <div className="card-container">
         <div className="card">
           <div className="front">
@@ -159,7 +164,7 @@ const StripeCheckout = ({
         </div>
       </div>
 
-      <div className="card-error codnotification" role="alert">
+      <div className="codnotification" role="alert">
         <div className="locksvg">
           <Passwordlock />
         </div>
