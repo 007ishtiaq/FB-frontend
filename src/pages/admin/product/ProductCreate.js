@@ -23,7 +23,7 @@ const initialState = {
   weight: "500",
   images: [],
   colors: [],
-  color: "White",
+  color: "",
   size: "",
   onSale: "No",
   saleTime: "",
