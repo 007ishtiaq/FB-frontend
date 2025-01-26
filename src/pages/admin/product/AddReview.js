@@ -93,25 +93,38 @@ const AddReview = () => {
 
   const handleRemove = (reviewId, imagesArray) => {
     if (window.confirm("Delete?")) {
-      // Extract all public_ids from the images array
-      const publicIds = imagesArray.map((image) => image.public_id);
-      deleteReviewImages(publicIds, user.token)
-        .then(() => {
-          // After images are deleted, proceed to delete the review
-          deleteReview(reviewId, user.token)
-            .then((res) => {
-              loadAdminReviews(); // Reload reviews
-              toast.success(`Review and associated images are deleted`);
-            })
-            .catch((err) => {
-              if (err.response.status === 400) toast.error(err.response.data);
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          // console.log("Failed to delete images", err);
-          toast.error("Failed to delete images");
-        });
+      if (imagesArray && imagesArray.length > 0) {
+        // Extract all public_ids from the images array
+        const publicIds = imagesArray.map((image) => image.public_id);
+        deleteReviewImages(publicIds, user.token)
+          .then(() => {
+            // After images are deleted, proceed to delete the review
+            deleteReview(reviewId, user.token)
+              .then(() => {
+                loadAdminReviews(); // Reload reviews
+                toast.success(`Review and associated images are deleted`);
+              })
+              .catch((err) => {
+                if (err.response?.status === 400)
+                  toast.error(err.response.data);
+                console.log(err);
+              });
+          })
+          .catch(() => {
+            toast.error("Failed to delete images");
+          });
+      } else {
+        // If no images, directly delete the review
+        deleteReview(reviewId, user.token)
+          .then(() => {
+            loadAdminReviews(); // Reload reviews
+            toast.success(`Review deleted`);
+          })
+          .catch((err) => {
+            if (err.response?.status === 400) toast.error(err.response.data);
+            console.log(err);
+          });
+      }
     }
   };
 

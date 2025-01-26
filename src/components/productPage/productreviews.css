@@ -322,6 +322,19 @@
   border: 1px solid #ccc; /* Optional border */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a shadow for better aesthetics */
 }
+/* .reviewmodalimg {
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+} */
+.reviewmodalimg {
+  max-width: 80vw;
+  max-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /* --------pagination styling is on common stylings------- */
 
@@ -434,6 +447,12 @@
   }
   .productreviewself {
     flex-direction: column;
+  }
+  .cnamecont {
+    width: 100%;
+  }
+  .creviewcont {
+    width: 100%;
   }
 }
 @media (max-width: 415px) {

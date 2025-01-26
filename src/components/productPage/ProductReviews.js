@@ -260,7 +260,11 @@ export default function ProductReviews({
                                   show={showModels[img.url]}
                                   closeModel={() => handleModelToggle(img.url)}
                                 >
-                                  <img className="" src={img.url} alt="" />
+                                  <img
+                                    className="reviewmodalimg"
+                                    src={img.url}
+                                    alt=""
+                                  />
                                 </Model>
                                 <img
                                   key={index}

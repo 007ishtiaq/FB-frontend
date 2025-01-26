@@ -14,7 +14,7 @@
   box-shadow: var(--org-primary);
   border-radius: 50%;
   position: fixed;
-  bottom: 6rem;
+  bottom: 10rem;
   right: 3rem;
   z-index: 999;
   display: flex;

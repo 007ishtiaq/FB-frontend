@@ -5,7 +5,7 @@
   right: 0;
   background-color: #f8f9fa;
   border-top: 1px solid #ddd;
-  padding: 10px 20px;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,4 +28,17 @@
 
 .cookie-banner-btn.mybtn {
   padding: 5px 10px;
+}
+
+/* ***************************************
+**************Responsiveness***********
+*************************************** */
+
+@media (max-width: 950px) {
+  .cookie-banner-btn.mybtn {
+    padding: 0.5rem 2rem;
+  }
+  .cookie-banner p {
+    font-size: 1.4rem;
+  }
 }
