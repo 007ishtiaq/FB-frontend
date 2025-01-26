@@ -207,7 +207,8 @@ const Checkout = ({ history }) => {
             COD,
             couponTrueOrFalse,
             values,
-            payload.paymentIntent.id
+            payload.paymentIntent.id,
+            newsletter
           )
             .then((res) => {
               trackEvent("Purchase", {
