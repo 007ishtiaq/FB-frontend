@@ -201,6 +201,11 @@ const ProductUpdate = ({ match, history }) => {
     setDesattributes([...desattributes, {}]);
   };
 
+  const removeDesAttribute = (index) => {
+    const updatedDesattributes = desattributes.filter((_, i) => i !== index);
+    setDesattributes(updatedDesattributes);
+  };
+
   const handleDesAttributeChange = (index, key, value) => {
     const updatedDesattributes = [...desattributes];
     updatedDesattributes[index] = { [key]: value };
@@ -209,6 +214,11 @@ const ProductUpdate = ({ match, history }) => {
 
   const addVariants = () => {
     setVariants([...variants, { name: "", image: "" }]);
+  };
+
+  const removeVariant = (index) => {
+    const updatedVariants = variants.filter((_, i) => i !== index);
+    setVariants(updatedVariants);
   };
 
   const handleVariantChange = (index, key, value) => {
@@ -257,6 +267,11 @@ const ProductUpdate = ({ match, history }) => {
         ],
       },
     ]);
+  };
+
+  const removeSize = (index) => {
+    const updatedSizes = sizes.filter((_, i) => i !== index);
+    setSizes(updatedSizes);
   };
 
   const handleSize = (index, key, value) => {
@@ -310,6 +325,7 @@ const ProductUpdate = ({ match, history }) => {
               handleSub2Change={handleSub2Change}
               addAttribute={addAttribute}
               addDesAttribute={addDesAttribute}
+              removeDesAttribute={removeDesAttribute}
               categories={categories}
               subOptions={subOptions}
               sub2Options={sub2Options}
@@ -323,9 +339,11 @@ const ProductUpdate = ({ match, history }) => {
               handleImageRemove={handleImageRemove}
               variants={variants}
               addVariants={addVariants}
+              removeVariant={removeVariant}
               handleVariantChange={handleVariantChange}
               sizes={sizes}
               addSize={addSize}
+              removeSize={removeSize}
               handleSize={handleSize}
             />
             <hr />

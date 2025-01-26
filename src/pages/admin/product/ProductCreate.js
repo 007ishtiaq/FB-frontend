@@ -123,6 +123,11 @@ const ProductCreate = () => {
     setDesattributes([...desattributes, {}]);
   };
 
+  const removeDesAttribute = (index) => {
+    const updatedDesattributes = desattributes.filter((_, i) => i !== index);
+    setDesattributes(updatedDesattributes);
+  };
+
   const handleDesAttributeChange = (index, key, value) => {
     const updatedDesattributes = [...desattributes];
     updatedDesattributes[index] = { [key]: value };
@@ -131,6 +136,11 @@ const ProductCreate = () => {
 
   const addVariants = () => {
     setVariants([...variants, { name: "", image: "" }]);
+  };
+
+  const removeVariant = (index) => {
+    const updatedVariants = variants.filter((_, i) => i !== index);
+    setVariants(updatedVariants);
   };
 
   const handleVariantChange = (index, key, value) => {
@@ -181,6 +191,11 @@ const ProductCreate = () => {
     ]);
   };
 
+  const removeSize = (index) => {
+    const updatedSizes = sizes.filter((_, i) => i !== index);
+    setSizes(updatedSizes);
+  };
+
   const handleSize = (index, key, value) => {
     const updatedSizes = [...sizes];
 
@@ -229,6 +244,7 @@ const ProductCreate = () => {
         attributes={attributes}
         addAttribute={addAttribute}
         addDesAttribute={addDesAttribute}
+        removeDesAttribute={removeDesAttribute}
         desattributes={desattributes}
         setDesattributes={setDesattributes}
         handleDesAttributeChange={handleDesAttributeChange}
@@ -236,9 +252,11 @@ const ProductCreate = () => {
         handleImageRemove={handleImageRemove}
         variants={variants}
         addVariants={addVariants}
+        removeVariant={removeVariant}
         handleVariantChange={handleVariantChange}
         sizes={sizes}
         addSize={addSize}
+        removeSize={removeSize}
         handleSize={handleSize}
       />
     </div>

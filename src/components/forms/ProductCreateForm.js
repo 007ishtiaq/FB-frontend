@@ -16,15 +16,18 @@ const ProductCreateForm = ({
   attributes,
   addAttribute,
   addDesAttribute,
+  removeDesAttribute,
   desattributes,
   handleDesAttributeChange,
   setLoading,
   handleImageRemove,
   variants,
   addVariants,
+  removeVariant,
   handleVariantChange,
   sizes,
   addSize,
+  removeSize,
   handleSize,
 }) => {
   const {
@@ -81,38 +84,48 @@ const ProductCreateForm = ({
       </div>
 
       {desattributes.map((desattr, index) => {
-        // Get the current key and value from the object
         const currentKey = Object.keys(desattr)[0] || "";
         const currentValue = Object.values(desattr)[0] || "";
 
         return (
           <div key={index} className="form-group">
-            <label>Key</label>
-            <input
-              type="text"
-              className="form-control"
-              value={currentKey}
-              onChange={(e) =>
-                handleDesAttributeChange(index, e.target.value, currentValue)
-              }
-            />
+            <div>
+              <label>Key</label>
+              <input
+                type="text"
+                className="form-control"
+                value={currentKey}
+                onChange={(e) =>
+                  handleDesAttributeChange(index, e.target.value, currentValue)
+                }
+              />
 
-            <label>Value</label>
-            <input
-              type="text"
-              className="form-control"
-              value={currentValue}
-              onChange={(e) =>
-                handleDesAttributeChange(index, currentKey, e.target.value)
-              }
-            />
+              <label>Value</label>
+              <input
+                type="text"
+                className="form-control"
+                value={currentValue}
+                onChange={(e) =>
+                  handleDesAttributeChange(index, currentKey, e.target.value)
+                }
+              />
+            </div>
+
+            {/* Remove Button */}
+            <button
+              type="button"
+              className="btn btn-danger ms-2"
+              onClick={() => removeDesAttribute(index)}
+            >
+              Remove
+            </button>
           </div>
         );
       })}
 
       <button
         type="button"
-        className="btn btn-outline-secondary"
+        className="btn btn-outline-secondary mt-2"
         onClick={addDesAttribute}
       >
         Add Description Attribute
@@ -188,17 +201,17 @@ const ProductCreateForm = ({
         </select>
       </div>
 
-      {variants.map((variant, index) => {
-        return (
-          <div key={index} className="form-group">
+      {variants.map((variant, index) => (
+        <div key={index} className="form-group">
+          <div>
             <label>Color Variant Name</label>
             <select
               name="colorname"
               className="form-control"
-              value={variant.name} // Bind current variant's name
+              value={variant.name}
               onChange={(e) =>
                 handleVariantChange(index, "name", e.target.value)
-              } // Update name on selection
+              }
             >
               <option value="">Please select</option>
               {colors.map((c) => (
@@ -216,12 +229,21 @@ const ProductCreateForm = ({
               handleImageRemove={handleImageRemove}
             />
           </div>
-        );
-      })}
+
+          {/* Remove Button */}
+          <button
+            type="button"
+            className="btn btn-danger ms-2"
+            onClick={() => removeVariant(index)}
+          >
+            Remove
+          </button>
+        </div>
+      ))}
 
       <button
         type="button"
-        className="btn btn-outline-secondary"
+        className="btn btn-outline-secondary mt-2"
         onClick={addVariants}
       >
         Add Variant
@@ -240,42 +262,49 @@ const ProductCreateForm = ({
 
       {sizes.map((sizeObj, index) => (
         <div key={index} className="form-group">
-          {/* Size Input */}
-          <label>Size</label>
-          <input
-            type="text"
-            className="form-control"
-            value={sizeObj.size}
-            onChange={(e) => handleSize(index, "size", e.target.value)} // Handle size change
-          />
+          <div>
+            {/* Size Input */}
+            <label>Size</label>
+            <input
+              type="text"
+              className="form-control"
+              value={sizeObj.size}
+              onChange={(e) => handleSize(index, "size", e.target.value)}
+            />
 
-          {/* Price Input */}
-          <label>Price</label>
-          <input
-            type="text"
-            className="form-control"
-            value={sizeObj.prices[0].value}
-            onChange={
-              (e) => handleSize(index, "price", e.target.value) // Handle price change
-            }
-          />
+            {/* Price Input */}
+            <label>Price</label>
+            <input
+              type="text"
+              className="form-control"
+              value={sizeObj.prices[0].value}
+              onChange={(e) => handleSize(index, "price", e.target.value)}
+            />
 
-          {/* Discounted Price Input */}
-          <label>Discounted Price</label>
-          <input
-            type="text"
-            className="form-control"
-            value={sizeObj.prices[1].value}
-            onChange={
-              (e) => handleSize(index, "disprice", e.target.value) // Handle discount price change
-            }
-          />
+            {/* Discounted Price Input */}
+            <label>Discounted Price</label>
+            <input
+              type="text"
+              className="form-control"
+              value={sizeObj.prices[1].value}
+              onChange={(e) => handleSize(index, "disprice", e.target.value)}
+            />
+          </div>
+
+          {/* Remove Button */}
+          <button
+            type="button"
+            className="btn btn-danger ms-2"
+            onClick={() => removeSize(index)}
+          >
+            Remove
+          </button>
         </div>
       ))}
 
       <button
         type="button"
-        className="btn btn-outline-secondary"
+        className="btn btn-outline-secondary mt-2"
         onClick={addSize}
       >
         Add Size Variant

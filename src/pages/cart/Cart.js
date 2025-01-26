@@ -143,7 +143,12 @@ const Cart = ({ history }) => {
 
             if (res.data.ok) history.push("/checkout");
           })
-          .catch((err) => console.log("cart save err", err));
+          .catch((err) => {
+            toast.error(
+              err.response?.data?.error ||
+                "Something went wrong. Please try again."
+            );
+          });
       } else {
         history.push({
           pathname: "/login",
@@ -215,7 +220,12 @@ const Cart = ({ history }) => {
               .catch((err) => console.log("Coupon validation error", err));
           }
         })
-        .catch((err) => console.log("cart save err", err));
+        .catch((err) => {
+          toast.error(
+            err.response?.data?.error ||
+              "Something went wrong. Please try again."
+          );
+        });
     } catch (error) {
       console.log("Coupon validation error", error);
     }
@@ -231,7 +241,12 @@ const Cart = ({ history }) => {
       if (user && user.token) {
         await userCart(cart, newsletter, user.token)
           .then((res) => {})
-          .catch((err) => console.log("cart save err", err));
+          .catch((err) => {
+            toast.error(
+              err.response?.data?.error ||
+                "Something went wrong. Please try again."
+            );
+          });
         await applyCoupon(user.token, coupon).then((res) => {
           if (res.data) {
             if (res.data.ok) history.push("/checkout");

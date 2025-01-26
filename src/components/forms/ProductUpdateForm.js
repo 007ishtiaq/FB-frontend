@@ -23,14 +23,17 @@ const ProductUpdateForm = ({
   desattributes,
   addAttribute,
   addDesAttribute,
+  removeDesAttribute,
   handleDesAttributeChange,
   variants,
   addVariants,
+  removeVariant,
   handleVariantChange,
   setLoading,
   handleImageRemove,
   sizes,
   addSize,
+  removeSize,
   handleSize,
 }) => {
   // destructure
@@ -93,25 +96,35 @@ const ProductUpdateForm = ({
 
         return (
           <div key={index} className="form-group">
-            <label>Key</label>
-            <input
-              type="text"
-              className="form-control"
-              value={currentKey}
-              onChange={(e) =>
-                handleDesAttributeChange(index, e.target.value, currentValue)
-              }
-            />
+            <div>
+              <label>Key</label>
+              <input
+                type="text"
+                className="form-control"
+                value={currentKey}
+                onChange={(e) =>
+                  handleDesAttributeChange(index, e.target.value, currentValue)
+                }
+              />
 
-            <label>Value</label>
-            <input
-              type="text"
-              className="form-control"
-              value={currentValue}
-              onChange={(e) =>
-                handleDesAttributeChange(index, currentKey, e.target.value)
-              }
-            />
+              <label>Value</label>
+              <input
+                type="text"
+                className="form-control"
+                value={currentValue}
+                onChange={(e) =>
+                  handleDesAttributeChange(index, currentKey, e.target.value)
+                }
+              />
+            </div>
+            {/* Remove Button */}
+            <button
+              type="button"
+              className="btn btn-danger ms-2"
+              onClick={() => removeDesAttribute(index)}
+            >
+              Remove
+            </button>
           </div>
         );
       })}
@@ -198,30 +211,40 @@ const ProductUpdateForm = ({
       {variants.map((variant, index) => {
         return (
           <div key={index} className="form-group">
-            <label>Color Variant Name</label>
-            <select
-              name="colorname"
-              className="form-control"
-              value={variant.name} // Bind current variant's name
-              onChange={(e) =>
-                handleVariantChange(index, "name", e.target.value)
-              } // Update name on selection
-            >
-              <option value="">Please select</option>
-              {colors.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+            <div>
+              <label>Color Variant Name</label>
+              <select
+                name="colorname"
+                className="form-control"
+                value={variant.name} // Bind current variant's name
+                onChange={(e) =>
+                  handleVariantChange(index, "name", e.target.value)
+                } // Update name on selection
+              >
+                <option value="">Please select</option>
+                {colors.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
 
-            <label>Color Variant Image</label>
-            <CategoryImgupload
-              image={variant.image}
-              setImage={(image) => handleVariantChange(index, "image", image)}
-              setLoading={setLoading}
-              handleImageRemove={handleImageRemove}
-            />
+              <label>Color Variant Image</label>
+              <CategoryImgupload
+                image={variant.image}
+                setImage={(image) => handleVariantChange(index, "image", image)}
+                setLoading={setLoading}
+                handleImageRemove={handleImageRemove}
+              />
+            </div>
+            {/* Remove Button */}
+            <button
+              type="button"
+              className="btn btn-danger ms-2"
+              onClick={() => removeVariant(index)}
+            >
+              Remove
+            </button>
           </div>
         );
       })}
@@ -247,36 +270,46 @@ const ProductUpdateForm = ({
 
       {sizes.map((sizeObj, index) => (
         <div key={index} className="form-group">
-          {/* Size Input */}
-          <label>Size</label>
-          <input
-            type="text"
-            className="form-control"
-            value={sizeObj.size}
-            onChange={(e) => handleSize(index, "size", e.target.value)} // Handle size change
-          />
+          <div>
+            {/* Size Input */}
+            <label>Size</label>
+            <input
+              type="text"
+              className="form-control"
+              value={sizeObj.size}
+              onChange={(e) => handleSize(index, "size", e.target.value)} // Handle size change
+            />
 
-          {/* Price Input */}
-          <label>Price</label>
-          <input
-            type="text"
-            className="form-control"
-            value={sizeObj.prices[0].value}
-            onChange={
-              (e) => handleSize(index, "price", e.target.value) // Handle price change
-            }
-          />
+            {/* Price Input */}
+            <label>Price</label>
+            <input
+              type="text"
+              className="form-control"
+              value={sizeObj.prices[0].value}
+              onChange={
+                (e) => handleSize(index, "price", e.target.value) // Handle price change
+              }
+            />
 
-          {/* Discounted Price Input */}
-          <label>Discounted Price</label>
-          <input
-            type="text"
-            className="form-control"
-            value={sizeObj.prices[1].value}
-            onChange={
-              (e) => handleSize(index, "disprice", e.target.value) // Handle discount price change
-            }
-          />
+            {/* Discounted Price Input */}
+            <label>Discounted Price</label>
+            <input
+              type="text"
+              className="form-control"
+              value={sizeObj.prices[1].value}
+              onChange={
+                (e) => handleSize(index, "disprice", e.target.value) // Handle discount price change
+              }
+            />
+          </div>
+          {/* Remove Button */}
+          <button
+            type="button"
+            className="btn btn-danger ms-2"
+            onClick={() => removeSize(index)}
+          >
+            Remove
+          </button>
         </div>
       ))}
 
