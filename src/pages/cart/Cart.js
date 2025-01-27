@@ -22,6 +22,7 @@ import { toast } from "react-hot-toast";
 import { Tooltip } from "antd";
 import NoNetModal from "../../components/NoNetModal/NoNetModal";
 import { Checkbox } from "antd";
+import { auth } from "../../firebase"; // Import Firebase auth
 
 const Cart = ({ history }) => {
   const [coupon, setCoupon] = useState("");
@@ -133,22 +134,50 @@ const Cart = ({ history }) => {
     }
   };
 
-  const saveOrderToDb = () => {
-    // console.log("cart", JSON.stringify(cart, null, 4));
+  const saveOrderToDb = async () => {
     if (navigator.onLine) {
       if (user && user.token) {
-        userCart(cart, newsletter, user.token)
-          .then((res) => {
-            trackEvent("CheckoutButtonPressed", { page: "cart-button" });
+        try {
+          let token = user.token; // Use existing token
 
-            if (res.data.ok) history.push("/checkout");
-          })
-          .catch((err) => {
+          // Attempt API call
+          const res = await userCart(cart, newsletter, token);
+
+          // If request is successful
+          trackEvent("CheckoutButtonPressed", { page: "cart-button" });
+
+          if (res.data.ok) history.push("/checkout");
+        } catch (err) {
+          // If token is expired (401 error), renew token and retry
+          if (err.response?.status === 401) {
+            try {
+              const newToken = await auth.currentUser.getIdToken(true); // Refresh token
+
+              // Update Redux store with new token
+              dispatch({
+                type: "LOGGED_IN_USER",
+                payload: { ...user, token: newToken },
+              });
+
+              // Retry API call with new token
+              const retryRes = await userCart(cart, newsletter, newToken);
+
+              if (retryRes.data.ok) history.push("/checkout");
+            } catch (tokenErr) {
+              console.error("Token renewal failed", tokenErr);
+              history.push({
+                pathname: "/login",
+                state: { from: `/cart` },
+              });
+            }
+          } else {
+            // Handle other errors
             toast.error(
               err.response?.data?.error ||
                 "Something went wrong. Please try again."
             );
-          });
+          }
+        }
       } else {
         history.push({
           pathname: "/login",

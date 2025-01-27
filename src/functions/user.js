@@ -1,35 +1,15 @@
 import axios from "axios";
-import { auth } from "../firebase"; // Import Firebase auth
-import { store } from "../redux/store"; // Import Redux store
-import { LOGGED_IN_USER } from "../redux/constants"; // Adjust path accordingly
 
-export const userCart = async (cart, newsletter, authtoken) => {
-  try {
-    return await axios.post(
-      `${process.env.REACT_APP_API}/user/cart`,
-      { cart, newsletter },
-      {
-        headers: { authtoken },
-      }
-    );
-  } catch (error) {
-    if (error.response?.status === 401) {
-      // If token is expired, refresh it and retry request
-      const user = auth.currentUser;
-      if (user) {
-        const newToken = await user.getIdToken(true); // Refresh token
-        return await axios.post(
-          `${process.env.REACT_APP_API}/user/cart`,
-          { cart, newsletter },
-          {
-            headers: { authtoken: newToken },
-          }
-        );
-      }
+export const userCart = async (cart, newsletter, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/user/cart`,
+    { cart, newsletter },
+    {
+      headers: {
+        authtoken,
+      },
     }
-    throw error; // If another error, return it
-  }
-};
+  );
 
 export const getUserCart = async (authtoken) =>
   await axios.get(`${process.env.REACT_APP_API}/user/cart`, {
