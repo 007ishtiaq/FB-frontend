@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { createProduct } from "../../../functions/product";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
@@ -9,6 +9,7 @@ import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 import { getColors } from "../../../functions/color";
 import axios from "axios";
+import { auth } from "../../../firebase"; // Import Firebase auth
 
 const initialState = {
   art: "",
@@ -49,6 +50,7 @@ const ProductCreate = () => {
 
   // redux
   const { user } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,18 +69,44 @@ const ProductCreate = () => {
   const loadCategories = () =>
     getCategories().then((c) => setValues({ ...values, categories: c.data }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = { ...values, attributes, desattributes, variants, sizes };
-    createProduct(payload, user.token)
-      .then((res) => {
-        window.alert(`"${res.data.title}" is created`);
-        window.location.reload();
-      })
-      .catch((err) => {
+
+    try {
+      let token = user.token; // Use existing token
+
+      // Attempt API call
+      const res = await createProduct(payload, token);
+
+      window.alert(`"${res.data.title}" is created`);
+      window.location.reload();
+    } catch (err) {
+      // If token is expired (401 error), renew token and retry
+      if (err.response?.status === 401) {
+        try {
+          const newToken = await auth.currentUser.getIdToken(true); // Refresh token
+
+          // Update Redux store with new token
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: { ...user, token: newToken },
+          });
+
+          // Retry API call with new token
+          const retryRes = await createProduct(payload, newToken);
+
+          window.alert(`"${retryRes.data.title}" is created`);
+          window.location.reload();
+        } catch (tokenErr) {
+          console.error("Token renewal failed", tokenErr);
+        }
+      } else {
+        // Handle other errors
         console.log(err);
-        toast.error(err.response.data.error);
-      });
+        toast.error(err.response?.data?.error || "Something went wrong.");
+      }
+    }
   };
 
   const handleChange = (e) => {

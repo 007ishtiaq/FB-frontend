@@ -33,6 +33,7 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
+import { auth } from "../../firebase"; // Import Firebase auth
 
 const Checkout = ({ history }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -130,22 +131,49 @@ const Checkout = ({ history }) => {
     onSubmit: async (values, action) => {
       if (navigator.onLine) {
         try {
-          saveUserAddress(user.token, values)
-            .then((res) => {
-              if (res.data.ok) {
-                toast.success("Address saved");
-                setModalVisible(false);
-              }
-            })
-            .catch((err) => console.log("cart save err", err));
+          let token = user.token; // Use existing token
+
+          // Attempt API call
+          const res = await saveUserAddress(token, values);
+
+          if (res.data.ok) {
+            toast.success("Address saved");
+            setModalVisible(false);
+          }
         } catch (error) {
           console.error(error);
           setModalVisible(false);
           // Handle errors if necessary
+          if (error.response?.status === 401) {
+            try {
+              const newToken = await auth.currentUser.getIdToken(true); // Refresh token
+
+              // Update Redux store with new token
+              dispatch({
+                type: "LOGGED_IN_USER",
+                payload: { ...user, token: newToken },
+              });
+
+              // Retry API call with new token
+              const retryRes = await saveUserAddress(newToken, values);
+
+              if (retryRes.data.ok) {
+                toast.success("Address saved");
+                setModalVisible(false);
+              }
+            } catch (tokenErr) {
+              console.error("Token renewal failed", tokenErr);
+            }
+          } else {
+            // Handle other errors
+            toast.error(
+              error.response?.data?.error ||
+                "Something went wrong. Please try again."
+            );
+            setModalVisible(false);
+            setNoNetModal(true);
+          }
         }
-      } else {
-        setModalVisible(false);
-        setNoNetModal(true);
       }
     },
   });
