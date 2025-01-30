@@ -140,11 +140,9 @@ const Checkout = ({ history }) => {
             toast.success("Address saved");
             setModalVisible(false);
           }
-        } catch (error) {
-          console.error(error);
-          setModalVisible(false);
-          // Handle errors if necessary
-          if (error.response?.status === 401) {
+        } catch (err) {
+          // If token is expired (401 error), renew token and retry
+          if (err.response?.status === 401) {
             try {
               const newToken = await auth.currentUser.getIdToken(true); // Refresh token
 
@@ -163,15 +161,10 @@ const Checkout = ({ history }) => {
               }
             } catch (tokenErr) {
               console.error("Token renewal failed", tokenErr);
+              history.push("/login");
             }
           } else {
-            // Handle other errors
-            toast.error(
-              error.response?.data?.error ||
-                "Something went wrong. Please try again."
-            );
-            setModalVisible(false);
-            setNoNetModal(true);
+            console.error("Address save error", err);
           }
         }
       }
@@ -196,113 +189,114 @@ const Checkout = ({ history }) => {
   };
 
   const payStripeCreateCashOrder = async (e) => {
-    if (navigator.onLine) {
-      e.preventDefault();
-      setProcessing(true);
-      setLoading(true);
+    if (!navigator.onLine) {
+      setNoNetModal(true);
+      return;
+    }
 
-      if (!stripe || !elements) {
-        setError("Stripe has not loaded yet. Please try again.");
+    e.preventDefault();
+    setProcessing(true);
+    setLoading(true);
+
+    if (!stripe || !elements) {
+      setError("Stripe has not loaded yet. Please try again.");
+      setProcessing(false);
+      setLoading(false);
+      return;
+    }
+
+    const cardElement = elements.getElement(CardNumberElement);
+
+    try {
+      const payload = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: cardHolder,
+          },
+        },
+      });
+
+      if (payload.error) {
+        setError(`Payment failed: ${payload.error.message}`);
         setProcessing(false);
         setLoading(false);
         return;
       }
 
-      const cardElement = elements.getElement(CardNumberElement);
+      setError(null);
+      setProcessing(false);
+      setLoading(false);
+      setSucceeded(true);
+
+      let token = user.token; // Use existing token
+
+      // Function to create order with token
+      const createOrder = async (currentToken) => {
+        return createCashOrderForUser(
+          currentToken,
+          COD,
+          couponTrueOrFalse,
+          values,
+          payload.paymentIntent.id,
+          newsletter
+        );
+      };
 
       try {
-        const payload = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: cardElement,
-            billing_details: {
-              name: cardHolder,
-            },
-          },
-        });
+        let res = await createOrder(token);
 
-        if (payload.error) {
-          setError(`Payment failed: ${payload.error.message}`);
-          setProcessing(false);
-          setLoading(false);
-        } else {
-          setError(null);
-          setProcessing(false);
-          setLoading(false);
-          setSucceeded(true);
-          // toast.success("Payment Charged Successfully!");
-          createCashOrderForUser(
-            user.token,
-            COD,
-            couponTrueOrFalse,
-            values,
-            payload.paymentIntent.id,
-            newsletter
-          )
-            .then((res) => {
-              trackEvent("Purchase", {
-                value: 50.0, // The total purchase amount
-                currency: "USD", // Currency in ISO 4217 format
-              });
-              // console.log("USER CASH ORDER CREATED RES ", res);
-              if (res.data.error) {
-                toast.error(`${res.data.error}`);
-              }
-              // empty cart form redux, local Storage, reset coupon, reset COD, redirect
-              if (res.data.orderId) {
-                // empty local storage
-                if (typeof window !== "undefined")
-                  localStorage.removeItem("cart");
-                // empty redux cart
-                dispatch({
-                  type: "ADD_TO_CART",
-                  payload: [],
-                });
-                // empty redux coupon
-                dispatch({
-                  type: "COUPON_APPLIED",
-                  payload: { applied: false, coupon: {} },
-                });
-                // empty local storage coupon
-                if (typeof window !== "undefined") {
-                  localStorage.setItem("coupon", JSON.stringify(""));
-                }
-                // empty redux COD
-                dispatch({
-                  type: "COD",
-                  payload: false,
-                });
-                // empty redux BFT
-                dispatch({
-                  type: "BFT",
-                  payload: true,
-                });
-                // empty redux Wallet
-                dispatch({
-                  type: "Wallet",
-                  payload: false,
-                });
-                // empty redux Easypesa
-                dispatch({
-                  type: "Easypesa",
-                  payload: false,
-                });
-                // empty cart from backend
-                emptyUserCart(user.token);
-                // redirect
-                setTimeout(() => {
-                  history.push(`/OrderPlaced/${res.data.orderId}`);
-                }, 800);
-              }
-            })
-            .catch((err) => console.log("cart save err", err));
+        // If token expired, renew it and retry
+        if (res.data.error && res.data.error.includes("expired")) {
+          const newToken = await auth.currentUser.getIdToken(true); // Refresh token
+
+          // Update Redux store with new token
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: { ...user, token: newToken },
+          });
+
+          // Retry API call with new token
+          res = await createOrder(newToken);
+        }
+
+        if (res.data.error) {
+          toast.error(`${res.data.error}`);
+          return;
+        }
+
+        // Empty cart, reset states, and redirect
+        if (res.data.orderId) {
+          if (typeof window !== "undefined") localStorage.removeItem("cart");
+
+          dispatch({ type: "ADD_TO_CART", payload: [] });
+          dispatch({
+            type: "COUPON_APPLIED",
+            payload: { applied: false, coupon: {} },
+          });
+          dispatch({ type: "COD", payload: false });
+          dispatch({ type: "BFT", payload: true });
+          dispatch({ type: "Wallet", payload: false });
+          dispatch({ type: "Easypesa", payload: false });
+
+          if (typeof window !== "undefined") {
+            localStorage.setItem("coupon", JSON.stringify(""));
+          }
+
+          // Empty cart from backend
+          await emptyUserCart(token);
+
+          setTimeout(() => {
+            history.push(`/OrderPlaced/${res.data.orderId}`);
+          }, 800);
         }
       } catch (err) {
-        setError("Payment processing failed. Please try again.");
-        setProcessing(false);
-        setLoading(false);
+        console.log("cart save err", err);
       }
-    } else {
-      setNoNetModal(true);
+    } catch (err) {
+      setError("Payment processing failed. Please try again.");
+      setProcessing(false);
+      setLoading(false);
     }
   };
 
@@ -314,62 +308,89 @@ const Checkout = ({ history }) => {
 
   const createOrder = async () => {
     try {
-      if (navigator.onLine) {
-        setLoading(true);
+      if (!navigator.onLine) {
+        setNoNetModal(true);
+        return;
+      }
 
-        // Check if the file is an image
-        if (!file.type.startsWith("image/")) {
-          setLoading(false);
-          toast.error("Selected Image is Invalid.");
-          return;
-        }
+      setLoading(true);
 
-        const uri = await new Promise((resolve, reject) => {
-          Resizer.imageFileResizer(
-            file,
-            720,
-            720,
-            "JPEG",
-            100,
-            0,
-            (uri) => resolve(uri),
-            "base64",
-            (error) => reject(error)
-          );
-        });
+      // Check if the file is an image
+      if (!file.type.startsWith("image/")) {
+        setLoading(false);
+        toast.error("Selected Image is Invalid.");
+        return;
+      }
 
-        if (!uri) {
-          setLoading(false);
-          toast.error("Somthing went wrong!");
-          return;
-        }
+      const uri = await new Promise((resolve, reject) => {
+        Resizer.imageFileResizer(
+          file,
+          720,
+          720,
+          "JPEG",
+          100,
+          0,
+          (uri) => resolve(uri),
+          "base64",
+          (error) => reject(error)
+        );
+      });
 
-        // Upload the resized image
-        let uploadResponse;
-        try {
-          uploadResponse = await axios.post(
-            `${process.env.REACT_APP_API}/slipupload`,
-            { image: uri },
-            {
-              headers: {
-                authtoken: user ? user.token : "",
-              },
-            }
-          );
-        } catch (uploadError) {
+      if (!uri) {
+        setLoading(false);
+        toast.error("Something went wrong!");
+        return;
+      }
+
+      let token = user.token; // Use existing token
+
+      // Function to upload image
+      const uploadImage = async (currentToken) => {
+        return axios.post(
+          `${process.env.REACT_APP_API}/slipupload`,
+          { image: uri },
+          {
+            headers: {
+              authtoken: currentToken,
+            },
+          }
+        );
+      };
+
+      // Upload the resized image
+      let uploadResponse;
+      try {
+        uploadResponse = await uploadImage(token);
+      } catch (uploadError) {
+        if (uploadError.response && uploadError.response.status === 401) {
+          // Token expired, renew it
+          const newToken = await auth.currentUser.getIdToken(true);
+
+          // Update Redux store with new token
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: { ...user, token: newToken },
+          });
+
+          // Retry upload with new token
+          uploadResponse = await uploadImage(newToken);
+          token = newToken; // Update local token reference
+        } else {
           setLoading(false);
           setNoNetModal(true);
-          toast.error("Somthing went wrong!");
+          toast.error("Something went wrong!");
           return;
         }
+      }
 
-        const image = uploadResponse.data;
-        setImage(image);
-        setImageuploaded(true);
+      const image = uploadResponse.data;
+      setImage(image);
+      setImageuploaded(true);
 
-        // Proceed to create the order if image uploaded successfully
-        const orderResponse = await createOrderForUser(
-          user.token,
+      // Function to create order with token
+      const createOrderWithToken = async (currentToken) => {
+        return createOrderForUser(
+          currentToken,
           image,
           BFT,
           Wallet,
@@ -378,40 +399,83 @@ const Checkout = ({ history }) => {
           values,
           newsletter
         );
+      };
 
-        if (orderResponse.data.error) {
+      // Proceed to create the order
+      let orderResponse;
+      try {
+        orderResponse = await createOrderWithToken(token);
+      } catch (orderError) {
+        if (orderError.response && orderError.response.status === 401) {
+          // Token expired, renew it
+          const newToken = await auth.currentUser.getIdToken(true);
+
+          // Update Redux store with new token
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: { ...user, token: newToken },
+          });
+
+          // Retry order creation with new token
+          orderResponse = await createOrderWithToken(newToken);
+          token = newToken;
+        } else {
           setLoading(false);
-          toast.error(orderResponse.data.error);
+          toast.error("Order creation failed. Please try again.");
           return;
         }
-
-        setLoading(false);
-        const orderId = orderResponse.data.orderId;
-
-        // Clear cart, coupon, etc.
-        if (typeof window !== "undefined") localStorage.removeItem("cart");
-        dispatch({ type: "ADD_TO_CART", payload: [] });
-        dispatch({
-          type: "COUPON_APPLIED",
-          payload: { applied: false, coupon: {} },
-        });
-        if (typeof window !== "undefined")
-          localStorage.setItem("coupon", JSON.stringify(""));
-        dispatch({ type: "COD", payload: false });
-        dispatch({ type: "BFT", payload: true });
-        dispatch({ type: "Wallet", payload: false });
-        dispatch({ type: "Easypesa", payload: false });
-
-        // Empty cart from backend
-        await emptyUserCart(user.token);
-
-        // Redirect
-        setTimeout(() => {
-          history.push(`/OrderPlaced/${orderId}`);
-        }, 800);
-      } else {
-        setNoNetModal(true);
       }
+
+      if (orderResponse.data.error) {
+        setLoading(false);
+        toast.error(orderResponse.data.error);
+        return;
+      }
+
+      setLoading(false);
+      const orderId = orderResponse.data.orderId;
+
+      // Function to empty cart
+      const clearCart = async (currentToken) => {
+        return emptyUserCart(currentToken);
+      };
+
+      try {
+        await clearCart(token);
+      } catch (cartError) {
+        if (cartError.response && cartError.response.status === 401) {
+          // Token expired, renew it
+          const newToken = await auth.currentUser.getIdToken(true);
+
+          // Update Redux store with new token
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: { ...user, token: newToken },
+          });
+
+          // Retry emptying cart with new token
+          await clearCart(newToken);
+        }
+      }
+
+      // Clear cart, coupon, etc.
+      if (typeof window !== "undefined") localStorage.removeItem("cart");
+      dispatch({ type: "ADD_TO_CART", payload: [] });
+      dispatch({
+        type: "COUPON_APPLIED",
+        payload: { applied: false, coupon: {} },
+      });
+      if (typeof window !== "undefined")
+        localStorage.setItem("coupon", JSON.stringify(""));
+      dispatch({ type: "COD", payload: false });
+      dispatch({ type: "BFT", payload: true });
+      dispatch({ type: "Wallet", payload: false });
+      dispatch({ type: "Easypesa", payload: false });
+
+      // Redirect
+      setTimeout(() => {
+        history.push(`/OrderPlaced/${orderId}`);
+      }, 800);
     } catch (error) {
       setLoading(false);
       setNoNetModal(true);

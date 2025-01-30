@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ManageMyAccount from "../ManageMyAccount";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   getUserProfile,
   getUserAddress,
@@ -16,6 +15,7 @@ import laptop from "../../../images/laptop.png";
 import NewsletterModal from "../../../components/modal/NewsletterModal";
 import { ReactComponent as NoOrdersFoundsvg } from "../../../images/manageacUser/noorders.svg";
 import Skeleton from "react-loading-skeleton";
+import { auth } from "../../../firebase"; // Import Firebase auth
 
 export default function ManageAcMain() {
   const [profile, setProfile] = useState("");
@@ -34,11 +34,39 @@ export default function ManageAcMain() {
   }, []);
 
   useEffect(() => {
+    const fetchOrders = async (currentToken) => {
+      try {
+        const res = await getUserOrders(currentToken, 1);
+        setOrders(res.data.orders.slice(0, 3));
+      } catch (err) {
+        if (err.response && err.response.status === 401) {
+          try {
+            // Token expired, renew it
+            const newToken = await auth.currentUser.getIdToken(true);
+
+            // Update Redux store with new token
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: { ...user, token: newToken },
+            });
+
+            // Retry fetching orders with new token
+            const res = await getUserOrders(newToken, 1);
+            setOrders(res.data.orders.slice(0, 3));
+          } catch (renewError) {
+            console.log("Token renewal failed:", renewError);
+            toast.error("Session expired. Please log in again.");
+          }
+        } else {
+          console.log("Error fetching orders:", err);
+          toast.error("Failed to fetch orders.");
+        }
+      }
+    };
+
     if (user && user.token) {
       if (navigator.onLine) {
-        getUserOrders(user.token, 1).then((res) => {
-          setOrders(res.data.orders.slice(0, 3));
-        });
+        fetchOrders(user.token);
       } else {
         dispatch({
           type: "SET_NETMODAL_VISIBLE",
@@ -46,7 +74,7 @@ export default function ManageAcMain() {
         });
       }
     }
-  }, [user, navigator.onLine]);
+  }, [user, navigator.onLine, dispatch]);
 
   useEffect(() => {
     if (navigator.onLine) {

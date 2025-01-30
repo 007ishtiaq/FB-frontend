@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
 import { toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getCategories } from "../../../functions/category";
 import { createSub, removeSub, getSubs } from "../../../functions/sub";
 import { Link } from "react-router-dom";
@@ -11,10 +11,9 @@ import LocalSearch from "../../../components/forms/LocalSearch";
 import CategoryImgupload from "../../../components/forms/CategoryImgupload";
 import axios from "axios";
 import Model from "../../../components/Model/Model";
+import { auth } from "../../../firebase"; // Import Firebase auth
 
 const SubCreate = () => {
-  const { user } = useSelector((state) => ({ ...state }));
-
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,6 +23,9 @@ const SubCreate = () => {
   const [subs, setSubs] = useState([]);
   // step 1
   const [keyword, setKeyword] = useState("");
+
+  const { user } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     loadCategories();
@@ -41,24 +43,53 @@ const SubCreate = () => {
     setShowModels(newShowModels);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(name);
     setLoading(true);
-    createSub({ name, parent: category, image }, user.token)
-      .then((res) => {
-        // console.log(res)
-        setLoading(false);
-        setName("");
-        setImage("");
-        toast.success(`"${res.data.name}" is created`);
-        loadSubs();
-      })
-      .catch((err) => {
+
+    let token = user.token; // Use current token
+
+    // Function to create sub-category
+    const createSubWithToken = async (currentToken) => {
+      return createSub({ name, parent: category, image }, currentToken);
+    };
+
+    try {
+      const res = await createSubWithToken(token);
+      setLoading(false);
+      setName("");
+      setImage("");
+      toast.success(`"${res.data.name}" is created`);
+      loadSubs();
+    } catch (err) {
+      setLoading(false);
+
+      if (err.response && err.response.status === 401) {
+        try {
+          // Token expired, renew it
+          const newToken = await auth.currentUser.getIdToken(true);
+
+          // Update Redux store with new token
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: { ...user, token: newToken },
+          });
+
+          // Retry createSub with new token
+          const res = await createSubWithToken(newToken);
+          setName("");
+          setImage("");
+          toast.success(`"${res.data.name}" is created`);
+          loadSubs();
+        } catch (renewError) {
+          console.log("Token renewal failed:", renewError);
+          toast.error("Session expired. Please log in again.");
+        }
+      } else {
         console.log(err);
-        setLoading(false);
-        if (err.response.status === 400) toast.error(err.response.data);
-      });
+        toast.error(err.response?.data || "Something went wrong.");
+      }
+    }
   };
 
   const handleRemove = async (slug) => {

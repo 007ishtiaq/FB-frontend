@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ManageMyAccount from "../ManageMyAccount";
 import { Online } from "react-detect-offline";
-import { useDispatch } from "react-redux";
 import "../UserProfile.css";
 import { subscribeNewsletter, checkNewsSub } from "../../../functions/user";
 import ProfileEditForm from "../../../components/forms/ProfileEditForm";
 import ProfileEditModal from "../../../components/modal/ProfileEditModal";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import { saveUserProfile, getUserProfile } from "../../../functions/user";
@@ -16,6 +15,7 @@ import { useFormik } from "formik";
 import { UserProfileSchema } from "../../../schemas";
 import NewsletterModal from "../../../components/modal/NewsletterModal";
 import Skeleton from "react-loading-skeleton";
+import { auth } from "../../../firebase"; // Import Firebase auth
 
 export default function UserProfile() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -32,21 +32,77 @@ export default function UserProfile() {
   }, []);
 
   useEffect(() => {
+    const fetchUserProfile = async (currentToken) => {
+      try {
+        const res = await getUserProfile(currentToken);
+        setValues({ ...initialValues, ...res.data });
+      } catch (err) {
+        if (err.response && err.response.status === 401) {
+          try {
+            // Token expired, renew it
+            const newToken = await auth.currentUser.getIdToken(true);
+
+            // Update Redux store with new token
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: { ...user, token: newToken },
+            });
+
+            // Retry fetching profile with new token
+            const res = await getUserProfile(newToken);
+            setValues({ ...initialValues, ...res.data });
+          } catch (renewError) {
+            console.log("Token renewal failed:", renewError);
+            toast.error("Session expired. Please log in again.");
+          }
+        } else {
+          console.log("Error fetching user profile:", err);
+          toast.error("Failed to load profile.");
+        }
+      }
+    };
+
     if (navigator.onLine) {
-      loadUserProfile();
+      if (user && user.token) {
+        fetchUserProfile(user.token);
+      }
     } else {
       dispatch({
         type: "SET_NETMODAL_VISIBLE",
         payload: true,
       });
     }
-  }, [user, navigator.onLine]);
+  }, [user, navigator.onLine, dispatch]);
 
-  const loadUserProfile = () => {
+  const loadUserProfile = async () => {
     if (user && user.token) {
-      getUserProfile(user.token).then((a) => {
-        setValues({ ...initialValues, ...a.data });
-      });
+      try {
+        const res = await getUserProfile(user.token);
+        setValues({ ...initialValues, ...res.data });
+      } catch (err) {
+        if (err.response && err.response.status === 401) {
+          try {
+            // Token expired, renew it
+            const newToken = await auth.currentUser.getIdToken(true);
+
+            // Update Redux store with new token
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: { ...user, token: newToken },
+            });
+
+            // Retry fetching profile with new token
+            const res = await getUserProfile(newToken);
+            setValues({ ...initialValues, ...res.data });
+          } catch (renewError) {
+            console.log("Token renewal failed:", renewError);
+            toast.error("Session expired. Please log in again.");
+          }
+        } else {
+          console.log("Error fetching user profile:", err);
+          toast.error("Failed to load profile.");
+        }
+      }
     }
   };
 

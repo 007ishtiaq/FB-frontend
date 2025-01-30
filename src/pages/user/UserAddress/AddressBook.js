@@ -15,6 +15,7 @@ import ShippingFormAddressbook from "../../../components/forms/ShippingFormAddre
 import { ReactComponent as Downbtnsvg } from "../../../images/manageacUser/downbtn.svg";
 import { useFormik } from "formik";
 import { UserAddressSchema } from "../../../schemas";
+import { auth } from "../../../firebase"; // Import Firebase auth
 
 export default function AddressBook() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -37,13 +38,37 @@ export default function AddressBook() {
         payload: true,
       });
     }
-  }, [user, Online]);
+  }, [user, navigator.onLine]); // Ensure `navigator.onLine` is correctly referenced
 
-  const loadUserAddress = () => {
+  const loadUserAddress = async () => {
     if (user && user.token) {
-      getUserAddress(user.token).then((a) => {
-        setValues({ ...initialValues, ...a.data });
-      });
+      try {
+        const res = await getUserAddress(user.token);
+        setValues({ ...initialValues, ...res.data });
+      } catch (err) {
+        if (err.response && err.response.status === 401) {
+          try {
+            // Token expired, renew it
+            const newToken = await auth.currentUser.getIdToken(true);
+
+            // Update Redux store with new token
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: { ...user, token: newToken },
+            });
+
+            // Retry fetching address with new token
+            const res = await getUserAddress(newToken);
+            setValues({ ...initialValues, ...res.data });
+          } catch (renewError) {
+            console.log("Token renewal failed:", renewError);
+            toast.error("Session expired. Please log in again.");
+          }
+        } else {
+          console.log("Error fetching user address:", err);
+          toast.error("Failed to load address.");
+        }
+      }
     }
   };
 

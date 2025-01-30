@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
 import { toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getProductAdmin, updateProduct } from "../../../functions/product";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import { getSubsSub2 } from "../../../functions/sub";
@@ -11,6 +11,7 @@ import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 import AdminsideNavcopy from "../../../components/nav/AdminsideNavcopy";
 import { getColors } from "../../../functions/color";
 import axios from "axios";
+import { auth } from "../../../firebase"; // Import Firebase auth
 
 const initialState = {
   art: "",
@@ -46,6 +47,8 @@ const ProductUpdate = ({ match, history }) => {
   const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
+
   // router
   const { slug } = match.params;
 
@@ -102,24 +105,52 @@ const ProductUpdate = ({ match, history }) => {
       setCategories(c.data);
     });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     values.category = selectedCategory ? selectedCategory : values.category;
-    // values.subs = selectedSubCategory ? selectedSubCategory : values.subs;
-    // values.subs2 = arrayOfSubs2;
     const payload = { ...values, attributes, desattributes, variants, sizes };
-    updateProduct(slug, payload, user.token)
-      .then((res) => {
-        setLoading(false);
-        toast.success(`"${res.data.title}" is updated`);
-        history.push("/AdminPanel?page=AllProducts");
-      })
-      .catch((err) => {
+
+    let token = user.token; // Use current token
+
+    // Function to update product
+    const updateProductWithToken = async (currentToken) => {
+      return updateProduct(slug, payload, currentToken);
+    };
+
+    try {
+      const res = await updateProductWithToken(token);
+      setLoading(false);
+      toast.success(`"${res.data.title}" is updated`);
+      history.push("/AdminPanel?page=AllProducts");
+    } catch (err) {
+      setLoading(false);
+
+      if (err.response && err.response.status === 401) {
+        try {
+          // Token expired, renew it
+          const newToken = await auth.currentUser.getIdToken(true);
+
+          // Update Redux store with new token
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: { ...user, token: newToken },
+          });
+
+          // Retry updateProduct with new token
+          const res = await updateProductWithToken(newToken);
+          toast.success(`"${res.data.title}" is updated`);
+          history.push("/AdminPanel?page=AllProducts");
+        } catch (renewError) {
+          console.log("Token renewal failed:", renewError);
+          toast.error("Session expired. Please log in again.");
+        }
+      } else {
         console.log(err);
-        setLoading(false);
-        toast.error(err.response.data.error);
-      });
+        toast.error(err.response?.data?.error || "Something went wrong.");
+      }
+    }
   };
 
   const handleChange = (e) => {

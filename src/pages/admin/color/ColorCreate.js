@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { createColor, getColors, removeColor } from "../../../functions/color";
 import { DeleteOutlined } from "@ant-design/icons";
 import LocalSearch from "../../../components/forms/LocalSearch";
+import { auth } from "../../../firebase"; // Import Firebase auth
 
 const ColorCreate = () => {
-  const { user } = useSelector((state) => ({ ...state }));
-
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [Colors, setColors] = useState([]);
   // step 1
   const [keyword, setKeyword] = useState("");
+
+  const { user } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     loadColors();
@@ -20,22 +22,55 @@ const ColorCreate = () => {
 
   const loadColors = () => getColors().then((c) => setColors(c.data));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    createColor({ name }, user.token)
-      .then((res) => {
-        // console.log(res)
-        setLoading(false);
-        setName("");
-        toast.success(`"${res.data.name}" is created`);
-        loadColors();
-      })
-      .catch((err) => {
+
+    let token = user.token; // Use current token
+
+    // Function to create color
+    const createColorWithToken = async (currentToken) => {
+      return createColor({ name }, currentToken);
+    };
+
+    try {
+      const res = await createColorWithToken(token);
+      setLoading(false);
+      setName("");
+      toast.success(`"${res.data.name}" is created`);
+      loadColors();
+    } catch (err) {
+      setLoading(false);
+
+      if (err.response && err.response.status === 401) {
+        try {
+          // Token expired, renew it
+          const newToken = await auth.currentUser.getIdToken(true);
+
+          // Update Redux store with new token
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: { ...user, token: newToken },
+          });
+
+          // Retry createColor with new token
+          const res = await createColorWithToken(newToken);
+          setName("");
+          toast.success(`"${res.data.name}" is created`);
+          loadColors();
+        } catch (renewError) {
+          console.log("Token renewal failed:", renewError);
+          toast.error("Session expired. Please log in again.");
+        }
+      } else {
         console.log(err);
-        setLoading(false);
-        if (err.response.status === 400) toast.error(err.response.data);
-      });
+        if (err.response && err.response.status === 400) {
+          toast.error(err.response.data);
+        } else {
+          toast.error("Something went wrong.");
+        }
+      }
+    }
   };
 
   const handleRemove = async (slug) => {
