@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Avatar, Badge } from "antd";
 import Skeleton from "react-loading-skeleton";
 import { auth } from "../../firebase"; // Import Firebase auth
+import { toast } from "react-hot-toast";
 
 const CategoryImgupload = ({
   image,
