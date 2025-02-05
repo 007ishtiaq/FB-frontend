@@ -529,6 +529,9 @@ hr {
   align-self: flex-end;
   padding-top: 0.4rem;
 }
+.carousel .slider-wrapper {
+  min-height: 300px !important;
+}
 /*****************************************
 **************Responsiveness***********
 *************************************** */

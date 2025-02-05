@@ -23,7 +23,7 @@ const AllProducts = () => {
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const [page, setPage] = useState(1); // page number
-  const [perPage, setPerpage] = useState(2); // per page Size
+  const [perPage, setPerpage] = useState(30); // per page Size
   const [productsCount, setProductsCount] = useState(0);
   const [jsonfile, setJsonfile] = useState(null);
 

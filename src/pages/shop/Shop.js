@@ -23,7 +23,7 @@ const Shop = () => {
   const [loading, setLoading] = useState(true);
   const [contwidth, setContwidth] = useState(0);
   const [page, setPage] = useState(1); // page number
-  const [perPage, setPerpage] = useState(2); // per page Size
+  const [perPage, setPerpage] = useState(30); // per page Size
   const [productsCount, setProductsCount] = useState(0);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 700); // Determine if screen width is greater than 700px
   const [category, setCategory] = useState("");

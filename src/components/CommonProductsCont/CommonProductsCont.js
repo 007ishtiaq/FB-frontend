@@ -12,7 +12,7 @@ export default function CommonProductsCont({ WidthIdea }) {
   const [contwidth, setContwidth] = useState(0);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1); // page number
-  const [perPage, setPerpage] = useState(28); // per page Size
+  const [perPage, setPerpage] = useState(30); // per page Size
   const [productsCount, setProductsCount] = useState(0);
 
   // Create a ref to the component
