@@ -20,3 +20,18 @@ export const createCoupon = async (coupon, authtoken) =>
       },
     }
   );
+
+export const getCouponsJson = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getcouponsjson`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+export const uploadCouponsjson = async (jsonData, authtoken) =>
+  await axios.post(`${process.env.REACT_APP_API}/uploadcouponsjson`, jsonData, {
+    headers: {
+      authtoken,
+      "Content-Type": "application/json",
+    },
+  });

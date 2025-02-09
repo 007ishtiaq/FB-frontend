@@ -20,3 +20,6 @@
   background: var(--org-primary);
   cursor: pointer;
 }
+.reviewimgbox {
+  width: 5rem;
+}

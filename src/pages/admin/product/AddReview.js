@@ -8,6 +8,8 @@ import {
   getAdminReviews,
   deleteReview,
   deleteReviewImages,
+  getReviewsJson,
+  uploadReviewsjson,
 } from "../../../functions/admin";
 import AdminReviewAddForm from "../../../components/forms/AdminReviewAddForm";
 import FileUpload from "../../../components/forms/FileUpload";
@@ -29,6 +31,7 @@ const AddReview = () => {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [productReviews, setProductReviews] = useState([]);
+  const [jsonfile, setJsonfile] = useState(null);
 
   // Set productId from URL params
   useEffect(() => {
@@ -40,10 +43,16 @@ const AddReview = () => {
 
   const loadAdminReviews = () => {
     setLoading(true);
-    getAdminReviews(query.get("productID"), user.token).then((res) => {
-      setProductReviews(res.data);
-      setLoading(false);
-    });
+    getAdminReviews(query.get("productID"), user.token)
+      .then((res) => {
+        setProductReviews(res.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching reviews:", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleSubmit = (e) => {
@@ -128,13 +137,101 @@ const AddReview = () => {
     }
   };
 
+  //-------uploading downloading part---------
+  const DownloadReviewJson = async () => {
+    try {
+      getReviewsJson(user.token)
+        .then((res) => {
+          toast.success(`Json Downloaded`);
+          const data = res.data;
+          // Convert JSON data to a downloadable file
+          const blob = new Blob([JSON.stringify(data, null, 2)], {
+            type: "application/json",
+          });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "MMFB-Reviews-Manual.json";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .catch((error) => {
+          console.error("Error fetching schema data:", error);
+        });
+    } catch (error) {
+      console.error("Error fetching schema data:", error);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    setJsonfile(e.target.files[0]);
+  };
+
+  const readFileAsync = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsText(file);
+    });
+  };
+
+  const handleUpload = async () => {
+    if (!jsonfile) {
+      toast.error("Please select a file!");
+      return;
+    }
+    try {
+      const fileContent = await readFileAsync(jsonfile); // Read file asynchronously
+      const jsonData = JSON.parse(fileContent); // Parse JSON
+      console.log("Parsed JSON Data:", jsonData);
+
+      // Validate data
+      if (!jsonData || (Array.isArray(jsonData) && jsonData.length === 0)) {
+        toast.error("The JSON file is empty or invalid.");
+        return;
+      }
+
+      const response = await uploadReviewsjson(jsonData, user.token); // Upload data
+      toast.success(response.data.message);
+      loadAdminReviews();
+    } catch (error) {
+      if (error.name === "SyntaxError") {
+        alert("The JSON file contains invalid syntax.");
+      } else {
+        alert("An error occurred while uploading the file.");
+      }
+      console.error("Error while uploading JSON file:", error);
+    }
+  };
+
   return (
     <div className="col">
-      {loading ? (
-        <h4 className="text-danger">Loading..</h4>
-      ) : (
-        <h4>Add A Review</h4>
-      )}
+      <div className="adminAllhead">
+        {loading ? (
+          <h4 className="text-danger">Loading..</h4>
+        ) : (
+          <h4>Add A Review</h4>
+        )}
+        <button
+          className="mybtn btnsecond jsonbtns"
+          onClick={DownloadReviewJson}
+        >
+          Download Json
+        </button>
+        <div className="uploadjson">
+          <input
+            type="file"
+            accept=".json"
+            className="jsonuploadinput"
+            onChange={handleFileChange}
+          />
+          <button className="mybtn btnsecond jsonbtns" onClick={handleUpload}>
+            Upload JSON
+          </button>
+        </div>
+      </div>
+
       <div className="p-3">
         <FileUpload
           values={values}
@@ -166,7 +263,7 @@ const AddReview = () => {
                 <img
                   src={review.product.image.url}
                   alt=""
-                  className="reviewimgcont"
+                  className="reviewimgbox"
                 />
                 ------
               </span>
@@ -180,7 +277,7 @@ const AddReview = () => {
                   <img
                     src={review.images[0].url}
                     alt=""
-                    className="reviewimgcont"
+                    className="reviewimgbox"
                   />
                 ) : (
                   <span>no Img</span>

@@ -31,3 +31,18 @@ export const updateBanner = async (slug, banner, authtoken) =>
 
 export const getBanner = async (slug) =>
   await axios.get(`${process.env.REACT_APP_API}/banner/${slug}`);
+
+export const getBannersJson = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getbannersjson`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+export const uploadBannersjson = async (jsonData, authtoken) =>
+  await axios.post(`${process.env.REACT_APP_API}/uploadbannersjson`, jsonData, {
+    headers: {
+      authtoken,
+      "Content-Type": "application/json",
+    },
+  });

@@ -9,7 +9,6 @@ import {
 import { deleteReviewImages } from "../../../functions/admin";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import FlashsaleProductCard from "../../../components/ProductCards/FlashsaleProductCard";
 import "../../../components/ProductCards/ProductCardsAll.css";
 import "./AllProducts.css";
 import {
@@ -113,7 +112,7 @@ const AllProducts = () => {
           });
           const link = document.createElement("a");
           link.href = URL.createObjectURL(blob);
-          link.download = "MMFB-Products-data.json";
+          link.download = "MMFB-Products-Manual.json";
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);

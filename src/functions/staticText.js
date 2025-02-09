@@ -39,3 +39,18 @@ export const updateStaticText = async (slug, banner, authtoken) =>
 
 export const getStaticText = async (slug) =>
   await axios.get(`${process.env.REACT_APP_API}/admin/statictext/${slug}`);
+
+export const getStaticJson = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getstaticjson`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+export const uploadStaticjson = async (jsonData, authtoken) =>
+  await axios.post(`${process.env.REACT_APP_API}/uploadstaticjson`, jsonData, {
+    headers: {
+      authtoken,
+      "Content-Type": "application/json",
+    },
+  });

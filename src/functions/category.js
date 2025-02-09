@@ -33,3 +33,22 @@ export const getCategorySubs = async (_id) =>
 
 export const getCategoriesslider = async () =>
   await axios.get(`${process.env.REACT_APP_API}/categoriesslider`);
+
+export const getCategoriesJson = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getcategoriesjson`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+export const uploadcategoriesjson = async (jsonData, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/uploadcategoriesjson`,
+    jsonData,
+    {
+      headers: {
+        authtoken,
+        "Content-Type": "application/json",
+      },
+    }
+  );

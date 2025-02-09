@@ -125,7 +125,7 @@ export default function AdminsideNav() {
         </Link>
         <Link to="/AdminPanel?page=SubmittedComments">
           <li class="manageacli clsremove SubmittedComments">
-            Submitted Comments
+            Submitted Reviews
           </li>
         </Link>
         <Link to="/AdminPanel?page=SubmittedQuestions">

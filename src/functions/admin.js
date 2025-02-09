@@ -230,3 +230,32 @@ export const getCartsData = async (authtoken) =>
       },
     }
   );
+export const getReviewsJson = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getreviewsjson`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+export const uploadReviewsjson = async (jsonData, authtoken) =>
+  await axios.post(`${process.env.REACT_APP_API}/uploadreviewsjson`, jsonData, {
+    headers: {
+      authtoken,
+      "Content-Type": "application/json",
+    },
+  });
+
+export const getOrdersJson = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getordersjson`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+export const uploadOrdersjson = async (jsonData, authtoken) =>
+  await axios.post(`${process.env.REACT_APP_API}/uploadordersjson`, jsonData, {
+    headers: {
+      authtoken,
+      "Content-Type": "application/json",
+    },
+  });

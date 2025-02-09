@@ -29,3 +29,18 @@ export const createSub = async (sub, authtoken) =>
 
 export const getSubsSub2 = async (_id) =>
   await axios.get(`${process.env.REACT_APP_API}/subs/sub2/${_id}`);
+
+export const getSubsJson = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getsubsjson`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+export const uploadsubsjson = async (jsonData, authtoken) =>
+  await axios.post(`${process.env.REACT_APP_API}/uploadsubsjson`, jsonData, {
+    headers: {
+      authtoken,
+      "Content-Type": "application/json",
+    },
+  });

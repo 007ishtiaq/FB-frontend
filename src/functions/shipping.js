@@ -20,3 +20,22 @@ export const createShipping = async (shipping, authtoken) =>
       },
     }
   );
+
+export const getShippingJson = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/getshippingjson`, {
+    headers: {
+      authtoken,
+    },
+  });
+
+export const uploadShippingjson = async (jsonData, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/uploadshippingjson`,
+    jsonData,
+    {
+      headers: {
+        authtoken,
+        "Content-Type": "application/json",
+      },
+    }
+  );
