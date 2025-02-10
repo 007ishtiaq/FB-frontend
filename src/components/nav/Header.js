@@ -123,7 +123,11 @@ const Header = () => {
           <div class="newsright">
             <div className="helperlinkcont topemail">
               <Mailsvg className="mailsvgcont" />
-              <p className="top_tag_Center">Info@Sharpedgepackaging.com</p>
+              <p className="top_tag_Center">
+                {htmlToRender(
+                  staticTexts && staticTexts.length > 0 && staticTexts[1].info1
+                )}
+              </p>
             </div>
             <div className="seprator">{"|"}</div>
             <Link to="/ContactUs" className="helperlinkcont">
