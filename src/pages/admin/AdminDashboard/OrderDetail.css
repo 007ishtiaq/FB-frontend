@@ -243,7 +243,7 @@ tr td {
   background-color: green;
 }
 .circle.yellow {
-  background-color: #ff7800;
+  background-color: var(--org-primary);
 }
 .line.active {
   background-color: green;

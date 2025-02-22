@@ -210,7 +210,7 @@ export default function Footer() {
             </div>
 
             <div class="footer-colum">
-              <div class="col-heading">Fashion Blush</div>
+              <div class="col-heading">Crystoos</div>
               <div class="col-ul">
                 <ul>
                   <li>

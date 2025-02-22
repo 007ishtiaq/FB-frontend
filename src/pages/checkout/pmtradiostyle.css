@@ -56,7 +56,7 @@
 }
 
 .custom-radio input:checked + .radio-btn {
-  border: 0.3rem solid #ff7900;
+  border: 0.3rem solid var(--org-primary);
 }
 /* ---------btf deatils styling------- */
 .account-details {

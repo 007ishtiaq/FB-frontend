@@ -248,7 +248,7 @@ const Register = ({ history }) => {
                   </div>
                 )}
               </div>
-              <div class="welcometxt">Welcome to Fashion Blush</div>
+              <div class="welcometxt">Welcome to Crystoos</div>
               <div class="guidetxt">Type your Email for Registration</div>
               <form onSubmit={handleSubmit} className="submitionform">
                 <div class="logininputcont">

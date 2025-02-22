@@ -17,7 +17,7 @@
   top: 48px;
   left: 48px;
   border-radius: 50%;
-  box-shadow: 0 4px 0 0 #ff7800;
+  box-shadow: 0 4px 0 0 var(--org-primary);
   transform-origin: 52px 54px;
 }
 .loadingio-spinner-eclipse-2by998twmg8i {

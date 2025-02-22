@@ -647,7 +647,7 @@ const Checkout = ({ history }) => {
               </div>
               {COD ? (
                 <button
-                  className="checkoutbtn"
+                  className="mybtn btnprimary checkoutbtn"
                   disabled={
                     processing ||
                     disabled ||
@@ -672,7 +672,7 @@ const Checkout = ({ history }) => {
                 </button>
               ) : (
                 <button
-                  className="checkoutbtn"
+                  className="mybtn btnprimary checkoutbtn"
                   disabled={
                     !values.Contact ||
                     !values.Address ||

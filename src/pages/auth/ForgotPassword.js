@@ -97,7 +97,7 @@ const ForgotPassword = ({ history }) => {
               </div>
             )}
           </div>
-          <div class="welcometxt">Welcome to Fashion Blush</div>
+          <div class="welcometxt">Welcome to Crystoos</div>
           <div class="guidetxt">Type your Email to Recover Password</div>
 
           <form onSubmit={handleSubmit} className="submitionform">

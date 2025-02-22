@@ -541,7 +541,7 @@ const Cart = ({ history }) => {
                   onClick={
                     couponString.applied ? applyDiscountCoupon : saveOrderToDb
                   }
-                  className="checkoutbtn"
+                  className="mybtn btnprimary checkoutbtn"
                   disabled={!cart.length || !termRead}
                 >
                   <Tooltip
@@ -563,7 +563,9 @@ const Cart = ({ history }) => {
                     state: { from: "cart" },
                   }}
                 >
-                  <button className="checkoutbtn">Login to Checkout</button>
+                  <button className="mybtn btnprimary checkoutbtn">
+                    Login to Checkout
+                  </button>
                 </Link>
               )}
               <div className="declarationcheck termreadcont">

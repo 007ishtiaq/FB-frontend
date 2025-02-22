@@ -502,7 +502,7 @@
   user-select: none;
 }
 .accountlistbtn:hover {
-  background-color: #ff7800;
+  background-color: var(--org-primary);
   color: #fff;
 }
 

@@ -84,7 +84,7 @@
   aspect-ratio: 1/1;
 }
 .likesvgs:hover {
-  background-color: #ffe6c5;
+  background-color: var(--org-vlight);
 }
 .likesvgs svg path {
   fill: var(--org-primary);
@@ -153,7 +153,7 @@ hr {
   padding: 0.3rem 0.1rem 0.3rem 1rem;
 }
 .li_sub a {
-  color: #ff9b19;
+  color: var(--org-primary);
 }
 .li_sub a:hover {
   color: var(--org-active);
@@ -379,7 +379,7 @@ hr {
 
 .similerImg:hover {
   padding: 0.2rem;
-  border: 2px solid #ffcc9d;
+  border: 2px solid var(--org-rating);
 }
 
 .similerImg.active {

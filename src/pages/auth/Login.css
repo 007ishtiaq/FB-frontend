@@ -25,12 +25,12 @@
   align-items: center;
 }
 .loginlogo {
-  width: 5.8rem;
+  width: 6.8rem;
 }
 .loginlogo svg {
   width: 100%;
   height: 100%;
-  fill: #ff7800;
+  fill: var(--org-primary);
   border-radius: 0.4rem;
 }
 
@@ -102,7 +102,7 @@
   font-size: 15px;
   font-weight: 600;
   color: white;
-  background-color: #ff7800;
+  background-color: var(--org-primary);
   border: 0;
   padding: 0.6rem 2rem;
   margin: 0 0.2rem;
@@ -111,10 +111,10 @@
 }
 
 .submitbtn:hover {
-  background-color: #ff9000;
+  background-color: var(--org-hover);
 }
 .submitbtn:active {
-  background-color: #ff5a00;
+  background-color: var(--org-active);
 }
 .submitbtn:after {
   content: "";

@@ -142,7 +142,7 @@ const OtpVerification = ({ history }) => {
                   </div>
                 )}
               </div>
-              <div class="welcometxt">Welcome to Fashion Blush</div>
+              <div class="welcometxt">Welcome to Crystoos</div>
               <div class="guidetxt">Enter OTP Sent to {userEmail}</div>
               <form onSubmit={handleSubmit} className="submitionform">
                 <Otpinput setValues={setValues} />

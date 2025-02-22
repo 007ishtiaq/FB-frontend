@@ -11,7 +11,7 @@
   font-weight: 400;
   cursor: pointer;
   color: #a5a4a4;
-  border: 2px dashed #fe7c05;
+  border: 2px dashed var(--org-primary);
   border-radius: 1rem;
 }
 

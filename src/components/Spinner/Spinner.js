@@ -1,15 +1,15 @@
-import React from 'react'
-import classes from './Spinner.module.css'
-import {FadeLoader}from 'react-spinners'
+import React from "react";
+import classes from "./Spinner.module.css";
+import { FadeLoader } from "react-spinners";
 const Spinner = () => {
-    const  css=`
+  const css = `
     margin:20px;
-    `
+    `;
   return (
     <div className={classes.spinnerModel}>
-        <FadeLoader  color='orange'css={css}/>
+      <FadeLoader color="#e901c1" css={css} />
     </div>
-  )
-}
+  );
+};
 
-export default Spinner
+export default Spinner;

@@ -58,7 +58,7 @@
   background: var(--org-primary);
 }
 .cateselect:hover {
-  background-color: #ffd39a;
+  background-color: #ff9aff;
 }
 /* -----------search filter left side------ */
 
@@ -121,7 +121,7 @@
 }
 .filterstars * {
   width: 1.5rem;
-  fill: var(--org-hover);
+  fill: var(--org-primary);
   margin-left: 0.2rem;
 }
 
@@ -177,7 +177,7 @@
 }
 ::selection {
   color: #fff;
-  background: #f68b1e;
+  background: var(--org-primary);
 }
 .price-input {
   width: 100%;
@@ -224,7 +224,7 @@ input[type="number"]::-webkit-inner-spin-button {
   right: 25%;
   position: absolute;
   border-radius: 5px;
-  background: #f68b1e;
+  background: var(--org-primary);
 }
 .range-input {
   position: relative;
@@ -243,7 +243,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: 17px;
   width: 17px;
   border-radius: 50%;
-  background: #f68b1e;
+  background: var(--org-primary);
   pointer-events: auto;
   -webkit-appearance: none;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
@@ -253,7 +253,7 @@ input[type="range"]::-moz-range-thumb {
   width: 17px;
   border: none;
   border-radius: 50%;
-  background: #f68b1e;
+  background: var(--org-primary);
   pointer-events: auto;
   -moz-appearance: none;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
@@ -261,11 +261,11 @@ input[type="range"]::-moz-range-thumb {
 
 /* -------------copied from color div css for stockout item-------------- */
 .addtocartbtn.stockout {
-  background-color: #ffbb7e;
+  background-color: var(--org-hover);
   cursor: no-drop;
 }
 .addtocartbtn.stockout:hover {
-  background-color: #ffbb7e;
+  background-color: var(--org-hover);
 }
 .disab .stock-count {
   display: block;
@@ -328,10 +328,10 @@ input[type="range"]::-moz-range-thumb {
   background-color: #f1f1f1;
 }
 .clearfilter.filteractive {
-  background-color: #ffefcd;
+  background-color: #ffc5fa;
 }
 .clearfilter.filteractive:hover {
-  background-color: #ffd39a;
+  background-color: #ff9aff;
 }
 .clearsvgcont {
   width: 2rem;

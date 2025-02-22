@@ -15,7 +15,7 @@ export default function Thankyou({ match, history }) {
         <div class="thankcont">
           <p class="thankmain">Thank You!</p>
           <p class="thanksub">
-            Thank You for visiting <span>Fashion Blush</span> website. You will{" "}
+            Thank You for visiting <span>Crystoos</span> website. You will{" "}
             <br /> received an email message shortly.{" "}
           </p>
           <div class="thanksvg">
@@ -46,7 +46,7 @@ export default function Thankyou({ match, history }) {
           </p>
           <p class="thankendsub">
             If you didn't receive any email contact{" "}
-            <span>info@fashionblush.com</span>{" "}
+            <span>info@crystoos.com</span>{" "}
           </p>
         </div>
       </div>

@@ -8,7 +8,7 @@ import { Detector } from "react-detect-offline";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Search from "../forms/Search";
-import { ReactComponent as Logosign } from "../../images/headersvgs/logosign.svg";
+// import { ReactComponent as Logosign } from "../../images/headersvgs/logosign.svg";
 import { ReactComponent as Logotextblack } from "../../images/headersvgs/logotextblack.svg";
 import { ReactComponent as Cartsvg } from "../../images/headersvgs/Cartsvg.svg";
 import { ReactComponent as Personsvg } from "../../images/headersvgs/Personsvg.svg";
@@ -148,9 +148,9 @@ const Header = () => {
               {windowWidth <= 700 && <BurdermenuSmall />}
               <Link to="/">
                 <div class="logodiv">
-                  <div class="logo-svgsize">
+                  {/* <div class="logo-svgsize">
                     <Logosign />
-                  </div>
+                  </div> */}
                   <div class="logo-txtsize">
                     <Logotextblack />
                   </div>

@@ -36,15 +36,15 @@ const StripeCheckout = ({
     },
     invalid: {
       color: "#fff",
-      border: "1px solid #fa755a",
+      border: "1px solidrgb(250, 90, 242)",
     },
     focus: {
       color: "#000",
-      border: "1px solid #ff7800",
+      border: "1px solid #e901c1",
     },
     hover: {
-      border: "1px solid #ff7800",
-      boxShadow: "0 0 7px rgba(255, 165, 0, 0.5)",
+      border: "1px solid #e901c1",
+      boxShadow: "0 0 7px rgba(255, 0, 234, 0.5)",
     },
   };
 

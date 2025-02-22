@@ -287,8 +287,12 @@
   padding: 0.8rem;
   box-shadow: 0 2px 5px 0 rgb(213 217 217 / 50%);
   width: 100%;
-  background: #ff7900;
+  background: var(--org-primary);
   border: 0;
+  transition: none;
+}
+.checkoutbtn span {
+  margin-bottom: 0;
 }
 
 /* -----new writen css---- */
@@ -310,11 +314,11 @@
   padding: 1rem;
 }
 button:disabled {
-  background-color: #ffbb7e;
+  background-color: #f07eff;
   cursor: no-drop;
 }
 button:hover:disabled {
-  background-color: #ffbb7e;
+  background-color: #f07eff;
   cursor: no-drop;
 }
 .btnloadcont {

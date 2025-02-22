@@ -28,7 +28,7 @@ export default function Placeanorder() {
             >
               <div class="IZ6rdc">
                 •&nbsp;Browse the&nbsp;
-                <a class="-cta" href="https://www.fashionblush.com/">
+                <a class="-cta" href="https://www.crystoos.com/">
                   FASHION BLUSH&nbsp;
                 </a>
                 or use the search bar to find the product you want to order.
