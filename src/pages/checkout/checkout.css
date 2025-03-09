@@ -167,40 +167,6 @@
   -webkit-transform: translate3d(0%, 0%, 0);
   transform: translate3d(0%, 0%, 0);
 }
-#jazzcashcont {
-  -webkit-transform: translate3d(4%, 0%, 0);
-  transform: translate3d(4%, 0%, 0);
-  opacity: 0;
-  /* height: 0px; */
-  /* display: none; */
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s, -moz-transform 0.35s,
-    -o-transform 0.35s, transform 0.35s;
-}
-#jazzcashcont.active {
-  opacity: 1;
-  /* height: auto; */
-  /* display: block; */
-  -webkit-transform: translate3d(0%, 0%, 0);
-  transform: translate3d(0%, 0%, 0);
-}
-#easypesacont {
-  -webkit-transform: translate3d(4%, 0%, 0);
-  transform: translate3d(4%, 0%, 0);
-  opacity: 0;
-  /* height: 0px; */
-  /* display: none; */
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s, -moz-transform 0.35s,
-    -o-transform 0.35s, transform 0.35s;
-}
-#easypesacont.active {
-  opacity: 1;
-  /* height: auto; */
-  /* display: block; */
-  -webkit-transform: translate3d(0%, 0%, 0);
-  transform: translate3d(0%, 0%, 0);
-}
 #codcont {
   /* margin: 14rem 0; */
   -webkit-transform: translate3d(4%, 0%, 0);
@@ -212,6 +178,23 @@
     -o-transform 0.35s, transform 0.35s;
 }
 #codcont.active {
+  opacity: 1;
+  /* height: auto; */
+  -webkit-transform: translate3d(0%, 0%, 0);
+  transform: translate3d(0%, 0%, 0);
+}
+
+#paypalcont {
+  /* margin: 14rem 0; */
+  -webkit-transform: translate3d(4%, 0%, 0);
+  transform: translate3d(4%, 0%, 0);
+  opacity: 0;
+  /* height: 0px; */
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s, -moz-transform 0.35s,
+    -o-transform 0.35s, transform 0.35s;
+}
+#paypalcont.active {
   opacity: 1;
   /* height: auto; */
   -webkit-transform: translate3d(0%, 0%, 0);
@@ -344,6 +327,11 @@ button:hover:disabled {
 .declarationcheck.termreadcont,
 .declarationcheck.termreadcont label {
   margin-bottom: 0 !important;
+}
+.paypalpaymentcont {
+  width: 70%;
+  margin: 5rem auto 0;
+  min-height: 42rem;
 }
 /*****************************************
 **************Responsiveness***********

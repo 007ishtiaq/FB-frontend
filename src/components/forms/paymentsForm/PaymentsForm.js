@@ -8,6 +8,7 @@ import SlipImgUpload from "../SlipImgUpload";
 import { useSelector, useDispatch } from "react-redux";
 import StripeCheckout from "../../../components/StripeCheckout";
 import "./stripe.css";
+import PaypalCheckout from "../../paypalcheckout/PaypalCheckout";
 
 export default function PaymentsForm({
   file,
@@ -25,9 +26,11 @@ export default function PaymentsForm({
 }) {
   const [bft, setBft] = useState(true);
   const [cod, setCod] = useState(false);
+  const [paypal, setPaypal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [bftActive, setBftActive] = useState(false);
   const [codActive, setCodActive] = useState(false);
+  const [paypalActive, setPaypalActive] = useState(false);
 
   const fileInputRef = useRef(null);
   const { user } = useSelector((state) => ({ ...state }));
@@ -46,11 +49,12 @@ export default function PaymentsForm({
 
   useEffect(() => {
     handleActiveClass();
-  }, [bft, cod]);
+  }, [bft, cod, paypal]);
 
   const bftChecked = () => {
     setBft(true);
     setCod(false);
+    setPaypal(false);
     setFile(null);
     dispatch({
       type: "BFT",
@@ -72,6 +76,7 @@ export default function PaymentsForm({
   const codChecked = () => {
     setBft(false);
     setCod(true);
+    setPaypal(false);
     setFile(null);
 
     dispatch({
@@ -92,6 +97,30 @@ export default function PaymentsForm({
     });
   };
 
+  const paypalChecked = () => {
+    setBft(false);
+    setCod(false);
+    setPaypal(true);
+    setFile(null);
+
+    // dispatch({
+    //   type: "BFT",
+    //   payload: false,
+    // });
+    // dispatch({
+    //   type: "Wallet",
+    //   payload: false,
+    // });
+    // dispatch({
+    //   type: "Easypesa",
+    //   payload: false,
+    // });
+    // dispatch({
+    //   type: "COD",
+    //   payload: false,
+    // });
+  };
+
   const handleActiveClass = () => {
     let activeClassTimeout;
     if (bft === true) {
@@ -107,6 +136,13 @@ export default function PaymentsForm({
       }, 100);
     } else {
       setCodActive(false);
+    }
+    if (paypal === true) {
+      activeClassTimeout = setTimeout(() => {
+        setPaypalActive(true);
+      }, 100);
+    } else {
+      setPaypalActive(false);
     }
     return activeClassTimeout;
   };
@@ -148,6 +184,24 @@ export default function PaymentsForm({
                 <h3>Credit/Debit Card</h3>
                 <div className="logosvgopt paymentsvgs cardsvg">
                   <Visasvg></Visasvg>
+                  <Mastersvg></Mastersvg>
+                </div>
+              </div>
+            </span>
+          </label>
+
+          <label class="custom-radio">
+            <input
+              id=""
+              type="radio"
+              name="radio"
+              checked={paypal}
+              onChange={paypalChecked}
+            />
+            <span class="radio-btn">
+              <div class="hobbies-icon">
+                <h3>Paypal</h3>
+                <div className="logosvgopt paymentsvgs cardsvg">
                   <Mastersvg></Mastersvg>
                 </div>
               </div>
@@ -237,6 +291,15 @@ export default function PaymentsForm({
                   patience as we work to restore this service.{" "}
                 </div>
               </div> */}
+            </div>
+          )}
+          {paypal && (
+            <div
+              id="paypalcont"
+              class="codpmtcont"
+              className={paypalActive && "active"}
+            >
+              <PaypalCheckout />
             </div>
           )}
         </div>
