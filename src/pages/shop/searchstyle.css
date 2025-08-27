@@ -58,7 +58,7 @@
   background: var(--org-primary);
 }
 .cateselect:hover {
-  background-color: #ff9aff;
+  background-color: #ffd39a;
 }
 /* -----------search filter left side------ */
 
@@ -328,10 +328,10 @@ input[type="range"]::-moz-range-thumb {
   background-color: #f1f1f1;
 }
 .clearfilter.filteractive {
-  background-color: #ffc5fa;
+  background-color: #ffefcd;
 }
 .clearfilter.filteractive:hover {
-  background-color: #ff9aff;
+  background-color: #ffd39a;
 }
 .clearsvgcont {
   width: 2rem;
