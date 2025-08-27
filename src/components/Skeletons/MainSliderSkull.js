@@ -1,7 +1,7 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 import "./MainSliderSkull.css";
-import { ReactComponent as Logotextgray } from "../../images/headersvgs/fulllogogray.svg";
+import { ReactComponent as Pearlytouchtxt } from "../../images/headersvgs/logotextgray.svg";
 
 export default function MainSliderSkull() {
   return (
@@ -9,7 +9,7 @@ export default function MainSliderSkull() {
       <div className="slider-skeleton">
         <Skeleton count={1} className="slider-skeleton" />
         <div className="logo-container">
-          <Logotextgray />
+          <Pearlytouchtxt />
         </div>
       </div>
     </div>

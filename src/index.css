@@ -8,12 +8,11 @@
 }
 /* ------------------------ */
 :root {
-  --org-primary: #e901c1;
-  --org-hover: #fd60e3;
-  --org-active: #c903a8;
-  --org-rating: #ffb4f2;
-  --org-vlight: #ffd6fc;
-  --org-vvlight: #f07eff;
+  --org-primary: #ff7800;
+  --org-hover: #ff9000;
+  --org-active: #ff5a00;
+  --org-rating: #ffbe6a;
+  --org-vlight: #ffead6;
   --gry-topbar: #f1f1f2;
   --slidebtn-normal: #999999;
   --light-gray: #cbcbcb;
